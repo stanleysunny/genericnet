@@ -39,23 +39,30 @@
 
                 android:src="@drawable/temenoslogo"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_margin="0dp"
+                android:layout_height="@dimen/layout_height_image2"
                 android:layout_gravity="top"
                 android:id="@+id/imageView2" />
 
+            <TextView
+                android:id="@+id/errormessage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/colorLoginError"
+                android:textSize="@dimen/text_size"
+                android:layout_marginBottom="@dimen/layout_marginbottom"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="@dimen/layout_marginbottom"
                 android:background="@drawable/rounded_edittext">
 
                 <AutoCompleteTextView
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Username"
+                    android:hint="@string/username"
                     android:ellipsize="start"
                     android:gravity="center_horizontal"
                     android:inputType="textEmailAddress"
@@ -90,16 +97,17 @@
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Sign in"
+                android:layout_marginTop="@dimen/layout_margintop"
+                android:text="@string/action_sign_in_short"
                 android:textStyle="bold" />
             <ImageView
                 android:src="@drawable/hands"
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="@dimen/layout_height_image2"
+                android:layout_marginTop="@dimen/layout_margintop_image2"
                />
 
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
+
