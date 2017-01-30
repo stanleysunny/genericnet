@@ -1,0 +1,4 @@
+<resources>
+<dimen name="nav_header_height">288.0dp</dimen>
+<dimen name="fab_margin">28.8dp</dimen>
+</resources>
