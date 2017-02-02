@@ -21,4 +21,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <!-- Login page Image content description -->
+    <string name="login_image_2">Login page second Image</string>
+    <string name="temenos_logo">Temenos Logo</string>
 </resources>

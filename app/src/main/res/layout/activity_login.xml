@@ -36,8 +36,8 @@
             android:weightSum="1">
 
             <ImageView
-
                 android:src="@drawable/temenoslogo"
+                android:contentDescription="@string/temenos_logo"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/layout_height_image2"
                 android:layout_gravity="top"
@@ -66,8 +66,7 @@
                     android:ellipsize="start"
                     android:gravity="center_horizontal"
                     android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:maxLines="1" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -87,8 +86,7 @@
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true" />
+                    android:maxLines="1" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -103,6 +101,7 @@
             <ImageView
                 android:src="@drawable/hands"
                 android:layout_width="wrap_content"
+                android:contentDescription="@string/login_image_2"
                 android:layout_height="@dimen/layout_height_image2"
                 android:layout_marginTop="@dimen/layout_margintop_image2"
                />
