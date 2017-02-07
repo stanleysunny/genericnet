@@ -66,13 +66,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final int REQUEST_READ_CONTACTS = 0;
 
     /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
-    /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
@@ -109,8 +102,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View arg0) {
                 attemptLogin();
-                TextView change_text = (TextView)findViewById(R.id.errormessage);
-                change_text.setText(getString(R.string.error_message));
             }
         });
 
@@ -330,24 +321,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // TODO: attempt authentication against a network service.
 
             try {
-                StringBuilder content = new StringBuilder();
-                System.out.println("hello shubham hrere");
                 URL url = new URL("http://10.93.21.84:8085/Test-iris/Test.svc/GB0010001/enqUservalidates()");
                 URLConnection uc = url.openConnection();
-                String userpass = mEmail + ":" + mPassword;
-                String basicAuth = "Basic " + new String(new Base64().encode(userpass.getBytes()));
+                String userPass = mEmail + ":" + mPassword;
+                String basicAuth = "Basic " + new String(new Base64().encode(userPass.getBytes()));
                 uc.setRequestProperty ("Authorization", basicAuth);
-
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(uc.getInputStream()));
-
-                String line;
-
-                // read from the urlconnection via the bufferedreader
-                while ((line = bufferedReader.readLine()) != null)
-                {
-                    content.append(line + "\n");
-                }
                 bufferedReader.close();
+
                 Map<String, List<String>> map = uc.getHeaderFields();
 
                 System.out.println("Printing Response Header...\n");
@@ -356,9 +337,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     System.out.println("Key : " + entry.getKey()
                             + " ,Value : " + entry.getValue());
                 }
-                String output1= content.toString();
-                System.out.println(output1);
-                System.out.println("Status Code ");
                 Thread.sleep(2000);
             } catch (Exception e) {
                 return false;
@@ -367,16 +345,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             // TODO: register the new account here.
             return true;
-        }
-
-        private String readStream(InputStream is) throws IOException {
-            StringBuilder sb = new StringBuilder();
-            BufferedReader r = new BufferedReader(new InputStreamReader(is),1000);
-            for (String line = r.readLine(); line != null; line =r.readLine()){
-                sb.append(line);
-            }
-            is.close();
-            return sb.toString();
         }
 
         @Override
@@ -388,7 +356,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                //mPasswordView.setError(getString(R.string.error_incorrect_password));
+                TextView change_text = (TextView)findViewById(R.id.errormessage);
+                change_text.setText(getString(R.string.error_message));
                 mPasswordView.requestFocus();
             }
         }
