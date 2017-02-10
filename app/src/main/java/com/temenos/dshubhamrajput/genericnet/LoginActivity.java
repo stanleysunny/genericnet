@@ -26,7 +26,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -52,6 +51,8 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import com.temenos.utility.ConstantClass;
+import com.temenos.utility.GenUrl;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -315,36 +316,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mEmail = email;
             mPassword = password;
         }
-
+        /**
+         * Establishes connection with the url and authenticates the user name
+         * and password.
+         */
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+            ConstantClass constantObj= new ConstantClass();
+            String urlString=constantObj.getLoginUrl();
+            GenUrl gen= new GenUrl();
+            boolean status=gen.getUrlConnection( urlString, mEmail, mPassword);
+            return status;
 
-            try {
-                URL url = new URL("http://10.93.21.84:8085/Test-iris/Test.svc/GB0010001/enqUservalidates()");
-                URLConnection uc = url.openConnection();
-                String userPass = mEmail + ":" + mPassword;
-                String basicAuth = "Basic " + new String(new Base64().encode(userPass.getBytes()));
-                uc.setRequestProperty ("Authorization", basicAuth);
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(uc.getInputStream()));
-                bufferedReader.close();
-
-                Map<String, List<String>> map = uc.getHeaderFields();
-
-                System.out.println("Printing Response Header...\n");
-
-                for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-                    System.out.println("Key : " + entry.getKey()
-                            + " ,Value : " + entry.getValue());
-                }
-                Thread.sleep(2000);
-            } catch (Exception e) {
-                return false;
-            }
-
-
-            // TODO: register the new account here.
-            return true;
         }
 
         @Override
