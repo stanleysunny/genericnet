@@ -26,7 +26,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -53,6 +52,8 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import com.temenos.utility.ConstantClass;
+import com.temenos.utility.GenUrl;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -66,13 +67,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
-    };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -109,8 +103,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View arg0) {
                 attemptLogin();
-                TextView change_text = (TextView)findViewById(R.id.errormessage);
-                change_text.setText(getString(R.string.error_message));
             }
         });
 
@@ -324,55 +316,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mEmail = email;
             mPassword = password;
         }
-
+        /**
+         * Establishes connection with the url and authenticates the user name
+         * and password.
+         */
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                StringBuilder content = new StringBuilder();
-                URL url = new URL("http://10.93.21.84:8085/Test-iris/Test.svc/GB0010001/enqUservalidates()");
-                URLConnection uc = url.openConnection();
-                String userpass = mEmail + ":" + mPassword;
-                String basicAuth = "Basic " + new String(new Base64().encode(userpass.getBytes()));
-                uc.setRequestProperty ("Authorization", basicAuth);
-
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(uc.getInputStream()));
-
-                String line;
-
-                // read from the urlconnection via the bufferedreader
-                while ((line = bufferedReader.readLine()) != null)
-                {
-                    content.append(line + "\n");
-                }
-                bufferedReader.close();
-                Map<String, List<String>> map = uc.getHeaderFields();
-
-                System.out.println("Printing Response Header...\n");
-
-                for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-                    System.out.println("Key : " + entry.getKey()
-                            + " ,Value : " + entry.getValue());
-                }
-                Thread.sleep(2000);
-            } catch (Exception e) {
-                return false;
-            }
-
-
-            // TODO: register the new account here.
-            return true;
-        }
-
-        private String readStream(InputStream is) throws IOException {
-            StringBuilder sb = new StringBuilder();
-            BufferedReader r = new BufferedReader(new InputStreamReader(is),1000);
-            for (String line = r.readLine(); line != null; line =r.readLine()){
-                sb.append(line);
-            }
-            is.close();
-            return sb.toString();
+            ConstantClass constantObj= new ConstantClass();
+            String urlString=constantObj.getLoginUrl();
+            GenUrl gen= new GenUrl();
+            boolean status=gen.getUrlConnection( urlString, mEmail, mPassword);
+            return status;
         }
 
         @Override
@@ -384,7 +338,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                //mPasswordView.setError(getString(R.string.error_incorrect_password));
+                TextView change_text = (TextView)findViewById(R.id.errormessage);
+                change_text.setText(getString(R.string.error_message));
                 mPasswordView.requestFocus();
             }
         }
