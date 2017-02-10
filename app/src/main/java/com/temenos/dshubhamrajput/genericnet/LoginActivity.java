@@ -38,6 +38,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.graphics.Typeface;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -90,7 +91,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -331,7 +331,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             try {
                 StringBuilder content = new StringBuilder();
-                System.out.println("hello shubham hrere");
                 URL url = new URL("http://10.93.21.84:8085/Test-iris/Test.svc/GB0010001/enqUservalidates()");
                 URLConnection uc = url.openConnection();
                 String userpass = mEmail + ":" + mPassword;
@@ -356,9 +355,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     System.out.println("Key : " + entry.getKey()
                             + " ,Value : " + entry.getValue());
                 }
-                String output1= content.toString();
-                System.out.println(output1);
-                System.out.println("Status Code ");
                 Thread.sleep(2000);
             } catch (Exception e) {
                 return false;
