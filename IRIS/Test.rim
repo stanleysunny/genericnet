@@ -1,0 +1,68 @@
+domain Test {
+    use common.HTTPEvents.*
+    use common.CoreCommands.*
+    use common.ODataCommands.*
+    use common.T24Events.*
+    use common.T24Commands.*
+    use T24.*
+    rim Test {
+        basepath: "/{companyid}"
+
+        // Define the $metadata resource for OData 
+        // (note, this is an out of band resource meaning there are no links to the metadata from our service
+        resource ODataMetadata {
+            type: item
+            entity: Metadata
+            view: GETMetadata
+            path: "/$metadata"
+        }
+        
+        initial resource ServiceDocument {
+            type: item
+            entity: ServiceDocument
+            view: GETServiceDocument
+            path: "/"
+
+            GET -> T24FieldMetadata
+            GET -> common.Errors.Errors
+
+            GET -> T24.enqCustomerInfo.enqCustomerInfos
+            GET -> T24.enqStmtEntBook.enqStmtEntBooks
+            GET -> T24.enqImageList.enqImageLists
+            GET -> T24.verCustomer_Input.verCustomer_Inputs
+            GET -> T24.enqPctAbbreviation.enqPctAbbreviations
+            GET -> T24.enqUservalidate.enqUservalidates
+            GET -> T24.enqAcctStmt.enqAcctStmts
+            GET -> T24.enqAccountStmt.enqAccountStmts
+            GET -> T24.enqAcctHome.enqAcctHomes
+            GET -> T24.enqEnqMenu.enqEnqMenus
+            
+ 
+        }
+
+        exception resource InteractionException {
+            type: item
+            entity: InteractionException
+            view: GETException
+        }
+        resource T24FieldMetadata {
+            type: collection
+            entity: T24FieldMetadata
+            actions [T24FieldMetadata]
+            relations [ "http://temenostech.temenos.com/rels/metadata" ]
+            path: "/T24FieldMetadata()"
+        }
+    }
+
+    rim Metadata {
+        initial resource MetadataBase {
+            type: item
+            entity: Metadata
+            view: GETMetadata
+            path: "/$metadata"
+            GET ->> Test.ODataMetadata {
+                parameters [ companyid="{DefaultCompany}" ]
+            }
+        }
+    }
+}

@@ -1,0 +1,37 @@
+domain T24 {
+    use common.CoreCommands.*
+    use common.HTTPEvents.*
+    use common.ODataCommands.*
+    use common.T24Commands.*
+    use common.T24Events.*
+    use common.NextState.*
+    rim enqPctAbbreviation {
+        command GETEntities
+        command GETEntity
+        basepath: "/{companyid}"
+    
+        resource enqPctAbbreviations {
+            type: collection
+            entity: enqPctAbbreviation
+            commands [ GET : GETEntities {
+                properties [ filter = "{filter}" ]
+                } ]
+            path: "/enqPctAbbreviations()"
+            GET *-> enqPctAbbreviation {
+                parameters [ id = "{Id}" ]
+            }
+            GET *-> "T24.verAbbreviation.verAbbreviationEntry" {
+                id: "1"
+            }
+        }
+    
+        resource enqPctAbbreviation {
+            type: item
+            entity: enqPctAbbreviation
+            commands [ GET : GETEntity ]
+            path: "/enqPctAbbreviations('{id}')"
+        }
+    
+    }
+    
+}
