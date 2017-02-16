@@ -16,7 +16,7 @@
     </string>
     <string name="title_activity_main">MainActivity</string>
     <string name="error_message">Invalid Username or Password</string>
-
+    <string name="urlstring">http://10.93.21.84:8085/Test-iris/Test.svc/GB0010001/enqUservalidates()</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

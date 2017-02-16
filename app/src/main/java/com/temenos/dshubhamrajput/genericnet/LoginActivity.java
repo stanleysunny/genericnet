@@ -21,6 +21,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.LoginFilter;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -37,6 +38,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -51,20 +53,26 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import com.temenos.utility.ConstantClass;
-import com.temenos.utility.GenUrl;
+import com.tem.pack.ConstantClass;
+import com.tem.pack.GenUrl;
+import java.io.FileInputStream;
+import java.util.Properties;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
+
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+    public static String loginURL;
+    SessionManager session;
+
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -81,6 +89,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        session = new SessionManager(getApplicationContext());
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -307,6 +316,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
+
+
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
@@ -322,12 +333,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
          */
         @Override
         protected Boolean doInBackground(Void... params) {
-            ConstantClass constantObj= new ConstantClass();
-            String urlString=constantObj.getLoginUrl();
-            GenUrl gen= new GenUrl();
-            boolean status=gen.getUrlConnection( urlString, mEmail, mPassword);
-            return status;
+            //ConstantClass constantObj= new ConstantClass();
+            //String urlString=constantObj.getLoginUrl();
+            try{
+                PropertiesReader pro=new PropertiesReader();
+                String urlString=pro.getProperty("url_login_screen",getApplicationContext());
+                GenUrl gen= new GenUrl();
+                boolean c_status=gen.getUrlConnection( urlString, mEmail, mPassword);
+                return c_status;
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
 
+//            try{
+//                Properties properties = new Properties();
+//                properties.load(new FileInputStream("src/main/java/constant.properties"));
+//                loginURL=properties.getProperty("url_login_screen");
+//            }catch(Exception e){
+//
+//            }
+            return true;
         }
 
         @Override
@@ -335,7 +361,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
 
+
             if (success) {
+
+                session.createLoginSession(mEmail,mPassword );
+
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             } else {
