@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = getIntent();
+//        Intent intent = getIntent();
         mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         //mActivityTitle = getTitle().toString();
@@ -60,15 +60,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addDrawerItems() {
-        String[] osArray = { "ACCOUNT SUMMARY", "FUNDS TRANSFER", "SETTINGS","FEEDBACK", "HELP" };
+        String[] osArray = { "Account Summary", "Account Statement", "Funds Transfer", "Settings","Feedback", "Help" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener()//add an event on clicking an item in menu
         {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+
+                if(position == 0) {
+//                Toast.makeText(MainActivity.this, "Testing!" , Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, AcctSumActivity.class);
+                    startActivity(intent);
+                }
+
+                if(position == 1) {
+//                Toast.makeText(MainActivity.this, "Testing!" , Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, AcctStmtActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
     }
@@ -134,4 +146,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

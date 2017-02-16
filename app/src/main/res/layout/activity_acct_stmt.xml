@@ -1,13 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_acct_stmt"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.temenos.dshubhamrajput.genericnet.AcctStmtActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:text="Account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="21dp"
+        android:id="@+id/textView14"
+        android:textColor="@color/BLACK"
+        android:textSize="55px"/>
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="35dp"
+        android:inputType="numberSigned"
+        android:ems="10"
+        android:layout_marginTop="16dp"
+        android:id="@+id/editText2"
+        android:background="@drawable/acctedit"
+        android:layout_below="@+id/textView14"
+        android:layout_alignStart="@+id/textView14"
+        />
+
+    <TextView
+        android:text="From Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText2"
+        android:layout_alignStart="@+id/editText2"
+        android:layout_marginTop="21dp"
+        android:id="@+id/textView15"
+        android:textColor="@color/BLACK"
+        android:textSize="55px"/>
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="35dp"
+        android:inputType="date"
+        android:ems="10"
+        android:layout_marginTop="16dp"
+        android:id="@+id/editText3"
+        android:background="@drawable/acctedit"
+        android:layout_below="@+id/textView15"
+        android:layout_alignStart="@+id/textView15" />
+
+    <TextView
+        android:text="To Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText3"
+        android:layout_alignStart="@+id/editText3"
+        android:layout_marginTop="21dp"
+        android:id="@+id/textView16"
+        android:textColor="@color/BLACK"
+        android:textSize="55px"/>
+
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="35dp"
+        android:inputType="date"
+        android:ems="10"
+        android:layout_marginTop="16dp"
+        android:id="@+id/editText4"
+        android:background="@drawable/acctedit"
+        android:layout_below="@+id/textView16"
+        android:layout_alignStart="@+id/textView16" />
+
+    <TextView
+        android:text="Statement Type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText4"
+        android:layout_alignStart="@+id/editText4"
+        android:layout_marginTop="21dp"
+        android:id="@+id/textView17"
+        android:textColor="@color/BLACK"
+        android:textSize="55px"/>
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="35dp"
+        android:inputType="date"
+        android:ems="10"
+        android:layout_marginTop="16dp"
+        android:id="@+id/editText5"
+        android:background="@drawable/acctedit"
+        android:layout_below="@+id/textView17"
+        android:layout_alignStart="@+id/textView17" />
+
+    <Button
+        android:text="SUBMIT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText5"
+        android:layout_toEndOf="@+id/textView17"
+        android:layout_marginTop="56dp"
+        android:id="@+id/button" />
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_menu_my_calendar"
+        android:id="@+id/imageButton4"
+        android:layout_marginStart="17dp"
+        android:layout_below="@+id/textView16"
+        android:layout_toEndOf="@+id/editText4"
+        android:layout_marginTop="8dp"></ImageButton>
+        <!--android:onClick="showDatePickerDialog"/>-->
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_menu_my_calendar"
+        android:id="@+id/imageButton3"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/textView15"
+        android:layout_alignStart="@+id/imageButton4">
+        android:onClick="showDatePickerDialog"/>
+    </ImageButton>
 
 </RelativeLayout>

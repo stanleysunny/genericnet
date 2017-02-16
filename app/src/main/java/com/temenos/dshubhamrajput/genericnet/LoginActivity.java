@@ -381,12 +381,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
             change_text = (TextView)findViewById(R.id.errormessage);
             if (success) {
-                mEmailView.setText("");
-                mPasswordView.setText("");
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             } else {
-                //mPasswordView.setError(getString(R.string.error_incorrect_password));
+                //Reset username/password on unsuccessfull login
                 mEmailView.setText("");
                 mPasswordView.setText("");
                 change_text.setText(getString(R.string.error_message));
