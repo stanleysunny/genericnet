@@ -57,7 +57,7 @@
                 android:layout_marginStart="82dp"
                 android:textColor="@color/colorPrimary"
                 android:layout_alignParentTop="true"
-                android:layout_alignStart="@+id/imageView" />
+                android:layout_alignStart="@+id/imageView2" />
 
         </RelativeLayout>
 
