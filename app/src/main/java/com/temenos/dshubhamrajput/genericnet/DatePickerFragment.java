@@ -28,3 +28,4 @@ public  class DatePickerFragment extends DialogFragment
         // Do something with the date chosen by the user
     }
 }
+

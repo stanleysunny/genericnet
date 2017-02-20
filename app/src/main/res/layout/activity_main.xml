@@ -31,7 +31,7 @@
                 android:id="@+id/textview7"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="The name is Sunny.. Stanley Sunny and I am super Rich with lots of Villas and Jets"
+                android:text="Avail our loans:Home loans,Vehicle Loans,Mortage Loans."
                 android:singleLine="true"
                 android:ellipsize="marquee"
                 android:textSize="20dp"
@@ -50,14 +50,15 @@
                 <!--android:layout_centerHorizontal="true"-->
                 <!--android:layout_marginTop="64dp" />-->
             <TextView
-                android:text="VANAKKAM SUPER USER"
+                android:text="WELCOME ALEX"
+                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView9"
                 android:layout_marginStart="82dp"
                 android:textColor="@color/colorPrimary"
                 android:layout_alignParentTop="true"
-                android:layout_alignStart="@+id/imageView" />
+                />
 
         </RelativeLayout>
 

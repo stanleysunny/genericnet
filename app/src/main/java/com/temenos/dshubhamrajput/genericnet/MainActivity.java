@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -24,10 +25,10 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView mDrawerList;
-    private DrawerLayout mDrawerLayout;
+    public ListView mDrawerList;
+    public DrawerLayout mDrawerLayout;
     private ArrayAdapter<String> mAdapter;
-    private ActionBarDrawerToggle mDrawerToggle;
+    public ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
     public int backpress=0;
     SessionManager session1;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         session1 = new SessionManager(getApplicationContext());
         Intent intent = getIntent();
 //        Intent intent = getIntent();
+        getSupportActionBar().setTitle("TEMENOS");
         mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         //mActivityTitle = getTitle().toString();
@@ -64,25 +66,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addDrawerItems() {
-        String[] osArray = { "Account Summary", "Account Statement", "Funds Transfer", "Settings","Feedback", "Help" };
+        String[] osArray = { "Account Summary", "Account Statement", "Funds Transfer", "Settings","Feedback", "Help", "Logout" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
-
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener()//add an event on clicking an item in menu
         {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+        DrawerLayout layout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
                 if(position == 0) {
 //                Toast.makeText(MainActivity.this, "Testing!" , Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, AcctSumActivity.class);
                     startActivity(intent);
+                    layout.closeDrawer(GravityCompat.START);
                 }
 
                 if(position == 1) {
 //                Toast.makeText(MainActivity.this, "Testing!" , Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, AcctStmtActivity.class);
                     startActivity(intent);
+                    layout.closeDrawer(GravityCompat.START);
+                }
+                if(position == 6)
+                {
+                    logout();
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    layout.closeDrawer(GravityCompat.START);
                 }
 
             }
@@ -95,14 +106,14 @@ public class MainActivity extends AppCompatActivity {
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("TEMENOS");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+
             }
+
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle("TEMENOS");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -110,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -154,6 +166,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
 
+        DrawerLayout layout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        if (layout.isDrawerOpen(GravityCompat.START)) {
+            layout.closeDrawer(GravityCompat.START);
+            backpress = 0;
+        }
+        else {
         backpress = (backpress + 1);
         Toast.makeText(getApplicationContext(), " Press Back again to Exit ", Toast.LENGTH_SHORT).show();
 
@@ -162,6 +180,12 @@ public class MainActivity extends AppCompatActivity {
             this.finish();
         }
     }
+    }
+public void logout()
+{
+    session1.logoutUser();
+    this.finish();
+}
 
 
 }
