@@ -42,4 +42,5 @@ dependencies {
     compile files('libs/org-apache-commons-codec.jar')
     //    compile files('libs/com.temenos.jar')
     compile files('libs/genUrl2.jar')
+    compile files('libs/java-json.jar')
 }
