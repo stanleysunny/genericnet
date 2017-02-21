@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 public class AcctSumActivity extends AppCompatActivity {
@@ -42,80 +43,78 @@ public class AcctSumActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            HttpHandler sh = new HttpHandler();
-            // Making a request to url and getting response
-            String url = "http://10.93.21.84:8085/Test-iris/Test.svc/GB0010001/enqAcctHomes()?$filter=Customer%20eq%20100292";
-            String jsonStr = sh.makeServiceCall(url);
+            try {
+                    HttpHandler sh = new HttpHandler();
+                    // Making a request to url and getting response
+                PropertiesReader property= new PropertiesReader();
+                    String url = property.getProperty("url_account_summary", getApplicationContext());
+                    String jsonStr = sh.makeServiceCall(url);
 
-            Log.e(TAG, "Response from url: " + jsonStr);
-            if (jsonStr != null) {
-                try {
-                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    Log.e(TAG, "Response from url: " + jsonStr);
+                        if (jsonStr != null) {
+                            try {
+                                JSONObject jsonObj = new JSONObject(jsonStr);
+                            // Getting JSON Array node
+                            JSONObject fobj = jsonObj.getJSONObject("_embedded");
+                             JSONArray item = fobj.getJSONArray("item");
 
-                    // Getting JSON Array node
-                    JSONObject fobj = jsonObj.getJSONObject("_embedded");
+                            // looping through All Contacts
+                            for (int i = 0; i < item.length(); i++) {
+                                JSONObject c = item.getJSONObject(i);
+                                String Heading = "";
+                                String Customer = "";
+                                String CustomerID = "";
+                                if (i == 0) {
+                                    Heading = "Account Summary";
+                                    CustomerID = "Customer ID";
+                                    Customer = c.getString("Customer");
 
-                    JSONArray item = fobj.getJSONArray("item");
+                                }
+                                String AccountNumber = c.getString("AccountNumber");
+                                String Currency = c.getString("Currency");
+                                String ShortTitle = c.getString("ShortTitle");
+                                String WorkingBalance = c.getString("WorkingBalance");
 
-                    // looping through All Contacts
-                    for (int i = 0; i < item.length(); i++) {
-                        JSONObject c = item.getJSONObject(i);
-                        String Heading="";
-                        if(i==0)
-                        {
-                            Heading = "Account Summary";
-                        }
-                        String AccountNumber = c.getString("AccountNumber");
-                        String Currency = c.getString("Currency");
-                        String Customer = c.getString("Customer");
-                        String ShortTitle = c.getString("ShortTitle");
-                        String WorkingBalance = c.getString("WorkingBalance");
+                            // tmp hash map for single contact
+                                    HashMap<String, String> Account = new HashMap<>();
 
-                        // Phone node is JSON Object
-//                        JSONObject phone = c.getJSONObject("phone");
-//                        String mobile = phone.getString("mobile");
-//                        String home = phone.getString("home");
-//                        String office = phone.getString("office");
+                                // adding each child node to HashMap key => value
+                                Account.put("AccountNumber", AccountNumber);
+                                Account.put("Currency", Currency);
+                                Account.put("Customer", Customer);
+                                Account.put("ShortTitle", ShortTitle);
+                                Account.put("WorkingBalance", WorkingBalance);
+                                Account.put("Heading", Heading);
+                                Account.put("CustomerID", CustomerID);
+                            // adding contact to contact list
+                                contactList.add(Account);
+                            }
+                            } catch (final JSONException e) {
+                                Log.e(TAG, "Json parsing error: " + e.getMessage());
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                    public void run() {
+                                    Toast.makeText(getApplicationContext(),
+                                        "Json parsing error: " + e.getMessage(),
+                                        Toast.LENGTH_LONG).show();
+                                }
+                                 });
 
-                        // tmp hash map for single contact
-                        HashMap<String, String> contact = new HashMap<>();
+                             }
 
-                        // adding each child node to HashMap key => value
-                        contact.put("AccountNumber", AccountNumber);
-                        contact.put("Currency", Currency);
-                        contact.put("Customer", Customer);
-                        contact.put("ShortTitle", ShortTitle);
-                        contact.put("WorkingBalance", WorkingBalance);
-                        contact.put("Heading", Heading);
-
-                        // adding contact to contact list
-                        contactList.add(contact);
-                    }
-                } catch (final JSONException e) {
-                    Log.e(TAG, "Json parsing error: " + e.getMessage());
+                } else {
+                    Log.e(TAG, "Couldn't get json from server.");
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(getApplicationContext(),
-                                    "Json parsing error: " + e.getMessage(),
+                                    "Couldn't get json from server. Check LogCat for possible errors!",
                                     Toast.LENGTH_LONG).show();
                         }
                     });
-
                 }
-
-            } else {
-                Log.e(TAG, "Couldn't get json from server.");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(),
-                                "Couldn't get json from server. Check LogCat for possible errors!",
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
             }
-
+            catch(IOException e ){e.printStackTrace();}
             return null;
         }
 
@@ -123,8 +122,8 @@ public class AcctSumActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             ListAdapter adapter = new SimpleAdapter(AcctSumActivity.this, contactList,
-                    R.layout.list_item, new String[]{"Heading","AccountNumber","Currency","Customer","ShortTitle","WorkingBalance"},
-                    new int[]{R.id.textView,R.id.AccountNumber, R.id.Currency, R.id.Customer, R.id.ShortTitle, R.id.WorkingBalance});
+                    R.layout.list_item, new String[]{"Heading","CustomerID","AccountNumber","Currency","Customer","ShortTitle","WorkingBalance"},
+                    new int[]{R.id.textView,R.id.textView7, R.id.AccountNumber, R.id.Currency, R.id.Customer, R.id.ShortTitle, R.id.WorkingBalance});
             lv.setAdapter(adapter);
         }
     }
