@@ -65,18 +65,6 @@
         android:textColor="@color/BLACK"
         android:textSize="16dp"/>
 
-    <EditText
-        android:layout_width="290dp"
-        android:layout_height="30dp"
-        android:inputType="date"
-        android:ems="10"
-        android:layout_marginTop="5dp"
-        android:id="@+id/editText4"
-        android:background="@drawable/acctedit"
-        android:layout_below="@+id/textView16"
-        android:layout_alignStart="@+id/textView16"
-        android:focusable="false"
-        android:paddingLeft="5dp"/>
     <requestFocus />
 
     <TextView
@@ -144,6 +132,18 @@
         android:layout_toEndOf="@+id/editText4"
         android:layout_alignBottom="@+id/editText4"
         android:onClick="showDatePickerDialog"/>
+
+    <EditText
+        android:layout_width="290dp"
+        android:layout_height="30dp"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/editText4"
+        android:background="@drawable/acctedit"
+        android:focusable="false"
+        android:paddingLeft="5dp"
+        android:layout_below="@+id/textView16"
+        android:layout_alignStart="@+id/textView16" />
 
 
 </RelativeLayout>
