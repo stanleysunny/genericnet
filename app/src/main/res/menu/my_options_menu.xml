@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/AS"
+        android:title="Account Summary" />
+    <item android:id="@+id/FT"
+        android:title="Funds Transfer" />
+    <item android:id="@+id/AB"
+        android:title="About" />
+    <item android:id="@+id/Help"
+        android:title="Help" />
+</menu>

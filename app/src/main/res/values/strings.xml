@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Genericnet</string>
+    <string name="app_name">TEMENOS</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -24,4 +24,6 @@
     <!-- Login page Image content description -->
     <string name="login_image_2">Login page second Image</string>
     <string name="temenos_logo">Temenos Logo</string>
+    <string name="drawer_open">Open drawer</string>
+    <string name="drawer_close">Close Drawer</string>
 </resources>
