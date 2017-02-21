@@ -173,7 +173,9 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
         backpress = (backpress + 1);
-        Toast.makeText(getApplicationContext(), " Press Back again to Exit ", Toast.LENGTH_SHORT).show();
+        if(backpress<1||backpress==1) {
+            Toast.makeText(getApplicationContext(), " Press Back again to Exit ", Toast.LENGTH_SHORT).show();
+        }
 
         if (backpress>1) {
             session1.logoutUser();
