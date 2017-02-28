@@ -69,14 +69,11 @@ public class AcctSumActivity extends AppCompatActivity {
                             // looping through All Contacts
                             for (int i = 0; i < item.length(); i++) {
                                 JSONObject c = item.getJSONObject(i);
-                                String Heading = "";
                                 String Customer = "";
                                 String CustomerID = "";
                                 if (i == 0) {
-                                    Heading = "Account Summary";
                                     CustomerID = "Customer ID";
                                     Customer = c.getString("Customer");
-
                                 }
                                 String AccountNumber = c.getString("AccountNumber");
                                 String Currency = c.getString("Currency");
@@ -92,7 +89,6 @@ public class AcctSumActivity extends AppCompatActivity {
                                 Account.put("Customer", Customer);
                                 Account.put("ShortTitle", ShortTitle);
                                 Account.put("WorkingBalance", WorkingBalance);
-                                Account.put("Heading", Heading);
                                 Account.put("CustomerID", CustomerID);
                             // adding contact to contact list
                                 contactList.add(Account);
@@ -130,8 +126,8 @@ public class AcctSumActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             ListAdapter adapter = new SimpleAdapter(AcctSumActivity.this, contactList,
-                    R.layout.list_item, new String[]{"Heading","CustomerID","AccountNumber","Currency","Customer","ShortTitle","WorkingBalance"},
-                    new int[]{R.id.textView,R.id.textView7, R.id.AccountNumber, R.id.Currency, R.id.Customer, R.id.ShortTitle, R.id.WorkingBalance});
+                    R.layout.list_item, new String[]{"CustomerID","AccountNumber","Currency","Customer","ShortTitle","WorkingBalance"},
+                    new int[]{R.id.textView7, R.id.AccountNumber, R.id.Currency, R.id.Customer, R.id.ShortTitle, R.id.WorkingBalance});
             lv.setAdapter(adapter);
         }
     }
