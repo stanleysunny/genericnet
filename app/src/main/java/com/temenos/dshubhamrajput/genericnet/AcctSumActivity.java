@@ -80,7 +80,7 @@ public class AcctSumActivity extends AppCompatActivity {
                                 }
                                 String AccountNumber = c.getString("AccountNumber");
                                 String Currency = c.getString("Currency");
-                                String ShortTitle = c.getString("ShortTitle");
+                                String ShortTitle = c.getString("Name");
                                 String WorkingBalance = c.getString("WorkingBalance");
 
                             // tmp hash map for single contact
@@ -90,7 +90,7 @@ public class AcctSumActivity extends AppCompatActivity {
                                 Account.put("AccountNumber", AccountNumber);
                                 Account.put("Currency", Currency);
                                 Account.put("Customer", Customer);
-                                Account.put("ShortTitle", ShortTitle);
+                                Account.put("Name", ShortTitle);
                                 Account.put("WorkingBalance", WorkingBalance);
                                 Account.put("Heading", Heading);
                                 Account.put("CustomerID", CustomerID);
