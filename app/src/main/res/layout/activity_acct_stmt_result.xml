@@ -111,20 +111,7 @@
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
         />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/closingbal"
-        android:text="Closing Balance"
-        android:layout_below="@+id/dummy"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:layout_alignParentLeft="true"
-        android:gravity="left"
-        android:paddingLeft="10dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        />
+    
     <ListView
         android:id="@+id/liststmt"
         android:layout_width="fill_parent"
