@@ -6,4 +6,10 @@
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="layout_marginbottom">10dp</dimen>
+    <dimen name="layout_margintop">10dp</dimen>
+    <dimen name="text_size">14sp</dimen>
+    <!-- Login screen Second Image Dimension. -->
+    <dimen name="layout_height_image2">150dp</dimen>
+    <dimen name="layout_margintop_image2">20dp</dimen>
 </resources>
