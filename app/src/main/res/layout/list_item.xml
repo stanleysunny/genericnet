@@ -138,4 +138,28 @@
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
         android:textColor="#5d5d5d"/>
+
+    <TextView
+        android:text="Category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView12"
+        android:id="@+id/CategoryView"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:textColor="#000000"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/WorkingBalance"
+        android:id="@+id/Category"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:paddingRight="25dp"
+        android:textColor="#5d5d5d"/>
 </RelativeLayout>
