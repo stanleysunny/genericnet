@@ -16,11 +16,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.Typeface;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
     private String mActivityTitle;
     public int backpress=0;
     SessionManager session1;
+    ExpandableListView expandableListView;
+    ExpandableListAdapter expandableListAdapter;
+    List<String> expandableListTitle;
+    HashMap<String, List<String>> expandableListDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +51,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
 //        Intent intent = getIntent();
         getSupportActionBar().setTitle("TEMENOS");
-        mDrawerList = (ListView)findViewById(R.id.navList);
+        //mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         //mActivityTitle = getTitle().toString();
 //        TextView textView7 = (TextView) findViewById(R.id.textView7);
 
-        addDrawerItems();
+//        addDrawerItems();
         setupDrawer();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -54,6 +64,52 @@ public class MainActivity extends AppCompatActivity {
 
         TextView marqueeText1 = (TextView) findViewById(R.id.textview7);
         marqueeText1.setSelected(true);
+        expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+        expandableListDetail = ExpandableListDataPump.getData();
+        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+        expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, expandableListDetail);
+        expandableListView.setAdapter(expandableListAdapter);
+        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        expandableListTitle.get(groupPosition) + " List Expanded.",
+                        Toast.LENGTH_SHORT).show();
+                if 
+            }
+        });
+
+
+
+
+        expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        expandableListTitle.get(groupPosition) + " List Collapsed.",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                Toast.makeText(
+                        getApplicationContext(),
+                        expandableListTitle.get(groupPosition)
+                                + " -> "
+                                + expandableListDetail.get(
+                                expandableListTitle.get(groupPosition)).get(
+                                childPosition), Toast.LENGTH_SHORT
+                ).show();
+
+                return false;
+            }
+        });
 //        textView7.setMovementMethod(new ScrollingMovementMethod());
 
 //        int actionBarTitle = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
@@ -65,40 +121,40 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void addDrawerItems() {
-        String[] osArray = { "Account Summary", "Account Statement", "Funds Transfer", "Settings","Feedback", "Help", "Logout" };
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
-        mDrawerList.setAdapter(mAdapter);
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener()//add an event on clicking an item in menu
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-        DrawerLayout layout = (DrawerLayout)findViewById(R.id.drawer_layout);
-
-                if(position == 0) {
-//                Toast.makeText(MainActivity.this, "Testing!" , Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this, AcctSumActivity.class);
-                    startActivity(intent);
-                    layout.closeDrawer(GravityCompat.START);
-                }
-
-                if(position == 1) {
-//                Toast.makeText(MainActivity.this, "Testing!" , Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this, AcctStmtActivity.class);
-                    startActivity(intent);
-                    layout.closeDrawer(GravityCompat.START);
-                }
-                if(position == 6)
-                {
-                    logout();
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    layout.closeDrawer(GravityCompat.START);
-                }
-
-            }
-        });
-    }
+//    private void addDrawerItems() {
+//        String[] osArray = { "Account Summary", "Account Statement", "Account Transfer", "Settings","Feedback", "Help", "Logout" };
+//        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+//        mDrawerList.setAdapter(mAdapter);
+//        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener()//add an event on clicking an item in menu
+//        {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+//        DrawerLayout layout = (DrawerLayout)findViewById(R.id.drawer_layout);
+//
+//                if(position == 0) {
+////                Toast.makeText(MainActivity.this, "Testing!" , Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(MainActivity.this, AcctSumActivity.class);
+//                    startActivity(intent);
+//                    layout.closeDrawer(GravityCompat.START);
+//                }
+//
+//                if(position == 1) {
+////                Toast.makeText(MainActivity.this, "Testing!" , Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(MainActivity.this, AcctStmtActivity.class);
+//                    startActivity(intent);
+//                    layout.closeDrawer(GravityCompat.START);
+//                }
+//                if(position == 6)
+//                {
+//                    logout();
+//                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+//                    startActivity(intent);
+//                    layout.closeDrawer(GravityCompat.START);
+//                }
+//
+//            }
+//        });
+//    }
 
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
