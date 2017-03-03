@@ -64,7 +64,7 @@ public class AcctSumActivity extends AppCompatActivity {
                                 JSONObject jsonObj = new JSONObject(jsonStr);
                             // Getting JSON Array node
                             JSONObject fobj = jsonObj.getJSONObject("_embedded");
-                             JSONArray item = fobj.getJSONArray("item");
+                            JSONArray item = fobj.getJSONArray("item");
 
                             // looping through All Contacts
                             for (int i = 0; i < item.length(); i++) {
