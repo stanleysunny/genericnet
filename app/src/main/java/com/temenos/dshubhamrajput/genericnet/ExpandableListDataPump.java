@@ -9,6 +9,7 @@ import java.util.List;
 public class ExpandableListDataPump {
     public static HashMap<String, List<String>> getData() {
         HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
+
         List<String> Account_Summary = new ArrayList<String>();
         Account_Summary.add("Hello");
         Account_Summary.add("Hello");

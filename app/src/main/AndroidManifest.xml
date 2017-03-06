@@ -33,6 +33,10 @@
         <activity
             android:name=".ExpandableMenu"
             android:label="@string/title_activity_expandable_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Addbeneficiary"
+            android:label="@string/title_activity_addbeneficiary"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

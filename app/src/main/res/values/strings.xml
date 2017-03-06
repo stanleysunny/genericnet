@@ -28,4 +28,5 @@
     <string name="drawer_close">Close Drawer</string>
     <string name="title_activity_menu_test">MenuTest</string>
     <string name="title_activity_expandable_menu">ExpandableMenu</string>
+    <string name="title_activity_addbeneficiary">Addbeneficiary</string>
 </resources>

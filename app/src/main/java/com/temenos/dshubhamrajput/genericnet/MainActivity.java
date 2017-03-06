@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("TEMENOS");
         //mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        final Intent intent1 = new Intent(MainActivity.this, AcctStmtActivity.class);
         //mActivityTitle = getTitle().toString();
 //        TextView textView7 = (TextView) findViewById(R.id.textView7);
 
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         expandableListTitle.get(groupPosition) + " List Expanded.",
                         Toast.LENGTH_SHORT).show();
-                if 
+
             }
         });
 
@@ -98,15 +99,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                Toast.makeText(
-                        getApplicationContext(),
-                        expandableListTitle.get(groupPosition)
-                                + " -> "
-                                + expandableListDetail.get(
-                                expandableListTitle.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT
-                ).show();
+//                Toast.makeText(
+//                        getApplicationContext(),
+//                        expandableListTitle.get(groupPosition)
+//                                + " -> "
+//                                + expandableListDetail.get(
+//                                expandableListTitle.get(groupPosition)).get(
+//                                childPosition), Toast.LENGTH_SHORT
+//                ).show();
 
+                if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Add Beneficiary")
+
+                    startActivity(intent1);
                 return false;
             }
         });
