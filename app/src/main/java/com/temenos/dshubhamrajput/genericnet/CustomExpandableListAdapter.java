@@ -4,6 +4,7 @@ package com.temenos.dshubhamrajput.genericnet;
  * Created by ckavya on 03-03-2017.
  */
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import android.content.Context;
 import android.graphics.Typeface;
@@ -17,10 +18,10 @@ import android.widget.TextView;
   public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
       private Context context;
       private List<String> expandableListTitle;
-      private HashMap<String, List<String>> expandableListDetail;
+      private LinkedHashMap<String, List<String>> expandableListDetail;
 
       public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
-                                         HashMap<String, List<String>> expandableListDetail) {
+                                         LinkedHashMap<String, List<String>> expandableListDetail) {
           this.context = context;
           this.expandableListTitle = expandableListTitle;
           this.expandableListDetail = expandableListDetail;
@@ -76,6 +77,7 @@ import android.widget.TextView;
       @Override
       public View getGroupView(int listPosition, boolean isExpanded,
                                View convertView, ViewGroup parent) {
+
           String listTitle = (String) getGroup(listPosition);
           if (convertView == null) {
               LayoutInflater layoutInflater = (LayoutInflater) this.context.

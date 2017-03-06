@@ -27,7 +27,7 @@ import android.graphics.Typeface;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
-    HashMap<String, List<String>> expandableListDetail;
+    LinkedHashMap<String, List<String>> expandableListDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,17 +70,30 @@ public class MainActivity extends AppCompatActivity {
         marqueeText1.setSelected(true);
         expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
         expandableListDetail = ExpandableListDataPump.getData();
+        System.out.print("Object List"+expandableListDetail);
         expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
         expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
+
+
             @Override
             public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        expandableListTitle.get(groupPosition) + " List Expanded.",
-                        Toast.LENGTH_SHORT).show();
-
+//                Toast.makeText(getApplicationContext(),
+//                        expandableListTitle.get(groupPosition) + " List Expanded.",
+//                        Toast.LENGTH_SHORT).show();
+               if(expandableListTitle.get(groupPosition) == "Account Summary")
+               {
+                   Intent intent = new Intent(MainActivity.this, AcctSumActivity.class);
+                   startActivity(intent);
+//
+               }
+               else if(expandableListTitle.get(groupPosition) == "Account Statement")
+               {
+                   Intent intent = new Intent(MainActivity.this, AcctStmtActivity.class);
+                   startActivity(intent);
+               }
 
             }
         });
@@ -90,9 +103,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        expandableListTitle.get(groupPosition) + " List Collapsed.",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),
+//                        expandableListTitle.get(groupPosition) + " List Collapsed.",
+//                        Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -127,17 +140,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-  public void Clicked(View V){
-
-       final TextView t = (TextView) findViewById(R.id.textView18);
-       final EditText e = (EditText) findViewById(R.id.editText15);
-
-
-                t.setVisibility(View.VISIBLE);
-                e.setVisibility(View.VISIBLE);
-
-
-    }
 
 //    private void addDrawerItems() {
 //        String[] osArray = { "Account Summary", "Account Statement", "Account Transfer", "Settings","Feedback", "Help", "Logout" };

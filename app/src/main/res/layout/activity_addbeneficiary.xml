@@ -14,6 +14,7 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
          android:layout_marginStart="64dp"
          android:layout_marginTop="49dp"
          android:text="Within bank"
+         android:onClick="hide"
          />
 
     <Button
@@ -41,7 +42,7 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="38dp"
-        android:text="Reneter BeneficiaryAcc No"
+        android:text="Re-neter Beneficiary Acc No"
         android:layout_below="@+id/textView3"
         android:layout_alignParentStart="true" />
 
@@ -70,8 +71,7 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:inputType="number"
         android:layout_alignBaseline="@+id/textView6"
         android:layout_alignBottom="@+id/textView6"
         android:layout_alignParentEnd="true" />
@@ -85,7 +85,7 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
         android:layout_marginTop="81dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        />
 
     <EditText
         android:id="@+id/editText15"
@@ -96,7 +96,7 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
         android:layout_marginBottom="37dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+
         android:visibility="invisible"/>
 
     <TextView

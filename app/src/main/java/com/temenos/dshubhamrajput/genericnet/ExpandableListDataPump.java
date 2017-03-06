@@ -5,17 +5,14 @@ package com.temenos.dshubhamrajput.genericnet;
  */
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 public class ExpandableListDataPump {
-    public static HashMap<String, List<String>> getData() {
-        HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
+    public static LinkedHashMap<String, List<String>> getData() {
+        LinkedHashMap<String, List<String>> expandableListDetail = new LinkedHashMap<String, List<String>>();
 
         List<String> Account_Summary = new ArrayList<String>();
-        Account_Summary.add("Hello");
-        Account_Summary.add("Hello");
-        Account_Summary.add("Hello");
-        Account_Summary.add("Hello");
-        Account_Summary.add("Hello");
+
 
 
 
@@ -49,6 +46,7 @@ public class ExpandableListDataPump {
         expandableListDetail.put("Logout", Logout);
 
 
+        System.out.print(expandableListDetail);
 
         return expandableListDetail;
     }
