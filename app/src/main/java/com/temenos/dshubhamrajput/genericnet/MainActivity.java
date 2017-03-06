@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
@@ -47,13 +49,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         session1 = new SessionManager(getApplicationContext());
         Intent intent = getIntent();
 //        Intent intent = getIntent();
         getSupportActionBar().setTitle("TEMENOS");
         //mDrawerList = (ListView)findViewById(R.id.navList);
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        final Intent intent1 = new Intent(MainActivity.this, AcctStmtActivity.class);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final Intent intent1 = new Intent(MainActivity.this, Addbeneficiary.class);
         //mActivityTitle = getTitle().toString();
 //        TextView textView7 = (TextView) findViewById(R.id.textView7);
 
@@ -78,10 +81,9 @@ public class MainActivity extends AppCompatActivity {
                         expandableListTitle.get(groupPosition) + " List Expanded.",
                         Toast.LENGTH_SHORT).show();
 
+
             }
         });
-
-
 
 
         expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
@@ -108,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 //                                childPosition), Toast.LENGTH_SHORT
 //                ).show();
 
-                if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Add Beneficiary")
+                if (expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Add Beneficiary")
 
                     startActivity(intent1);
                 return false;
@@ -121,7 +123,19 @@ public class MainActivity extends AppCompatActivity {
 //        Typeface robotoBoldCondensedItalic = Typeface.createFromAsset(getAssets(), "font/CorisandeRegular.ttf");
 //        if(actionBarTitleView != null){
 //            actionBarTitleView.setTypeface(robotoBoldCondensedItalic);
-       // }
+        // }
+    }
+
+
+  public void Clicked(View V){
+
+       final TextView t = (TextView) findViewById(R.id.textView18);
+       final EditText e = (EditText) findViewById(R.id.editText15);
+
+
+                t.setVisibility(View.VISIBLE);
+                e.setVisibility(View.VISIBLE);
+
 
     }
 
