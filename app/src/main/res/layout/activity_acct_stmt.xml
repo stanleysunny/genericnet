@@ -89,16 +89,6 @@
         android:layout_alignStart="@+id/textView17"
         android:paddingLeft="5dp"/>
 
-    <Button
-        android:text="SUBMIT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText5"
-        android:layout_toEndOf="@+id/textView17"
-        android:layout_marginTop="18dp"
-        android:gravity="center_horizontal"
-        android:id="@+id/submitbutton" />
-
     <ImageView
 
         android:src="@drawable/searchico"
@@ -144,6 +134,16 @@
         android:paddingLeft="5dp"
         android:layout_below="@+id/textView16"
         android:layout_alignStart="@+id/textView16" />
+
+    <Button
+        android:text="SUBMIT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:id="@+id/submitbutton"
+        android:layout_below="@+id/editText5"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

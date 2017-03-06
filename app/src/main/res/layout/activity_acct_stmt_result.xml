@@ -16,6 +16,7 @@
         android:paddingLeft="10dp"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
+        android:textStyle="bold"
         />
 
     <TextView
@@ -29,6 +30,7 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
+        android:textColor="#5d5d5d"
         />
 
     <TextView
@@ -42,6 +44,7 @@
         android:paddingLeft="10dp"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
+        android:textStyle="bold"
         />
 
     <TextView
@@ -56,6 +59,7 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
+        android:textColor="#5d5d5d"
         />
     <TextView
         android:text="12-Jan-2017"
@@ -69,6 +73,7 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
+        android:textColor="#5d5d5d"
         />
 
     <TextView
@@ -96,6 +101,7 @@
         android:paddingLeft="10dp"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
+        android:textStyle="bold"
         />
 
     <TextView
@@ -110,6 +116,7 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
+        android:textColor="#5d5d5d"
         />
     
     <ListView
