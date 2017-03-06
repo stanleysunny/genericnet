@@ -60,8 +60,6 @@ public class AcctStmtActivity extends AppCompatActivity {
 
     }
 
-
-
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
