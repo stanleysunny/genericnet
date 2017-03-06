@@ -64,23 +64,20 @@ public class AcctSumActivity extends AppCompatActivity {
                                 JSONObject jsonObj = new JSONObject(jsonStr);
                             // Getting JSON Array node
                             JSONObject fobj = jsonObj.getJSONObject("_embedded");
-                             JSONArray item = fobj.getJSONArray("item");
+                            JSONArray item = fobj.getJSONArray("item");
 
                             // looping through All Contacts
                             for (int i = 0; i < item.length(); i++) {
                                 JSONObject c = item.getJSONObject(i);
-                                String Heading = "";
                                 String Customer = "";
                                 String CustomerID = "";
                                 if (i == 0) {
-                                    Heading = "Account Summary";
                                     CustomerID = "Customer ID";
                                     Customer = c.getString("Customer");
-
                                 }
                                 String AccountNumber = c.getString("AccountNumber");
                                 String Currency = c.getString("Currency");
-                                String ShortTitle = c.getString("ShortTitle");
+                                String ShortTitle = c.getString("Name");
                                 String WorkingBalance = c.getString("WorkingBalance");
 
                             // tmp hash map for single contact
@@ -90,9 +87,8 @@ public class AcctSumActivity extends AppCompatActivity {
                                 Account.put("AccountNumber", AccountNumber);
                                 Account.put("Currency", Currency);
                                 Account.put("Customer", Customer);
-                                Account.put("ShortTitle", ShortTitle);
+                                Account.put("Name", ShortTitle);
                                 Account.put("WorkingBalance", WorkingBalance);
-                                Account.put("Heading", Heading);
                                 Account.put("CustomerID", CustomerID);
                             // adding contact to contact list
                                 contactList.add(Account);
@@ -130,8 +126,8 @@ public class AcctSumActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             ListAdapter adapter = new SimpleAdapter(AcctSumActivity.this, contactList,
-                    R.layout.list_item, new String[]{"Heading","CustomerID","AccountNumber","Currency","Customer","ShortTitle","WorkingBalance"},
-                    new int[]{R.id.textView,R.id.textView7, R.id.AccountNumber, R.id.Currency, R.id.Customer, R.id.ShortTitle, R.id.WorkingBalance});
+                    R.layout.list_item, new String[]{"CustomerID","AccountNumber","Currency","Customer","ShortTitle","WorkingBalance"},
+                    new int[]{R.id.textView7, R.id.AccountNumber, R.id.Currency, R.id.Customer, R.id.ShortTitle, R.id.WorkingBalance});
             lv.setAdapter(adapter);
         }
     }
