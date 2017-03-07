@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void addDrawerItems() {
         String[] osArray = { "Account Summary", "Account Statement", "Funds Transfer", "Settings","Feedback", "Help", "Logout" };
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener()//add an event on clicking an item in menu
         {
@@ -156,11 +156,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
         // Activate the navigation drawer toggle
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     @Override

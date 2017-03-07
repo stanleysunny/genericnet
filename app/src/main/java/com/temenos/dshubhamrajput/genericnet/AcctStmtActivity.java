@@ -53,6 +53,18 @@ public class AcctStmtActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(AcctStmtActivity.this, AccountStatmentResult.class);
+                String toDate = DateEdit.getText().toString();
+                String fromDate = DateEdit2.getText().toString();
+                EditText accountNo = (EditText) findViewById(R.id.editText2);
+                String account = accountNo.getText().toString();
+
+                Bundle bundle = new Bundle();
+
+                bundle.putString("toDateText", toDate);
+                bundle.putString("fromDateText", fromDate);
+                bundle.putString("accountNoText", account);
+
+                intent.putExtras(bundle);
                 startActivity(intent);
                 finish();
             }
