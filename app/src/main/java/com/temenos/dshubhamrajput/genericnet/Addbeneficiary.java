@@ -1,56 +1,88 @@
 package com.temenos.dshubhamrajput.genericnet;
 
-import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.Toast;
 
-public class Addbeneficiary extends AppCompatActivity {
+import java.util.HashMap;
+
+
+/**
+ * Created by upriya on 06-03-2017.
+ */
+
+public class AddBeneficiary extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addbeneficiary);
-        getSupportActionBar().setTitle("Add beneficiary");
-        final CheckBox withinbank1=(CheckBox)findViewById(R.id.withinbank);
-        final CheckBox neft1=(CheckBox)findViewById(R.id.neft);
-        final TextView t = (TextView) findViewById(R.id.textView5);
-        final EditText e = (EditText) findViewById(R.id.editText5);
-        withinbank1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        //change the layout accordingly
+        setContentView(R.layout.activity_acct_sum);
 
+        // sets title for the activity page
+        getSupportActionBar().setTitle("Add Beneficiary");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-            public void onCheckedChanged(CompoundButton view, boolean isChecked) {
-                neft1.setChecked(false);
-             
+    // add the code for the check boxes for assigning value
 
 
 
-                t.setVisibility(View.INVISIBLE);
-                e.setVisibility(View.INVISIBLE);
 
 
+    // add the code for the button submit to connect to the url
+      /*  Button mSubmitButton = (Button) findViewById(R.id.email_sign_in_button);
+       mSubmitButton .setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                    new PostDetails().execute();
             }
         });
+        */
 
-
-        neft1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            public void onCheckedChanged(CompoundButton view, boolean isChecked) {
-                withinbank1.setChecked(false);
-
-
-                t.setVisibility(View.VISIBLE);
-                e.setVisibility(View.VISIBLE);
-
-
-
-            }
-        });
+    }
+//find the purpose
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 
 
+    private class PostDetails extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            //  json object posting code goes here
+            HashMap<String,String> postDataParams = new HashMap<>();
+
+            postDataParams.put("BeneficiaryAccountNo", "value");// get Account No from UI
+            postDataParams.put("NickName", "value");//get Name from UI
+            postDataParams.put("EmailID", "value");//get EmailID from UI
+
+            //read the url from property class
+            /*
+                PropertiesReader property= new PropertiesReader();
+                    String urlBeneficiary = property.getProperty("url_add_beneficiary", getApplicationContext());
+             */
+            performPostCall postCallObj= new  performPostCall();
+            postCallObj.performPostCallPost("URL", postDataParams);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+        }
+    }
 }
+
