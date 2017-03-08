@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 //                                childPosition), Toast.LENGTH_SHORT
 //                ).show();
 
-                if (expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Add Beneficiary")
+                if (expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals( "Add Beneficiary"))
 
                     startActivity(intent1);
                 return false;
