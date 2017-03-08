@@ -88,6 +88,12 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                     layout.closeDrawer(GravityCompat.START);
                 }
+                if(position == 2) {
+//                Toast.makeText(MainActivity.this, "Testing!" , Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, TransferBwAccts.class);
+                    startActivity(intent);
+                    layout.closeDrawer(GravityCompat.START);
+                }
                 if(position == 6)
                 {
                     logout();

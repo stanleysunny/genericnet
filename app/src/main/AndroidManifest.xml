@@ -30,7 +30,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".AcctSumActivity" />
         <activity android:name=".AcctStmtActivity" />
-        <activity android:name=".AccountStatmentResult"></activity>
+        <activity android:name=".AccountStatmentResult" />
+        <activity android:name=".TransferBwAccts"></activity>
     </application>
 
 </manifest>
