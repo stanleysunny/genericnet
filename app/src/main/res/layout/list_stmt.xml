@@ -16,6 +16,7 @@
         android:paddingBottom="3dp"
         android:background="#aed7fc"
         android:textStyle="bold"
+        android:textSize="18dp"
         />
 
     <TextView
