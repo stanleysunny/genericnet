@@ -115,14 +115,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-//                Toast.makeText(
-//                        getApplicationContext(),
-//                        expandableListTitle.get(groupPosition)
-//                                + " -> "
-//                                + expandableListDetail.get(
-//                                expandableListTitle.get(groupPosition)).get(
-//                                childPosition), Toast.LENGTH_SHORT
-//                ).show();
+//
 
                 if (expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Add Beneficiary")
 
@@ -132,9 +125,18 @@ public class MainActivity extends AppCompatActivity {
 
                     startActivity(intent2);
 
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Transfer between my Accounts")
+
+                    startActivity(intent2);
+
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Transfer to other Bank")
+
+                    startActivity(intent2);
+
                 return false;
             }
         });
+    }
 
 
     private void setupDrawer() {
