@@ -35,7 +35,8 @@
             android:label="@string/title_activity_expandable_menu"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AccountStatmentResult" />
-        <activity android:name=".Addbeneficiary"></activity>
+        <activity android:name=".Addbeneficiary" />
+        <activity android:name=".TransferBwAccounts"></activity>
     </application>
 
 </manifest>

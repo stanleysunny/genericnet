@@ -15,6 +15,8 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:background="#aed7fc"
+        android:textStyle="bold"
+        android:textSize="18dp"
         />
 
     <TextView
@@ -28,6 +30,7 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
+        android:textColor="#5d5d5d"
         />
 
     <TextView
@@ -42,6 +45,7 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:layout_below="@+id/date"
+        android:textStyle="bold"
         />
 
     <TextView
@@ -56,6 +60,7 @@
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
         android:layout_below="@+id/datevalue"
+        android:textColor="#5d5d5d"
         />
 
     <TextView
@@ -70,6 +75,7 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:layout_below="@+id/amount"
+        android:textStyle="bold"
         />
 
     <TextView
@@ -84,6 +90,7 @@
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
         android:layout_below="@+id/amountvalue"
+        android:textColor="#5d5d5d"
         />
 
     <TextView
@@ -98,6 +105,7 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:layout_below="@+id/cheq"
+        android:textStyle="bold"
         />
 
     <TextView
@@ -112,6 +120,7 @@
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
         android:layout_below="@+id/cheqvalue"
+        android:textColor="#5d5d5d"
         />
 
     <TextView
@@ -126,6 +135,7 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:layout_below="@+id/narration"
+        android:textStyle="bold"
         />
 
     <TextView
@@ -140,6 +150,7 @@
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
         android:layout_below="@+id/narrationvalue"
+        android:textColor="#5d5d5d"
         />
 
 

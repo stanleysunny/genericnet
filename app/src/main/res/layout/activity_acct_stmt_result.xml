@@ -16,6 +16,7 @@
         android:paddingLeft="10dp"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
+        android:textStyle="bold"
         />
 
     <TextView
@@ -29,6 +30,7 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
+        android:textColor="#5d5d5d"
         />
 
     <TextView
@@ -42,10 +44,11 @@
         android:paddingLeft="10dp"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
+        android:textStyle="bold"
         />
 
     <TextView
-        android:text="12-Jan-2017 -"
+        android:text="12-Jan-2017 - 12-Feb-2017"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/periodvalue"
@@ -56,6 +59,7 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
+        android:textColor="#5d5d5d"
         />
     <TextView
         android:text="12-Jan-2017"
@@ -69,33 +73,23 @@
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
-        />
+        android:textColor="#5d5d5d"
+    />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/dummy"
-        android:layout_below="@+id/period"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:layout_alignParentLeft="true"
-        android:gravity="left"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:paddingRight="25dp"
-        />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/closingbal"
         android:text="Closing Balance"
-        android:layout_below="@+id/dummy"
+        android:layout_below="@+id/periodvalue"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:layout_alignParentLeft="true"
         android:gravity="left"
         android:paddingLeft="10dp"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
+        android:textStyle="bold"
         />
 
     <TextView
@@ -103,15 +97,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/closingbalvalue"
-        android:layout_below="@+id/periodvalue2"
+        android:layout_below="@+id/periodvalue"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:layout_alignParentRight="true"
         android:gravity="right"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
+        android:textColor="#5d5d5d"
         />
-    
+
     <ListView
         android:id="@+id/liststmt"
         android:layout_width="fill_parent"
