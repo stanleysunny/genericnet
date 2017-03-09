@@ -14,7 +14,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Field;
@@ -42,6 +44,8 @@ public class AcctStmtActivity extends AppCompatActivity  {
 
         DateEdit = (EditText) findViewById(R.id.editText4);
         DateEdit2 = (EditText) findViewById(R.id.editText3);
+
+
         DateEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +60,40 @@ public class AcctStmtActivity extends AppCompatActivity  {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        final TextView Fromdate = (TextView) findViewById(R.id.textView15);
+        final ImageView cal = (ImageView) findViewById(R.id.imageView3);
+        final TextView Todate = (TextView) findViewById(R.id.textView16);
+        final ImageView cal2 = (ImageView) findViewById(R.id.imageView4);
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if(position == 0){
+                    DateEdit.setVisibility(View.GONE);
+                    DateEdit2.setVisibility(View.GONE);
+                    Fromdate.setVisibility(View.GONE);
+                    cal.setVisibility(View.GONE);
+                    Todate.setVisibility(View.GONE);
+                    cal2.setVisibility(View.GONE);
+
+
+                }else{
+                    DateEdit.setVisibility(View.VISIBLE);
+                    DateEdit2.setVisibility(View.VISIBLE);
+                    Fromdate.setVisibility(View.VISIBLE);
+                    cal.setVisibility(View.VISIBLE);
+                    Todate.setVisibility(View.VISIBLE);
+                    cal2.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) { }
+        });
+
+
 
         Button viewStmt = (Button) findViewById(R.id.submitbutton);
         viewStmt.setOnClickListener(new View.OnClickListener() {

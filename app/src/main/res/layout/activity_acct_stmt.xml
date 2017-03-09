@@ -54,7 +54,8 @@
         android:layout_below="@+id/textView17"
         android:layout_alignStart="@+id/textView17"
         android:paddingLeft="5dp"
-        android:animateLayoutChanges="false" />
+
+    />
 
     <ImageView
 
@@ -112,16 +113,6 @@
         android:layout_below="@+id/editText5"
         android:layout_alignStart="@+id/editText5" />
 
-    <Button
-        android:text="SUBMIT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:id="@+id/submitbutton"
-        android:layout_below="@+id/editText4"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp" />
-
     <TextView
         android:text="To Date"
         android:layout_width="wrap_content"
@@ -145,6 +136,25 @@
         android:layout_below="@+id/textView16"
         android:layout_alignStart="@+id/textView16"
         android:layout_marginTop="8dp" />
+
+    <Button
+        android:text="SUBMIT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:id="@+id/submitbutton"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/editText4"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:src="@drawable/down_arrow"
+        android:layout_width="35sp"
+        android:layout_alignBottom="@+id/editText5"
+        android:layout_alignEnd="@+id/editText5"
+        android:paddingBottom="10dp"
+        android:layout_height="20dp">
+    </ImageView>
 
 
 </RelativeLayout>
