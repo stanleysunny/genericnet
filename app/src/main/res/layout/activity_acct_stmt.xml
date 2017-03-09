@@ -28,17 +28,6 @@
         android:paddingLeft="5dp"
         />
 
-    <TextView
-        android:text="From Date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText2"
-        android:layout_alignStart="@+id/editText2"
-        android:layout_marginTop="21dp"
-        android:id="@+id/textView15"
-        android:textColor="@color/BLACK"
-        android:textSize="16dp"/>
-
     <EditText
         android:layout_width="290dp"
         android:layout_height="30dp"
@@ -52,52 +41,21 @@
         android:focusable="false"
         android:paddingLeft="5dp"
 
-    />
-
-    <TextView
-        android:text="To Date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText3"
-        android:layout_alignStart="@+id/editText3"
-        android:layout_marginTop="21dp"
-        android:id="@+id/textView16"
-        android:textColor="@color/BLACK"
-        android:textSize="16dp"/>
+        />
 
     <requestFocus />
 
-    <TextView
-        android:text="Statement Type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText4"
-        android:layout_alignStart="@+id/editText4"
-        android:layout_marginTop="21dp"
-        android:id="@+id/textView17"
-        android:textColor="@color/BLACK"
-        android:textSize="16dp"/>
-    <EditText
+    <Spinner
         android:layout_width="290dp"
         android:layout_height="30dp"
-        android:inputType="date"
-        android:ems="10"
         android:layout_marginTop="5dp"
         android:id="@+id/editText5"
         android:background="@drawable/acctedit"
         android:layout_below="@+id/textView17"
         android:layout_alignStart="@+id/textView17"
-        android:paddingLeft="5dp"/>
+        android:paddingLeft="5dp"
 
-    <Button
-        android:text="SUBMIT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText5"
-        android:layout_toEndOf="@+id/textView17"
-        android:layout_marginTop="18dp"
-        android:gravity="center_horizontal"
-        android:id="@+id/submitbutton" />
+        />
 
     <ImageView
 
@@ -133,6 +91,39 @@
         android:layout_alignBottom="@+id/editText4"
         android:onClick="showDatePickerDialog"/>
 
+    <TextView
+        android:text="Statement Type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:id="@+id/textView17"
+        android:textColor="@color/BLACK"
+        android:textSize="16dp"
+        android:layout_below="@+id/editText2"
+        android:layout_alignStart="@+id/editText2" />
+
+    <TextView
+        android:text="From Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:id="@+id/textView15"
+        android:textColor="@color/BLACK"
+        android:textSize="16dp"
+        android:layout_below="@+id/editText5"
+        android:layout_alignStart="@+id/editText5" />
+
+    <TextView
+        android:text="To Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView16"
+        android:textColor="@color/BLACK"
+        android:textSize="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/editText3"
+        android:layout_alignStart="@+id/editText3" />
+
     <EditText
         android:layout_width="290dp"
         android:layout_height="30dp"
@@ -143,7 +134,27 @@
         android:focusable="false"
         android:paddingLeft="5dp"
         android:layout_below="@+id/textView16"
-        android:layout_alignStart="@+id/textView16" />
+        android:layout_alignStart="@+id/textView16"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:text="SUBMIT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:id="@+id/submitbutton"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/editText4"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:src="@drawable/down_arrow"
+        android:layout_width="35sp"
+        android:layout_alignBottom="@+id/editText5"
+        android:layout_alignEnd="@+id/editText5"
+        android:paddingBottom="10dp"
+        android:layout_height="20dp">
+    </ImageView>
 
 
 </RelativeLayout>
