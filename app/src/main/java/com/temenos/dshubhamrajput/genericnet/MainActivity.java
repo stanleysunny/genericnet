@@ -86,13 +86,13 @@ public class MainActivity extends AppCompatActivity {
 //                Toast.makeText(getApplicationContext(),
 //                        expandableListTitle.get(groupPosition) + " List Expanded.",
 //                        Toast.LENGTH_SHORT).show();
-                if(expandableListTitle.get(groupPosition) == "Account Summary")
+                if(expandableListTitle.get(groupPosition).equals("Account Summary"))
                 {
                     Intent intent = new Intent(MainActivity.this, AcctSumActivity.class);
                     startActivity(intent);
 //
                 }
-                else if(expandableListTitle.get(groupPosition) == "Account Statement")
+                else if(expandableListTitle.get(groupPosition).equals("Account Statement"))
                 {
                     Intent intent = new Intent(MainActivity.this, AcctStmtActivity.class);
                     startActivity(intent);
@@ -119,19 +119,19 @@ public class MainActivity extends AppCompatActivity {
                                         int groupPosition, int childPosition, long id) {
 //
 
-                if (expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Add Beneficiary")
+                if (expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals( "Add Beneficiary"))
 
                     startActivity(Addbeneficiary);
 
-                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Transfer within Bank")
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer within Bank"))
 
                     startActivity(TransferWithinBnk);
 
-                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Transfer between my Accounts")
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer between my Accounts"))
 
                     startActivity(TransferBwAccounts);
 
-                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Transfer to other Bank")
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer to other Bank"))
 
                     startActivity(TransferOtherBnk);
 
@@ -139,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
@@ -197,11 +196,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
         // Activate the navigation drawer toggle
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     @Override

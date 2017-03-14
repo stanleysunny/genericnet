@@ -5,8 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.AnimationDrawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -22,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
@@ -34,7 +33,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -53,9 +51,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-    public static String loginURL;
     SessionManager session;
-
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -67,9 +63,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private TextView change_text;
-    private AnimationDrawable animationDrawable;
-    private ImageView mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -262,8 +255,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // for very easy animations. If available, use these APIs to fade-in
         // the progress spinner.
 
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
             mLoginFormView.setVisibility(show ? View.GONE : View.INVISIBLE);
@@ -283,12 +274,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             });
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
-            mLoginFormView.setVisibility(show ? View.GONE : View.INVISIBLE);
-        }
     }
 
     @Override
@@ -374,11 +359,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             //ConstantClass constantObj= new ConstantClass();
             //String urlString=constantObj.getLoginUrl();
             try{
-                PropertiesReader pro=new PropertiesReader();
+                PropertiesReader pro = new PropertiesReader();
                 String urlString=pro.getProperty("url_login_screen",getApplicationContext());
                 GenUrl gen= new GenUrl();
-                boolean c_status=gen.getUrlConnection( urlString, mEmail, mPassword);
-                return c_status;
+
+                return gen.getUrlConnection( urlString, mEmail, mPassword);
             }
             catch (IOException e) {
                 e.printStackTrace();
