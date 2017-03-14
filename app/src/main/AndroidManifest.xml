@@ -36,7 +36,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AccountStatmentResult" />
         <activity android:name=".Addbeneficiary" />
-        <activity android:name=".TransferBwAccounts"></activity>
+        <activity android:name=".TransferBwAccounts" />
+        <activity android:name=".TransferWithinBnk" />
+        <activity android:name=".TransferOtherBnk"></activity>
     </application>
 
 </manifest>

@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         final Intent intent1 = new Intent(MainActivity.this, Addbeneficiary.class);
         final Intent intent2 = new Intent(MainActivity.this, TransferBwAccounts.class);
+        final Intent intent3 = new Intent(MainActivity.this, TransferWithinBnk.class);
+        final Intent intent4 = new Intent(MainActivity.this, TransferOtherBnk.class);
         //mActivityTitle = getTitle().toString();
 //        TextView textView7 = (TextView) findViewById(R.id.textView7);
 
@@ -123,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
                 else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Transfer within Bank")
 
-                    startActivity(intent2);
+                    startActivity(intent3);
 
                 else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Transfer between my Accounts")
 
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
                 else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Transfer to other Bank")
 
-                    startActivity(intent2);
+                    startActivity(intent4);
 
                 return false;
             }

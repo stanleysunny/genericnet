@@ -5,7 +5,7 @@
     android:id="@+id/activity_transfer_bw_accts"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.temenos.dshubhamrajput.genericnet.TransferBwAccounts">
+    tools:context="com.temenos.dshubhamrajput.genericnet.TransferWithinBnk">
 
     <TextView
         android:text="From Account No"
