@@ -61,22 +61,7 @@
         android:paddingRight="25dp"
         android:textColor="#5d5d5d"
         />
-    <TextView
-        android:text="12-Jan-2017"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/periodvalue2"
-        android:layout_below="@+id/periodvalue"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:layout_alignParentRight="true"
-        android:gravity="right"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:paddingRight="25dp"
-        android:textColor="#5d5d5d"
-    />
-
-
+    
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
