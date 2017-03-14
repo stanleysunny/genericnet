@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         //mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         final Intent intent1 = new Intent(MainActivity.this, Addbeneficiary.class);
+        final Intent intent2 = new Intent(MainActivity.this, TransferBwAccounts.class);
         //mActivityTitle = getTitle().toString();
 //        TextView textView7 = (TextView) findViewById(R.id.textView7);
 
@@ -83,17 +84,17 @@ public class MainActivity extends AppCompatActivity {
 //                Toast.makeText(getApplicationContext(),
 //                        expandableListTitle.get(groupPosition) + " List Expanded.",
 //                        Toast.LENGTH_SHORT).show();
-               if(expandableListTitle.get(groupPosition) == "Account Summary")
-               {
-                   Intent intent = new Intent(MainActivity.this, AcctSumActivity.class);
-                   startActivity(intent);
+                if(expandableListTitle.get(groupPosition).equals("Account Summary"))
+                {
+                    Intent intent = new Intent(MainActivity.this, AcctSumActivity.class);
+                    startActivity(intent);
 //
-               }
-               else if(expandableListTitle.get(groupPosition) == "Account Statement")
-               {
-                   Intent intent = new Intent(MainActivity.this, AcctStmtActivity.class);
-                   startActivity(intent);
-               }
+                }
+                else if(expandableListTitle.get(groupPosition).equals("Account Statement"))
+                {
+                    Intent intent = new Intent(MainActivity.this, AcctStmtActivity.class);
+                    startActivity(intent);
+                }
 
             }
         });
@@ -114,67 +115,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-//                Toast.makeText(
-//                        getApplicationContext(),
-//                        expandableListTitle.get(groupPosition)
-//                                + " -> "
-//                                + expandableListDetail.get(
-//                                expandableListTitle.get(groupPosition)).get(
-//                                childPosition), Toast.LENGTH_SHORT
-//                ).show();
+//
 
-                if (expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Add Beneficiary")
+                if (expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals( "Add Beneficiary"))
 
                     startActivity(intent1);
+
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer within Bank"))
+
+                    startActivity(intent2);
+
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer between my Accounts"))
+
+                    startActivity(intent2);
+
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer to other Bank"))
+
+                    startActivity(intent2);
+
                 return false;
             }
         });
-//        textView7.setMovementMethod(new ScrollingMovementMethod());
-
-//        int actionBarTitle = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
-//        TextView actionBarTitleView = (TextView) getWindow().findViewById(actionBarTitle);
-//        Typeface robotoBoldCondensedItalic = Typeface.createFromAsset(getAssets(), "font/CorisandeRegular.ttf");
-//        if(actionBarTitleView != null){
-//            actionBarTitleView.setTypeface(robotoBoldCondensedItalic);
-        // }
     }
-
-
-
-//    private void addDrawerItems() {
-//        String[] osArray = { "Account Summary", "Account Statement", "Account Transfer", "Settings","Feedback", "Help", "Logout" };
-//        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
-//        mDrawerList.setAdapter(mAdapter);
-//        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener()//add an event on clicking an item in menu
-//        {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-//        DrawerLayout layout = (DrawerLayout)findViewById(R.id.drawer_layout);
-//
-//                if(position == 0) {
-////                Toast.makeText(MainActivity.this, "Testing!" , Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(MainActivity.this, AcctSumActivity.class);
-//                    startActivity(intent);
-//                    layout.closeDrawer(GravityCompat.START);
-//                }
-//
-//                if(position == 1) {
-////                Toast.makeText(MainActivity.this, "Testing!" , Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(MainActivity.this, AcctStmtActivity.class);
-//                    startActivity(intent);
-//                    layout.closeDrawer(GravityCompat.START);
-//                }
-//                if(position == 6)
-//                {
-//                    logout();
-//                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//                    startActivity(intent);
-//                    layout.closeDrawer(GravityCompat.START);
-//                }
-//
-//            }
-//        });
-//    }
 
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
@@ -232,11 +194,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
         // Activate the navigation drawer toggle
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -248,22 +206,22 @@ public class MainActivity extends AppCompatActivity {
             backpress = 0;
         }
         else {
-        backpress = (backpress + 1);
-        if(backpress<1||backpress==1) {
-            Toast.makeText(getApplicationContext(), " Press Back again to Exit ", Toast.LENGTH_SHORT).show();
-        }
+            backpress = (backpress + 1);
+            if(backpress<1||backpress==1) {
+                Toast.makeText(getApplicationContext(), " Press Back again to Exit ", Toast.LENGTH_SHORT).show();
+            }
 
-        if (backpress>1) {
-            session1.logoutUser();
-            this.finish();
+            if (backpress>1) {
+                session1.logoutUser();
+                this.finish();
+            }
         }
     }
+    public void logout()
+    {
+        session1.logoutUser();
+        this.finish();
     }
-public void logout()
-{
-    session1.logoutUser();
-    this.finish();
-}
 
 
 }
