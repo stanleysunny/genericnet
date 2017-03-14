@@ -84,13 +84,13 @@ public class MainActivity extends AppCompatActivity {
 //                Toast.makeText(getApplicationContext(),
 //                        expandableListTitle.get(groupPosition) + " List Expanded.",
 //                        Toast.LENGTH_SHORT).show();
-                if(expandableListTitle.get(groupPosition) == "Account Summary")
+                if(expandableListTitle.get(groupPosition).equals("Account Summary"))
                 {
                     Intent intent = new Intent(MainActivity.this, AcctSumActivity.class);
                     startActivity(intent);
 //
                 }
-                else if(expandableListTitle.get(groupPosition) == "Account Statement")
+                else if(expandableListTitle.get(groupPosition).equals("Account Statement"))
                 {
                     Intent intent = new Intent(MainActivity.this, AcctStmtActivity.class);
                     startActivity(intent);
@@ -121,15 +121,15 @@ public class MainActivity extends AppCompatActivity {
 
                     startActivity(intent1);
 
-                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Transfer within Bank")
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer within Bank"))
 
                     startActivity(intent2);
 
-                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Transfer between my Accounts")
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer between my Accounts"))
 
                     startActivity(intent2);
 
-                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Transfer to other Bank")
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer to other Bank"))
 
                     startActivity(intent2);
 

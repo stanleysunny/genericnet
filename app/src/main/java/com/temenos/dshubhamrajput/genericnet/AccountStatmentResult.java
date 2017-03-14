@@ -57,7 +57,6 @@ public class AccountStatmentResult extends AppCompatActivity {
             conn.setDoInput(true);
             conn.setDoOutput(true);
 
-
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
@@ -73,13 +72,11 @@ public class AccountStatmentResult extends AppCompatActivity {
                 BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 while ((line=br.readLine()) != null) {
                     response+=line;
-
                     Log.e("Res:", response);
                 }
             }
             else {
                 response="";
-
             }
         } catch (Exception e) {
             e.printStackTrace();

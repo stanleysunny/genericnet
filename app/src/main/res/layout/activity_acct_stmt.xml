@@ -153,5 +153,5 @@
         android:paddingBottom="10dp"
         android:layout_height="20dp">
     </ImageView>
-    
+
 </RelativeLayout>
