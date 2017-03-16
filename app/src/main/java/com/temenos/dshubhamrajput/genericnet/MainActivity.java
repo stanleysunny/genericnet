@@ -56,8 +56,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("TEMENOS");
         //mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        final Intent intent1 = new Intent(MainActivity.this, Addbeneficiary.class);
-        final Intent intent2 = new Intent(MainActivity.this, TransferBwAccounts.class);
+        final Intent Addbeneficiary = new Intent(MainActivity.this, Addbeneficiary.class);
+        final Intent TransferBwAccounts = new Intent(MainActivity.this, TransferBwAccounts.class);
+        final Intent TransferWithinBnk = new Intent(MainActivity.this, TransferWithinBnk.class);
+        final Intent TransferOtherBnk = new Intent(MainActivity.this, TransferOtherBnk.class);
         //mActivityTitle = getTitle().toString();
 //        TextView textView7 = (TextView) findViewById(R.id.textView7);
 
@@ -119,19 +121,19 @@ public class MainActivity extends AppCompatActivity {
 
                 if (expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals( "Add Beneficiary"))
 
-                    startActivity(intent1);
+                    startActivity(Addbeneficiary);
 
                 else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer within Bank"))
 
-                    startActivity(intent2);
+                    startActivity(TransferWithinBnk);
 
                 else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer between my Accounts"))
 
-                    startActivity(intent2);
+                    startActivity(TransferBwAccounts);
 
                 else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer to other Bank"))
 
-                    startActivity(intent2);
+                    startActivity(TransferOtherBnk);
 
                 return false;
             }

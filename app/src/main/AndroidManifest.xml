@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -36,7 +37,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AccountStatmentResult" />
         <activity android:name=".Addbeneficiary" />
-        <activity android:name=".TransferBwAccounts"></activity>
+        <activity android:name=".TransferBwAccounts" />
+        <activity android:name=".TransferWithinBnk" />
+        <activity android:name=".TransferOtherBnk"></activity>
     </application>
 
 </manifest>

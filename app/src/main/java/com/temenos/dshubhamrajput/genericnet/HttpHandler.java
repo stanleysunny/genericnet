@@ -4,25 +4,131 @@ package com.temenos.dshubhamrajput.genericnet;
  * Created by Administrator on 20-02-2017.
  */
 
+import android.util.Log;
 
+import org.apache.commons.codec.binary.Base64;
 
-import com.tem.pack.GenUrl;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-public class HttpHandler {
+import javax.net.ssl.HttpsURLConnection;
 
-    private static final String TAG = HttpHandler.class.getSimpleName();
+class HttpHandler {
 
-    public HttpHandler() {
+    HttpHandler() {
     }
 
-    public String makeServiceCall(String reqUrl) {
+    String makeServiceCall(String reqUrl) {
         String response = null;
+        String basicAuth;
         try {
-            GenUrl gen1= new GenUrl();
-            response= gen1.getUrlConnectionWithoutPassword(reqUrl);
-        }  catch (Exception e) {
+            URL e = new URL(reqUrl);
+            HttpURLConnection urlConnection = (HttpURLConnection)e.openConnection();
+            String userPass = "CREDITMGR" + ":" + "123456";
+            basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
+            urlConnection.setRequestProperty("Authorization", basicAuth);
+            urlConnection.setRequestProperty("Accept", "application/json");
+            urlConnection.setRequestMethod("POST");
+            BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            response = convertStreamToString(in);
+        } catch (Exception var5) {
+            var5.printStackTrace();
+        }
+
+        return response;
+    }
+    private String convertStreamToString(InputStream is) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+
+        try {
+            String line;
+            try {
+                while((line = reader.readLine()) != null) {
+                    sb.append(line).append('\n');
+                }
+            } catch (IOException var14) {
+                var14.printStackTrace();
+            }
+        } finally {
+            try {
+                is.close();
+            } catch (IOException var13) {
+                var13.printStackTrace();
+            }
+
+        }
+
+        return sb.toString();
+    }
+
+    String postfunc(String reurl, String jsonstring)
+    {
+        String result;
+        String response = "";
+        try {
+
+            URL e = new URL(reurl);
+            HttpURLConnection urlConnectio = (HttpURLConnection) e.openConnection();
+            urlConnectio.setDoOutput(true);
+            String basicAuth;
+            String userPass;
+
+            userPass = "BTOOLS" + ":" + "123456";
+            basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
+            urlConnectio.setRequestProperty("Authorization", basicAuth);
+            urlConnectio.setRequestProperty("Accept", "application/json");
+            urlConnectio.setRequestProperty("Content-Type", "application/json");
+            urlConnectio.setRequestMethod("POST");
+            urlConnectio.connect();
+            OutputStreamWriter out = new OutputStreamWriter(urlConnectio.getOutputStream());
+            out.write(jsonstring);// here i sent the parameter
+            out.flush();
+            out.close();
+
+
+            int responseCode=urlConnectio.getResponseCode();
+
+            if (responseCode == HttpsURLConnection.HTTP_OK) {
+                URL commit = new URL("http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input");
+                HttpURLConnection urlcommit = (HttpURLConnection) commit.openConnection();
+                urlcommit.setDoOutput(true);
+
+                userPass = "BTOOLS" + ":" + "123456";
+                basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
+                urlcommit.setRequestProperty("Authorization", basicAuth);
+                urlcommit.setRequestProperty("Accept", "application/json");
+                urlcommit.setRequestProperty("Content-Type", "application/json");
+                urlcommit.setRequestMethod("POST");
+                urlcommit.connect();
+                OutputStreamWriter commitout = new OutputStreamWriter(urlcommit.getOutputStream());
+                commitout.write(jsonstring);// here i sent the parameter
+                commitout.flush();
+                commitout.close();
+
+                int commitresponse = urlcommit.getResponseCode();
+                String line;
+                BufferedReader br=new BufferedReader(new InputStreamReader(urlConnectio.getInputStream()));
+                while ((line=br.readLine()) != null) {
+                    response+=line;
+                    Log.e("Res:", response);
+                }
+            }
+            else {
+                response="";
+            }
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
+
+        // 11. return result
         return response;
     }
 }
