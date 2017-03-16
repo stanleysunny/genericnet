@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="Within bank"
+        android:theme="@style/MyCheckBox"
+        android:id="@+id/withinbank"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/BenButton"
+        android:layout_marginTop="12dp" />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="NEFT/IMPS"
+        android:theme="@style/MyCheckBox"
+        android:id="@+id/neft"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        android:layout_marginEnd="45dp"
+        android:layout_alignBaseline="@+id/withinbank"
+        android:layout_alignBottom="@+id/withinbank"
+        android:layout_alignParentEnd="true" />
+   <TextView
+       android:id="@+id/textView1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Beneficiary Account Number"
+       android:textColor="@color/BLACK"
+       android:textAlignment="gravity"
+       android:layout_below="@+id/withinbank"
+       android:layout_marginTop="17dp"
+       android:layout_toStartOf="@+id/neft" />
+   <EditText
+       android:id="@+id/BenAccNo"
+       android:layout_width="300dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="8dp"
+       android:ems="10"
+       android:textSize="20sp"
+       android:inputType="number"
+       android:background="@drawable/acctedit"
+       android:layout_below="@+id/textView1"
+       android:layout_alignStart="@+id/textView1" />
+   <TextView
+       android:id="@+id/textView2"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Re-enter Beneficiary Account Number"
+       android:textColor="@color/BLACK"
+       android:textAlignment="gravity"
+       android:layout_marginTop="13dp"
+       android:layout_below="@+id/BenAccNo"
+       android:layout_alignStart="@+id/BenAccNo" />
+   <EditText
+       android:id="@+id/ReenterAccNo"
+       android:layout_width="300dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="8dp"
+       android:ems="10"
+       android:textSize="20sp"
+       android:inputType="number"
+       android:background="@drawable/acctedit"
+       android:layout_below="@+id/textView2"
+       android:layout_alignStart="@+id/textView2" />
+   <TextView
+       android:id="@+id/textView3"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Email"
+       android:textColor="@color/BLACK"
+       android:textAlignment="gravity"
+       android:layout_marginTop="13dp"
+       android:layout_below="@+id/ReenterAccNo"
+       android:layout_alignStart="@+id/ReenterAccNo" />
+   <EditText
+       android:id="@+id/Email"
+       android:layout_width="300dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="8dp"
+       android:ems="10"
+       android:textSize="20sp"
+       android:inputType="textEmailAddress"
+       android:background="@drawable/acctedit"
+       android:layout_below="@+id/textView3"
+       android:layout_alignStart="@+id/textView3" />
+   <TextView
+       android:id="@+id/textView4"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Nick Name"
+       android:textColor="@color/BLACK"
+       android:textAlignment="gravity"
+       android:layout_marginTop="13dp"
+       android:layout_below="@+id/Email"
+       android:layout_alignStart="@+id/Email" />
+   <EditText
+       android:id="@+id/NickName"
+       android:layout_width="300dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="8dp"
+       android:ems="10"
+       android:textSize="20sp"
+       android:inputType="text"
+       android:background="@drawable/acctedit"
+       android:layout_below="@+id/textView4"
+       android:layout_alignStart="@+id/textView4" />
+   <TextView
+       android:id="@+id/textView5"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="IFSC code"
+       android:textColor="@color/BLACK"
+       android:textAlignment="gravity"
+       android:layout_marginTop="13dp"
+       android:layout_below="@+id/NickName"
+       android:layout_alignStart="@+id/NickName"
+       android:visibility="invisible"/>
+   <EditText
+       android:id="@+id/Ifsc"
+       android:layout_width="300dp"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="8dp"
+       android:ems="10"
+       android:textSize="20sp"
+       android:inputType="text"
+       android:background="@drawable/acctedit"
+       android:layout_below="@+id/textView5"
+       android:layout_alignStart="@+id/textView5"
+       android:maxLength="11"
+       android:visibility="invisible"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/help_icon"
+        android:layout_alignTop="@+id/textView5"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView5"
+        android:layout_alignBottom="@+id/textView5"
+        android:onClick="showHelpText"
+        android:layout_marginRight="220dp"
+        android:src="@drawable/help_icon"
+        android:visibility="invisible"/>
+
+   <Button
+       android:id="@+id/BenButton"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:textColor="#ffffff"
+       android:background="@drawable/mybutton"
+       android:text="Submit"
+       android:textSize="20sp"
+       android:scaleX="0.8"
+       android:scaleY="0.8"
+       android:layout_marginBottom="31dp"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true" />
+
+
+
+</RelativeLayout>

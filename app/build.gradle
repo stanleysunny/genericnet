@@ -34,12 +34,14 @@ dependencies {
     compile('org.apache.httpcomponents:httpmime:4.3.6') {
         exclude module: 'httpclient'
     }
-
+    compile files('libs/org-apache-commons-codec.jar')
+    compile files('libs/java-json.jar')
+    compile files('libs/genUrl5.jar')
+    //    compile 'com.android.support.constraint:constraint-layout:+'
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:design:25.1.1'
     compile 'com.android.support:support-core-utils:25.1.1'
+    compile 'com.android.support.constraint:constraint-layout:+'
     testCompile 'junit:junit:4.12'
-    compile files('libs/org-apache-commons-codec.jar')
-    compile files('libs/com.temenos.jar')
 }

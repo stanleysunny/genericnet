@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Genericnet</string>
+    <string name="app_name">TEMENOS</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -16,7 +16,7 @@
     </string>
     <string name="title_activity_main">MainActivity</string>
     <string name="error_message">Invalid Username or Password</string>
-
+    <string name="urlstring">http://10.93.21.84:8085/Test-iris/Test.svc/GB0010001/enqUservalidates()</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -24,4 +24,11 @@
     <!-- Login page Image content description -->
     <string name="login_image_2">Login page second Image</string>
     <string name="temenos_logo">Temenos Logo</string>
+    <string name="drawer_open">Open drawer</string>
+    <string name="drawer_close">Close Drawer</string>
+    <string name="title_activity_menu_test">MenuTest</string>
+    <string name="title_activity_expandable_menu">ExpandableMenu</string>
+    <string name="title_activity_addbeneficiary">Addbeneficiary</string>
+    <string name="ifschelppopup">What is an ifsc?</string>
+    <string name="ifsc_help">An IFSC or the Indian Financial System Code is an 11 digit code in alpha-numeric format used by the Reserve Bank of India to identify all the Bank branches within the NEFT network uniquely. The code facilitates inter-bank electronic funds transfer by way of identifying the source and destination banks.</string>
 </resources>

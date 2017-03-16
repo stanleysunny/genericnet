@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_acct_stmt_result"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.temenos.dshubhamrajput.genericnet.AccountStatmentResult">
+
+    <TextView
+        android:text="Account No"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/accountnumber"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:text="978702"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/accountnumbervalue"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:paddingRight="25dp"
+        android:textColor="#5d5d5d"
+        />
+
+    <TextView
+        android:text="Period"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/period"
+        android:layout_below="@+id/accountnumber"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:text="12-Jan-2017 - 12-Feb-2017"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/periodvalue"
+        android:layout_below="@+id/accountnumbervalue"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:paddingRight="25dp"
+        android:textColor="#5d5d5d"
+        />
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/closingbal"
+        android:text="Closing Balance"
+        android:layout_below="@+id/periodvalue"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentLeft="true"
+        android:gravity="left"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:text="5,20,200.00 "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/closingbalvalue"
+        android:layout_below="@+id/periodvalue"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:paddingRight="25dp"
+        android:textColor="#5d5d5d"
+        />
+
+    <ListView
+        android:id="@+id/liststmt"
+        android:layout_width="fill_parent"
+        android:layout_below="@+id/closingbal"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
