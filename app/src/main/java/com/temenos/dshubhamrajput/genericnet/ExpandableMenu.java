@@ -25,11 +25,9 @@ public class ExpandableMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expandable_menu);
         Intent intent = getIntent();
-//        getSupportActionBar().setTitle("TEMENOS");
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
         TextView marqueeText1 = (TextView) findViewById(R.id.textview7);
         marqueeText1.setSelected(true);
         expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
