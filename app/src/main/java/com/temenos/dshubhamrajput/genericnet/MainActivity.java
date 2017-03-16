@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    
+
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 

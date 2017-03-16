@@ -159,6 +159,7 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
        android:textColor="#ffffff"
        android:background="@drawable/mybutton"
        android:text="Submit"
+       android:onClick="ButtonClicked"
        android:textSize="20sp"
        android:scaleX="0.8"
        android:scaleY="0.8"

@@ -23,16 +23,22 @@ import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.Date;
 
+import static java.security.AccessController.getContext;
+
 
 public class AcctStmtActivity extends AppCompatActivity  {
     static EditText DateEdit;
     static EditText DateEdit2;
     static Context context;
+    String imp;
     public static int year1,year,month1,month,day1,day;
+    public Intent test;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_acct_stmt);
         getSupportActionBar().setTitle("Account Statement");
