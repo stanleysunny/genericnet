@@ -55,7 +55,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         getSupportActionBar().setTitle("TEMENOS");
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        final Intent intent1 = new Intent(MainActivity.this, Addbeneficiary.class);
+        final Intent Addbeneficiary = new Intent(MainActivity.this, Addbeneficiary.class);
+        final Intent TransferBwAccounts = new Intent(MainActivity.this, TransferBwAccounts.class);
+        final Intent TransferWithinBnk = new Intent(MainActivity.this, TransferWithinBnk.class);
+        final Intent TransferOtherBnk = new Intent(MainActivity.this, TransferOtherBnk.class);
+        //mActivityTitle = getTitle().toString();
+//        TextView textView7 = (TextView) findViewById(R.id.textView7);
+
+//        addDrawerItems();
         setupDrawer();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -116,20 +123,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
+//
 
+                if (expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals( "Add Beneficiary"))
 
-                if (expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Add Beneficiary"))
-                    startActivity(intent1);
-                layout.closeDrawer(GravityCompat.START);
+                    startActivity(Addbeneficiary);
+
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer within Bank"))
+
+                    startActivity(TransferWithinBnk);
+
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer between my Accounts"))
+
+                    startActivity(TransferBwAccounts);
+
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer to other Bank"))
+
+                    startActivity(TransferOtherBnk);
+
                 return false;
             }
         });
-
     }
-
-
-
-
+    
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
@@ -177,11 +193,7 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
 
         // Activate the navigation drawer toggle
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -193,22 +205,22 @@ public class MainActivity extends AppCompatActivity {
             backpress = 0;
         }
         else {
-        backpress = (backpress + 1);
-        if(backpress<1||backpress==1) {
-            Toast.makeText(getApplicationContext(), " Press Back again to Exit ", Toast.LENGTH_SHORT).show();
-        }
+            backpress = (backpress + 1);
+            if(backpress<1||backpress==1) {
+                Toast.makeText(getApplicationContext(), " Press Back again to Exit ", Toast.LENGTH_SHORT).show();
+            }
 
-        if (backpress>1) {
-            session1.logoutUser();
-            this.finish();
+            if (backpress>1) {
+                session1.logoutUser();
+                this.finish();
+            }
         }
     }
+    public void logout()
+    {
+        session1.logoutUser();
+        this.finish();
     }
-public void logout()
-{
-    session1.logoutUser();
-    this.finish();
-}
 
 
 }

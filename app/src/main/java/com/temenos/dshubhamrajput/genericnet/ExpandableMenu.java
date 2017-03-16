@@ -42,8 +42,6 @@ public class ExpandableMenu extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         expandableListTitle.get(groupPosition) + " List Expanded.",
                         Toast.LENGTH_SHORT).show();
-
-
             }
         });
 
@@ -54,7 +52,6 @@ public class ExpandableMenu extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         expandableListTitle.get(groupPosition) + " List Collapsed.",
                         Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -70,15 +67,8 @@ public class ExpandableMenu extends AppCompatActivity {
                                 expandableListTitle.get(groupPosition)).get(
                                 childPosition), Toast.LENGTH_SHORT
                 ).show();
-
-
-
-
-
                 return false;
-
             }
         });
     }
-
 }
