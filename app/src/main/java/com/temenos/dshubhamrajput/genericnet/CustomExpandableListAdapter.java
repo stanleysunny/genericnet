@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +58,7 @@ import android.widget.TextView;
       public int getChildrenCount(int listPosition) {
           return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
                   .size();
+
       }
 
       @Override
@@ -96,8 +98,10 @@ import android.widget.TextView;
           return false;
       }
 
+
       @Override
       public boolean isChildSelectable(int listPosition, int expandedListPosition) {
           return true;
       }
+
   }

@@ -29,4 +29,6 @@
     <string name="title_activity_menu_test">MenuTest</string>
     <string name="title_activity_expandable_menu">ExpandableMenu</string>
     <string name="title_activity_addbeneficiary">Addbeneficiary</string>
+    <string name="ifschelppopup">What is an ifsc?</string>
+    <string name="ifsc_help">An IFSC or the Indian Financial System Code is an 11 digit code in alpha-numeric format used by the Reserve Bank of India to identify all the Bank branches within the NEFT network uniquely. The code facilitates inter-bank electronic funds transfer by way of identifying the source and destination banks.</string>
 </resources>
