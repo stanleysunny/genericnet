@@ -70,7 +70,6 @@ class HttpHandler {
 
     String postfunc(String reurl, String jsonstring)
     {
-        String result;
         String response = "";
         try {
 
@@ -80,7 +79,7 @@ class HttpHandler {
             String basicAuth;
             String userPass;
 
-            userPass = "BTOOLS" + ":" + "123456";
+            userPass = "CREDITMGR" + ":" + "123456";
             basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
             urlConnectio.setRequestProperty("Authorization", basicAuth);
             urlConnectio.setRequestProperty("Accept", "application/json");
@@ -96,29 +95,7 @@ class HttpHandler {
             int responseCode=urlConnectio.getResponseCode();
 
             if (responseCode == HttpsURLConnection.HTTP_OK) {
-                URL commit = new URL("http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input");
-                HttpURLConnection urlcommit = (HttpURLConnection) commit.openConnection();
-                urlcommit.setDoOutput(true);
-
-                userPass = "BTOOLS" + ":" + "123456";
-                basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
-                urlcommit.setRequestProperty("Authorization", basicAuth);
-                urlcommit.setRequestProperty("Accept", "application/json");
-                urlcommit.setRequestProperty("Content-Type", "application/json");
-                urlcommit.setRequestMethod("POST");
-                urlcommit.connect();
-                OutputStreamWriter commitout = new OutputStreamWriter(urlcommit.getOutputStream());
-                commitout.write(jsonstring);// here i sent the parameter
-                commitout.flush();
-                commitout.close();
-
-                int commitresponse = urlcommit.getResponseCode();
-                String line;
-                BufferedReader br=new BufferedReader(new InputStreamReader(urlConnectio.getInputStream()));
-                while ((line=br.readLine()) != null) {
-                    response+=line;
-                    Log.e("Res:", response);
-                }
+               System.out.println("The records are validated");
             }
             else {
                 response="";
@@ -129,6 +106,40 @@ class HttpHandler {
         }
 
         // 11. return result
+        return response;
+    }
+
+    String posCommit(String reurl, String jsonstring) {
+        String response="";
+        try {
+            URL commit = new URL(reurl);
+            HttpURLConnection urlcommit = (HttpURLConnection) commit.openConnection();
+            urlcommit.setDoOutput(true);
+            String basicAuth;
+            String userPass;
+            userPass = "BTOOLS" + ":" + "123456";
+            basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
+            urlcommit.setRequestProperty("Authorization", basicAuth);
+            urlcommit.setRequestProperty("Accept", "application/json");
+            urlcommit.setRequestProperty("Content-Type", "application/json");
+            urlcommit.setRequestMethod("POST");
+            urlcommit.connect();
+            OutputStreamWriter commitout = new OutputStreamWriter(urlcommit.getOutputStream());
+            commitout.write(jsonstring);// here i sent the parameter
+            commitout.flush();
+            commitout.close();
+
+            int commitresponse = urlcommit.getResponseCode();
+            String line;
+            BufferedReader br=new BufferedReader(new InputStreamReader(urlcommit.getInputStream()));
+            while ((line=br.readLine()) != null) {
+                response+=line;
+                Log.e("Res:", response);
+            }
+        }
+        catch (Exception commit){
+            commit.printStackTrace();
+        }
         return response;
     }
 }

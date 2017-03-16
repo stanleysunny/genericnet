@@ -42,11 +42,15 @@ public class AcctStmtActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_acct_stmt);
         getSupportActionBar().setTitle("Account Statement");
-        Spinner spinner = (Spinner) findViewById(R.id.editText5);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.spinner_items, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        Spinner spinner = (Spinner)findViewById(R.id.editText5);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+        spinnerAdapter.add("Adhoc");
+        spinnerAdapter.add("Last 3 months");
+        spinnerAdapter.add("Last month");
+        spinnerAdapter.notifyDataSetChanged();
+
 
         DateEdit = (EditText) findViewById(R.id.editText4);
         DateEdit2 = (EditText) findViewById(R.id.editText3);
