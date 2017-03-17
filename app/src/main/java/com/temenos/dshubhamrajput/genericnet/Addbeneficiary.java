@@ -176,7 +176,7 @@ public class Addbeneficiary extends AppCompatActivity  {
     public void ButtonClicked(View V)
     {
 
-            commit=new Intent(this,AcctStmtActivity.class);
+            commit=new Intent(this,ConfirmPage.class);
             commit.putExtra("getintent",intentData);
             startActivity(commit);
 
