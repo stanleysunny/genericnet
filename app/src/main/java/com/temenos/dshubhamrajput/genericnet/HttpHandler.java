@@ -95,10 +95,10 @@ class HttpHandler {
             int responseCode=urlConnectio.getResponseCode();
 
             if (responseCode == HttpsURLConnection.HTTP_OK) {
-               System.out.println("The records are validated");
+               response="YES";
             }
             else {
-                response="";
+                response="NO";
             }
         }
         catch (Exception e) {
@@ -130,11 +130,11 @@ class HttpHandler {
             commitout.close();
 
             int commitresponse = urlcommit.getResponseCode();
-            String line;
-            BufferedReader br=new BufferedReader(new InputStreamReader(urlcommit.getInputStream()));
-            while ((line=br.readLine()) != null) {
-                response+=line;
-                Log.e("Res:", response);
+            if (commitresponse == HttpsURLConnection.HTTP_OK) {
+                response="YES";
+            }
+            else {
+                response="NO";
             }
         }
         catch (Exception commit){
