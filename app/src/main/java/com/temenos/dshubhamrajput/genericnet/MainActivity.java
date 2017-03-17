@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
 
-                Intent AddBen= new Intent(MainActivity.this,AddBeneficiary.class);
+                Intent AddBen= new Intent(MainActivity.this,Addbeneficiary.class);
                 if (expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Add Beneficiary"))
                     startActivity(AddBen);
                 return false;

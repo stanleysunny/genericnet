@@ -39,7 +39,7 @@ import javax.net.ssl.HttpsURLConnection;
  * Created by upriya on 06-03-2017.
  */
 
-public class AddBeneficiary extends AppCompatActivity {
+public class Addbeneficiary extends AppCompatActivity {
 
     public static String BenID;
     private String status = "no";
