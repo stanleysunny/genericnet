@@ -56,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("TEMENOS");
         //mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        final Intent intent1 = new Intent(MainActivity.this, Addbeneficiary.class);
+
+
         //mActivityTitle = getTitle().toString();
 //        TextView textView7 = (TextView) findViewById(R.id.textView7);
 
@@ -80,9 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onGroupExpand(int groupPosition) {
-//                Toast.makeText(getApplicationContext(),
-//                        expandableListTitle.get(groupPosition) + " List Expanded.",
-//                        Toast.LENGTH_SHORT).show();
+
                if(expandableListTitle.get(groupPosition) == "Account Summary")
                {
                    Intent intent = new Intent(MainActivity.this, AcctSumActivity.class);
@@ -112,69 +111,16 @@ public class MainActivity extends AppCompatActivity {
 
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
+
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-//                Toast.makeText(
-//                        getApplicationContext(),
-//                        expandableListTitle.get(groupPosition)
-//                                + " -> "
-//                                + expandableListDetail.get(
-//                                expandableListTitle.get(groupPosition)).get(
-//                                childPosition), Toast.LENGTH_SHORT
-//                ).show();
 
-                if (expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition) == "Add Beneficiary")
-
-                    startActivity(intent1);
+                Intent AddBen= new Intent(MainActivity.this,AddBeneficiary.class);
+                if (expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Add Beneficiary"))
+                    startActivity(AddBen);
                 return false;
             }
-        });
-//        textView7.setMovementMethod(new ScrollingMovementMethod());
-
-//        int actionBarTitle = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
-//        TextView actionBarTitleView = (TextView) getWindow().findViewById(actionBarTitle);
-//        Typeface robotoBoldCondensedItalic = Typeface.createFromAsset(getAssets(), "font/CorisandeRegular.ttf");
-//        if(actionBarTitleView != null){
-//            actionBarTitleView.setTypeface(robotoBoldCondensedItalic);
-        // }
-    }
-
-
-
-//    private void addDrawerItems() {
-//        String[] osArray = { "Account Summary", "Account Statement", "Account Transfer", "Settings","Feedback", "Help", "Logout" };
-//        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
-//        mDrawerList.setAdapter(mAdapter);
-//        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener()//add an event on clicking an item in menu
-//        {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
-//        DrawerLayout layout = (DrawerLayout)findViewById(R.id.drawer_layout);
-//
-//                if(position == 0) {
-////                Toast.makeText(MainActivity.this, "Testing!" , Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(MainActivity.this, AcctSumActivity.class);
-//                    startActivity(intent);
-//                    layout.closeDrawer(GravityCompat.START);
-//                }
-//
-//                if(position == 1) {
-////                Toast.makeText(MainActivity.this, "Testing!" , Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(MainActivity.this, AcctStmtActivity.class);
-//                    startActivity(intent);
-//                    layout.closeDrawer(GravityCompat.START);
-//                }
-//                if(position == 6)
-//                {
-//                    logout();
-//                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-//                    startActivity(intent);
-//                    layout.closeDrawer(GravityCompat.START);
-//                }
-//
-//            }
-//        });
-//    }
+        });}
 
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
