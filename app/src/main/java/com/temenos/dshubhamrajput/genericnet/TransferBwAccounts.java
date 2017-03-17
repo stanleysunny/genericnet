@@ -1,6 +1,7 @@
 package com.temenos.dshubhamrajput.genericnet;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import java.io.InputStream;
 public class TransferBwAccounts extends AppCompatActivity {
     private String TAG = MainActivity.class.getSimpleName();
     static public String RefNo="";
+    public String intentData;
+    public Intent commit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +89,11 @@ public class TransferBwAccounts extends AppCompatActivity {
                 String Currency = "USD";
 
                 new jsonResponse().execute(fromAccountNo,toAccountNo,description,amount,transType,Currency);
+
+                intentData = "account";
+                commit=new Intent(arg0.getContext(),ConfirmPage.class);
+                commit.putExtra("getintent",intentData);
+                startActivity(commit);
             }
         });
     }
