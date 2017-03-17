@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -18,7 +19,22 @@ public class ConfirmPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_page);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        e5=(EditText)findViewById(R.id.editText8);
+        Button backbutton = (Button) findViewById(R.id.button);
+        backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        Button confirm = (Button) findViewById(R.id.button2);
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ConfirmPage.this, SucessPage.class);
+                startActivity(intent);
+            }
+        });
+        e5=(EditText) findViewById(R.id.editText8);
         t1=(TextView) findViewById(R.id.textView);
         t2=(TextView) findViewById(R.id.textView3);
         t3=(TextView) findViewById(R.id.textView5);
