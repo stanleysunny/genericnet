@@ -32,14 +32,6 @@ public class ConfirmPage extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        Button confirm = (Button) findViewById(R.id.button2);
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ConfirmPage.this, SucessPage.class);
-                startActivity(intent);
-            }
-        });
         e5=(EditText) findViewById(R.id.editText8);
         t1=(TextView) findViewById(R.id.textView);
         t2=(TextView) findViewById(R.id.textView3);
@@ -93,7 +85,7 @@ public class ConfirmPage extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    new commitFunCall().execute(url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccount"),extras.getString("Currency"),extras.getString("amount")
+                    new commitFunCall().execute(url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
                             ,extras.getString("toAccountNo"),extras.getString("description"));
                 }
             });
@@ -118,13 +110,13 @@ public class ConfirmPage extends AppCompatActivity {
 
                 // 3. build jsonObject
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("RefNo", params[0]);
-                jsonObject.accumulate("TransactionType", params[1]);
-                jsonObject.accumulate("DebitAcctNo", params[2]);
-                jsonObject.accumulate("DebitCurrency", params[3]);
-                jsonObject.accumulate("DebitAmount", params[4]);
-                jsonObject.accumulate("CreditAcctNo", params[5]);
-                jsonObject.accumulate("Description", params[6]);
+                jsonObject.accumulate("RefNo", params[1]);
+                jsonObject.accumulate("TransactionType", params[2]);
+                jsonObject.accumulate("DebitAcctNo", params[3]);
+                jsonObject.accumulate("DebitCurrency", params[4]);
+                jsonObject.accumulate("DebitAmount", params[5]);
+                jsonObject.accumulate("CreditAcctNo", params[6]);
+                jsonObject.accumulate("Description", params[7]);
 
                 // 4. convert JSONObject to JSON to String
                 json = jsonObject.toString();
@@ -145,7 +137,7 @@ public class ConfirmPage extends AppCompatActivity {
         }
         protected void onPostExecute(Boolean aBoolean) {
             if(aBoolean){
-                final Intent TransferBwAccounts = new Intent(ConfirmPage.this, ConfirmPage.class);
+                final Intent TransferBwAccounts = new Intent(ConfirmPage.this, SucessPage.class);
                 startActivity(TransferBwAccounts);
             }
             else{

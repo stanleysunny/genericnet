@@ -222,6 +222,7 @@ public class TransferBwAccounts extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 // continue with delete
                                 final Intent TransferBwAccounts = new Intent(TransferBwAccounts.this, TransferBwAccounts.class);
+                                finish();
                                 startActivity(TransferBwAccounts);
                             }
                         })

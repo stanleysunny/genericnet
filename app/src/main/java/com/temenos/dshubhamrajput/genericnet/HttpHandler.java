@@ -70,7 +70,7 @@ class HttpHandler {
 
     String postfunc(String reurl, String jsonstring)
     {
-        String response = "";
+       String response = "";
         try {
 
             URL e = new URL(reurl);
@@ -117,7 +117,7 @@ class HttpHandler {
             urlcommit.setDoOutput(true);
             String basicAuth;
             String userPass;
-            userPass = "BTOOLS" + ":" + "123456";
+            userPass = "CREDITMGR" + ":" + "123456";
             basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
             urlcommit.setRequestProperty("Authorization", basicAuth);
             urlcommit.setRequestProperty("Accept", "application/json");
@@ -130,7 +130,7 @@ class HttpHandler {
             commitout.close();
 
             int commitresponse = urlcommit.getResponseCode();
-            if (commitresponse == HttpsURLConnection.HTTP_OK) {
+            if (commitresponse == HttpsURLConnection.HTTP_CREATED) {
                 response="YES";
             }
             else {
