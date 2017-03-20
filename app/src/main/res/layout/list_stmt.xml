@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/date"
+        android:text="Date"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentLeft="true"
+        android:gravity="left"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:background="#aed7fc"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        />
+
+    <TextView
+        android:text="15-Jan-2017"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/datevalue"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:paddingRight="25dp"
+        android:textColor="#5d5d5d"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/amount"
+        android:text="Amount"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentLeft="true"
+        android:gravity="left"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:layout_below="@+id/date"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:text="-500"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/amountvalue"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:paddingRight="25dp"
+        android:layout_below="@+id/datevalue"
+        android:textColor="#5d5d5d"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cheq"
+        android:text="Cheque/Ref No"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentLeft="true"
+        android:gravity="left"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:layout_below="@+id/amount"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:text="65132"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cheqvalue"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:paddingRight="25dp"
+        android:layout_below="@+id/amountvalue"
+        android:textColor="#5d5d5d"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/narration"
+        android:text="Narration"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentLeft="true"
+        android:gravity="left"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:layout_below="@+id/cheq"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:text="Bismi Biryani"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/narrationvalue"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:paddingRight="25dp"
+        android:layout_below="@+id/cheqvalue"
+        android:textColor="#5d5d5d"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/closbal"
+        android:text="Closing Balance"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentLeft="true"
+        android:gravity="left"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:layout_below="@+id/narration"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:text="4,95,200.00"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/closbalvalue"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:paddingRight="25dp"
+        android:layout_below="@+id/narrationvalue"
+        android:textColor="#5d5d5d"
+        />
+
+
+</RelativeLayout>

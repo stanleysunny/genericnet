@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_transfer_bw_accts"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.temenos.dshubhamrajput.genericnet.TransferWithinBnk"
+    android:clickable="true" android:focusableInTouchMode="true">
+
+    <TextView
+        android:text="From Account No"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="26dp"
+        android:id="@+id/textView"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="290sp"
+        android:layout_height="30sp"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:background="@drawable/acctedit"
+        android:layout_below="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="7dp"
+        android:paddingLeft="5dp"/>
+
+    <ImageView
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/searchico"
+        android:id="@+id/imageView"
+        android:layout_alignParentEnd="false"
+        android:layout_toEndOf="@+id/editText"
+        android:layout_alignBottom="@+id/editText"
+        android:layout_alignTop="@+id/editText"
+        android:layout_width="50dp" />
+
+    <TextView
+        android:text="To Account No"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:id="@+id/textView3"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_below="@+id/editText"
+        android:layout_alignStart="@+id/editText" />
+
+    <EditText
+        android:layout_width="290sp"
+        android:layout_height="30sp"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText6"
+        android:background="@drawable/acctedit"
+        android:layout_marginTop="12dp"
+        android:paddingLeft="5dp"
+        android:layout_below="@+id/textView3"
+        android:layout_alignStart="@+id/textView3" />
+
+    <ImageView
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/searchico"
+        android:id="@+id/imageView5"
+        android:layout_alignBottom="@+id/editText6"
+        android:layout_alignTop="@+id/editText6"
+        android:layout_toEndOf="@+id/editText6"
+        android:layout_width="50dp" />
+
+    <TextView
+        android:text="Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:id="@+id/textView5"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_below="@+id/editText6"
+        android:layout_alignStart="@+id/editText6" />
+
+    <EditText
+        android:layout_width="290sp"
+        android:layout_height="30sp"
+        android:inputType="text"
+        android:ems="10"
+        android:id="@+id/editText7"
+        android:background="@drawable/acctedit"
+        android:layout_marginTop="7dp"
+        android:paddingLeft="5dp"
+        android:layout_below="@+id/textView5"
+        android:layout_alignStart="@+id/textView5" />
+
+    <EditText
+        android:layout_width="290sp"
+        android:layout_height="30sp"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText8"
+        android:background="@drawable/acctedit"
+        android:layout_marginTop="9dp"
+        android:paddingLeft="5dp"
+        android:layout_below="@+id/textView6"
+        android:layout_alignStart="@+id/textView6" />
+
+    <Button
+        android:text="Submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText8"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
+        android:id="@+id/button" />
+
+    <TextView
+        android:text="Amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/editText7"
+        android:layout_alignStart="@+id/editText7" />
+</RelativeLayout>
+
+
+</ScrollView>

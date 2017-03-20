@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#65BCF5</color>
+    <color name="colorPrimaryDark">#4cb3f7</color>
     <color name="colorAccent">#FF4081</color>
     <!-- Color Hex Values for error message on Login Screen -->
     <color name="colorLoginError">#FF0000</color>
+    <color name="BLACK">#000000</color>
+    <color name="pink">#FFB6C1</color>
+    <color name="indigo">#4B0082</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>
+

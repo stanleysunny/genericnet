@@ -1,0 +1,34 @@
+domain T24 {
+    use common.CoreCommands.*
+    use common.HTTPEvents.*
+    use common.ODataCommands.*
+    use common.T24Commands.*
+    use common.T24Events.*
+    use common.NextState.*
+    rim enqEnqIfsc {
+        command GETEntities
+        command GETEntity
+        basepath: "/{companyid}"
+    
+        resource enqEnqIfscs {
+            type: collection
+            entity: enqEnqIfsc
+            commands [ GET : GETEntities {
+                properties [ filter = "{filter}" ]
+                } ]
+            path: "/enqEnqIfscs()"
+            GET *-> enqEnqIfsc {
+                parameters [ id = "{Id}" ]
+            }
+        }
+    
+        resource enqEnqIfsc {
+            type: item
+            entity: enqEnqIfsc
+            commands [ GET : GETEntity ]
+            path: "/enqEnqIfscs('{id}')"
+        }
+    
+    }
+    
+}
