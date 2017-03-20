@@ -6,5 +6,8 @@
     <!-- Color Hex Values for error message on Login Screen -->
     <color name="colorLoginError">#FF0000</color>
     <color name="BLACK">#000000</color>
+    <color name="pink">#FFB6C1</color>
+    <color name="indigo">#4B0082</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>
 

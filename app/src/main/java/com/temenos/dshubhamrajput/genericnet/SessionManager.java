@@ -100,11 +100,6 @@ public class SessionManager {
         }
 
         /**
-         * Clear session details
-         * */
-
-
-        /**
          * Quick check for login
          * **/ public void logoutUser(){
             // Clearing all data from Shared Preferences
