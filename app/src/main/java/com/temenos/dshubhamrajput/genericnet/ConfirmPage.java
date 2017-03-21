@@ -101,7 +101,8 @@ public class ConfirmPage extends AppCompatActivity {
                 @Override
                 public void onClick(View arg0) {
 
-
+                    final Intent Back = new Intent(ConfirmPage.this,Addbeneficiary.class);
+                    startActivity(Back);
                 }
             });
 
@@ -148,7 +149,8 @@ public class ConfirmPage extends AppCompatActivity {
                 @Override
                 public void onClick(View arg0) {
 
-
+                    final Intent Back = new Intent(ConfirmPage.this,Addbeneficiary.class);
+                    startActivity(Back);
                 }
             });
         }
@@ -314,7 +316,14 @@ public Commit(HashMap<String, String> obj )
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
         if(success)
-        Toast.makeText(ConfirmPage.this, "success", Toast.LENGTH_LONG).show();
+        {
+            final Intent AddBeneficiary = new Intent(ConfirmPage.this, SucessPage.class);
+            startActivity( AddBeneficiary);
+        }
+        else
+        {
+            Toast.makeText(ConfirmPage.this, "error in connection ", Toast.LENGTH_LONG).show();
+        }
     }
 
 
