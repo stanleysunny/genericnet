@@ -75,29 +75,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onGroupExpand(int groupPosition) {
 
-               if(expandableListTitle.get(groupPosition).equals("Account Summary"))
-               {
-                   Intent intent = new Intent(MainActivity.this, AcctSumActivity.class);
-                   startActivity(intent);
-                   layout.closeDrawer(GravityCompat.START);
+                if(expandableListTitle.get(groupPosition).equals("Account Summary"))
+                {
+                    Intent intent = new Intent(MainActivity.this, AcctSumActivity.class);
+                    startActivity(intent);
+                    layout.closeDrawer(GravityCompat.START);
 
 
-               }
-               else if(expandableListTitle.get(groupPosition).equals("Account Statement"))
-               {
-                   Intent intent = new Intent(MainActivity.this, AcctStmtActivity.class);
-                   startActivity(intent);
-                   layout.closeDrawer(GravityCompat.START);
+                }
+                else if(expandableListTitle.get(groupPosition).equals("Account Statement"))
+                {
+                    Intent intent = new Intent(MainActivity.this, AcctStmtActivity.class);
+                    startActivity(intent);
+                    layout.closeDrawer(GravityCompat.START);
 
-               }
-               else if(expandableListTitle.get(groupPosition).equals("Logout"))
-               {
-                   logout();
-                   Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                   startActivity(intent);
-                   layout.closeDrawer(GravityCompat.START);
+                }
+                else if(expandableListTitle.get(groupPosition).equals("Logout"))
+                {
+                    logout();
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    layout.closeDrawer(GravityCompat.START);
 
-               }
+                }
 
             }
         });
