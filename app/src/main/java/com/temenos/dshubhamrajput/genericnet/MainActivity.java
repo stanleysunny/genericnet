@@ -44,37 +44,37 @@ public class MainActivity extends AppCompatActivity {
     ExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
     LinkedHashMap<String, List<String>> expandableListDetail;
+    DrawerLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        layout = (DrawerLayout)findViewById(R.id.drawer_layout);
         session1 = new SessionManager(getApplicationContext());
         Intent intent = getIntent();
-//        Intent intent = getIntent();
         getSupportActionBar().setTitle("TEMENOS");
-        //mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-
+        final Intent Addbeneficiary = new Intent(MainActivity.this, Addbeneficiary.class);
+        final Intent TransferBwAccounts = new Intent(MainActivity.this, TransferBwAccounts.class);
+        final Intent TransferWithinBnk = new Intent(MainActivity.this, TransferWithinBnk.class);
+        final Intent TransferOtherBnk = new Intent(MainActivity.this, TransferOtherBnk.class);
         //mActivityTitle = getTitle().toString();
 //        TextView textView7 = (TextView) findViewById(R.id.textView7);
 
 //        addDrawerItems();
         setupDrawer();
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
         TextView marqueeText1 = (TextView) findViewById(R.id.textview7);
         marqueeText1.setSelected(true);
         expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
         expandableListDetail = ExpandableListDataPump.getData();
-        System.out.print("Object List"+expandableListDetail);
+        expandableListView.setGroupIndicator(getResources().getDrawable(R.drawable.state_list));
         expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
         expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
+
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
 
@@ -82,17 +82,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onGroupExpand(int groupPosition) {
 
-               if(expandableListTitle.get(groupPosition) == "Account Summary")
-               {
-                   Intent intent = new Intent(MainActivity.this, AcctSumActivity.class);
-                   startActivity(intent);
-//
-               }
-               else if(expandableListTitle.get(groupPosition) == "Account Statement")
-               {
-                   Intent intent = new Intent(MainActivity.this, AcctStmtActivity.class);
-                   startActivity(intent);
-               }
+                if(expandableListTitle.get(groupPosition).equals("Account Summary"))
+                {
+                    Intent intent = new Intent(MainActivity.this, AcctSumActivity.class);
+                    startActivity(intent);
+                    layout.closeDrawer(GravityCompat.START);
+
+
+                }
+                else if(expandableListTitle.get(groupPosition).equals("Account Statement"))
+                {
+                    Intent intent = new Intent(MainActivity.this, AcctStmtActivity.class);
+                    startActivity(intent);
+                    layout.closeDrawer(GravityCompat.START);
+
+                }
+                else if(expandableListTitle.get(groupPosition).equals("Logout"))
+                {
+                    logout();
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    layout.closeDrawer(GravityCompat.START);
+
+                }
 
             }
         });
@@ -102,25 +114,37 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onGroupCollapse(int groupPosition) {
-//                Toast.makeText(getApplicationContext(),
-//                        expandableListTitle.get(groupPosition) + " List Collapsed.",
-//                        Toast.LENGTH_SHORT).show();
 
             }
         });
 
+
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
-
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
+//
 
-                Intent AddBen= new Intent(MainActivity.this,Addbeneficiary.class);
-                if (expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Add Beneficiary"))
-                    startActivity(AddBen);
+                if (expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals( "Add Beneficiary"))
+
+                    startActivity(Addbeneficiary);
+
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer within Bank"))
+
+                    startActivity(TransferWithinBnk);
+
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer between my Accounts"))
+
+                    startActivity(TransferBwAccounts);
+
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer to other Bank"))
+
+                    startActivity(TransferOtherBnk);
+
                 return false;
             }
-        });}
+        });
+    }
 
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
@@ -159,12 +183,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.my_options_menu, menu);
-//        return true;
-//    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -173,43 +191,36 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
 
         // Activate the navigation drawer toggle
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed(){
 
-        DrawerLayout layout = (DrawerLayout)findViewById(R.id.drawer_layout);
+
         if (layout.isDrawerOpen(GravityCompat.START)) {
             layout.closeDrawer(GravityCompat.START);
             backpress = 0;
         }
         else {
-        backpress = (backpress + 1);
-        if(backpress<1||backpress==1) {
-            Toast.makeText(getApplicationContext(), " Press Back again to Exit ", Toast.LENGTH_SHORT).show();
-        }
+            backpress = (backpress + 1);
+            if(backpress<1||backpress==1) {
+                Toast.makeText(getApplicationContext(), " Press Back again to Exit ", Toast.LENGTH_SHORT).show();
+            }
 
-        if (backpress>1) {
-            session1.logoutUser();
-            this.finish();
+            if (backpress>1) {
+                session1.logoutUser();
+                this.finish();
+            }
         }
     }
+    public void logout()
+    {
+        session1.logoutUser();
+        this.finish();
     }
-public void logout()
-{
-    session1.logoutUser();
-    this.finish();
-}
 
 
 }

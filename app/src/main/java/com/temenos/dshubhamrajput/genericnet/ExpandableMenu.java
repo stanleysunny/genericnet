@@ -25,11 +25,9 @@ public class ExpandableMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expandable_menu);
         Intent intent = getIntent();
-//        getSupportActionBar().setTitle("TEMENOS");
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
         TextView marqueeText1 = (TextView) findViewById(R.id.textview7);
         marqueeText1.setSelected(true);
         expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
@@ -44,8 +42,6 @@ public class ExpandableMenu extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         expandableListTitle.get(groupPosition) + " List Expanded.",
                         Toast.LENGTH_SHORT).show();
-
-
             }
         });
 
@@ -56,7 +52,6 @@ public class ExpandableMenu extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         expandableListTitle.get(groupPosition) + " List Collapsed.",
                         Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -72,15 +67,8 @@ public class ExpandableMenu extends AppCompatActivity {
                                 expandableListTitle.get(groupPosition)).get(
                                 childPosition), Toast.LENGTH_SHORT
                 ).show();
-
-
-
-
-
                 return false;
-
             }
         });
     }
-
 }
