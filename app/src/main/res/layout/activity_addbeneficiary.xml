@@ -168,5 +168,4 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
        android:layout_centerHorizontal="true" />
 
 
-
 </RelativeLayout>
