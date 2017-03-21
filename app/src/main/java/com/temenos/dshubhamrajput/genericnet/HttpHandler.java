@@ -42,7 +42,7 @@ public class HttpHandler {
         try {
             URL e = new URL(reqUrl);
             HttpURLConnection urlConnection = (HttpURLConnection)e.openConnection();
-            String userPass = "CREDITMGR" + ":" + "123456";
+             String userPass = "PAYUSER1" + ":" + "123456";
             basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
             urlConnection.setRequestProperty("Authorization", basicAuth);
             urlConnection.setRequestProperty("Accept", "application/json");
@@ -78,7 +78,7 @@ public class HttpHandler {
             return this.response;
         }
 
-    private String convertStreamToString(InputStream is) {
+    public String convertStreamToString(InputStream is) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
 

@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer to other Bank"))
 
                     startActivity(TransferOtherBnk);
+                layout.closeDrawer(GravityCompat.START);
 
                 return false;
             }

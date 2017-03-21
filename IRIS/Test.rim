@@ -30,14 +30,13 @@ domain Test {
             GET -> T24.enqStmtEntBook.enqStmtEntBooks
             GET -> T24.enqImageList.enqImageLists
             GET -> T24.verCustomer_Input.verCustomer_Inputs
-            GET -> T24.enqPctAbbreviation.enqPctAbbreviations
             GET -> T24.enqUservalidate.enqUservalidates
-            GET -> T24.enqAcctStmt.enqAcctStmts
-            GET -> T24.enqAccountStmt.enqAccountStmts
             GET -> T24.enqAcctHome.enqAcctHomes
-            GET -> T24.enqEnqMenu.enqEnqMenus
-            
- 
+            GET -> T24.verBeneficiary_Obnk.verBeneficiary_Obnks
+            GET -> T24.verBeneficiary_Wbnk.verBeneficiary_Wbnks
+            GET -> T24.verFundsTransfer_AcTrans.verFundsTransfer_AcTranss
+            GET -> T24.enqEnqObnk.enqEnqObnks
+            GET -> T24.enqEnqWbnk.enqEnqWbnks
         }
 
         exception resource InteractionException {

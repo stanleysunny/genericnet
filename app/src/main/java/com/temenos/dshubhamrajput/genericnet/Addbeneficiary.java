@@ -1,14 +1,13 @@
 package com.temenos.dshubhamrajput.genericnet;
 
 import android.os.AsyncTask;
+
 import android.util.Log;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -56,7 +55,7 @@ public class Addbeneficiary extends AppCompatActivity {
     private static String status = "no";
     public static boolean success= true;
 
-    // private String TAG = AddBeneficiary.class.getSimpleName();
+
 
 
     @Override
@@ -65,6 +64,7 @@ public class Addbeneficiary extends AppCompatActivity {
 
         setContentView(R.layout.activity_addbeneficiary);
         getSupportActionBar().setTitle("Add beneficiary");
+
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
      //   final HashMap<String, String> obj = new HashMap<>();
@@ -77,11 +77,7 @@ public class Addbeneficiary extends AppCompatActivity {
         final EditText emailUser = (EditText) findViewById(R.id.Email);
         final EditText Nickname = (EditText) findViewById(R.id.NickName);
         final ImageView helpicon = (ImageView) findViewById(R.id.help_icon);
-        final String ifscChecker = "/^[A-Z]{4}[0][0-9A-Z]{6}$/";
 
-//        Pattern pattern = Pattern.compile(ifscChecker);
-        final String ifsc_matcher = ifscEtext.getText().toString();
-//        matcher = pattern.matcher(ifscEtext.getText().toString());
         new NewDeal().execute();
 
 
@@ -112,104 +108,90 @@ public class Addbeneficiary extends AppCompatActivity {
                     ifscEtext.setVisibility(View.VISIBLE);
                     helpicon.setVisibility(View.VISIBLE);
                     intentData = "external";
-                    status = "yes";
+                    status="yes";
+
 
                 }
             }
         });
-//        accNoCheck.addTextChangedListener(new TextWatcher() {
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                accNoCheck.setError(null);
-//            }
-//
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                accNoCheck.setError(null);
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                if (!(accNoCheck.getText().toString().equals(benAccNo.getText().toString()))) {
-//                    accNoCheck.setError("Account numbers don't match");
-//                } else {
-//                    accNoCheck.setError(null);
-//                }
-//            }
-//        });
-//        emailUser.addTextChangedListener(new TextWatcher() {
-//
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                emailUser.setError(null);
-//            }
-//
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                emailUser.setError(null);
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                final String email = emailUser.getText().toString();
-//                if (!(emailValidator(email))) {
-//                    emailUser.setError("Enter a valid email id");
-//                } else {
-//                    emailUser.setError(null);
-//                }
-//            }
-//        });
-//        ifscEtext.addTextChangedListener(new TextWatcher() {
-//
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                ifscEtext.setError(null);
-//            }
-//
-//
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                ifscEtext.setError(null);
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                if (!(ifsc_matcher.matches(ifscChecker)))
-//                    ifscEtext.setError("IFSC should be a 11 character alpha numeric string");
-//                else
-//                    ifscEtext.setError(null);
-//
-//            }
-//
-//
-//        });
-        Button viewStmt = (Button) findViewById(R.id.BenButton);
+         Button viewStmt = (Button) findViewById(R.id.BenButton);
         viewStmt.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                if (status.equals("yes")) {
-                    String AccNo = benAccNo.getText().toString();
-                    String Emailstr = emailUser.getText().toString();
-                    String Nick = Nickname.getText().toString();
-                    String IFSCstr = ifscEtext.getText().toString();
-                    new PostDetails().execute(status,AccNo, Emailstr, Nick,IFSCstr);
-                } else {
-                    String AccNo = benAccNo.getText().toString();
-                    String Emailstr = emailUser.getText().toString();
-                    String Nick = Nickname.getText().toString();
 
-                    new PostDetails().execute(status,AccNo, Emailstr, Nick);
+                if(intentData.equals("external")) {
+                    if ((ifscEtext.getText().toString()).matches(""))
+                        ifscEtext.setError("This field cannot be left blank");
+                }
+                if ((benAccNo.getText().toString()).matches(""))
+                    benAccNo.setError("This field cannot be left blank");
+                if ((accNoCheck.getText().toString()).matches(""))
+                    accNoCheck.setError("This field cannot be left blank");
+                if ((Nickname.getText().toString()).matches(""))
+                     Nickname.setError("This field cannot be left blank");
+                if (((benAccNo.getError() == null) && (accNoCheck.getError() == null) && (emailUser.getError() == null) && ( Nickname.getError() == null) && (ifscEtext.getError() == null)))
+                {
+                    if (status.equals("yes")) {
+                        String AccNo = benAccNo.getText().toString();
+                        String Emailstr = emailUser.getText().toString();
+                        String Nick = Nickname.getText().toString();
+                        String IFSCstr = ifscEtext.getText().toString();
+                        new PostDetails().execute(status,AccNo, Emailstr, Nick,IFSCstr);
+                    } else {
+                        String AccNo = benAccNo.getText().toString();
+                        String Emailstr = emailUser.getText().toString();
+                        String Nick = Nickname.getText().toString();
+
+                        new PostDetails().execute(status,AccNo, Emailstr, Nick);
+                    }
+
+                }
+
+            }
+        });
+
+        accNoCheck.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!(accNoCheck.getText().toString().equals(benAccNo.getText().toString()))) {
+                    accNoCheck.setError("Account numbers don't match");
+                } else if (((accNoCheck.getText().toString()).matches(""))) {
+                    accNoCheck.setError("This field cannot be left blank");
+                }
+
+            }
+
+        });
+
+        emailUser.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    final String email = emailUser.getText().toString();
+                    if (!(emailValidator(email))) {
+                        emailUser.setError("Enter a valid email id");
+                    } else if ((emailUser.getText().toString()).matches("")) {
+                        emailUser.setError(null);
+                    }
                 }
             }
         });
 
-
+        ifscEtext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    String ifsc = ifscEtext.getText().toString();
+                    boolean check = ifscMatcher(ifsc);
+                    if (!check) {
+                        ifscEtext.setError("IFSC is a 11 digit alpha numeric string");
+                    }
+                    else if (ifscEtext.getText().toString().matches("")) {
+                        ifscEtext.setError("This field cannot be left blank");
+                    }
+                }
+            }
+        });
     }
-
 
     public boolean emailValidator(String email) {
         Pattern pattern;
@@ -217,6 +199,15 @@ public class Addbeneficiary extends AppCompatActivity {
         final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    public boolean ifscMatcher(String ifsc) {
+        Pattern pattern;
+        Matcher matcher;
+        final String ifscChecker = "^[A-Z]{4}\\d{7}$" ;
+        pattern = Pattern.compile(ifscChecker);
+        matcher = pattern.matcher(ifsc);
         return matcher.matches();
     }
 
@@ -239,6 +230,7 @@ public class Addbeneficiary extends AppCompatActivity {
         finish();
         return true;
     }
+
 
 
     private class PostDetails extends AsyncTask<String, Void, Void> {
