@@ -19,6 +19,7 @@
     <string name="urlstring">http://10.93.21.84:8085/Test-iris/Test.svc/GB0010001/enqUservalidates()</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="ifsc_help">An IFSC or the Indian Financial System Code is an 11 digit code in alpha-numeric format used by the Reserve Bank of India to identify all the Bank branches within the NEFT network uniquely. The code facilitates inter-bank electronic funds transfer by way of identifying the source and destination banks.</string>
 
     <string name="action_settings">Settings</string>
     <!-- Login page Image content description -->
@@ -33,5 +34,4 @@
     <string name="internal_indicator">internal</string>
     <string name="external_indicator">external</string>
     <string name="ft_indicator">ftintetnt</string>
-    <string name="ifsc_help">An IFSC or the Indian Financial System Code is an 11 digit code in alpha-numeric format used by the Reserve Bank of India to identify all the Bank branches within the NEFT network uniquely. The code facilitates inter-bank electronic funds transfer by way of identifying the source and destination banks.</string>
 </resources>

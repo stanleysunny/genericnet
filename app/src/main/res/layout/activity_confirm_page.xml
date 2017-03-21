@@ -127,9 +127,9 @@
         android:text="Confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="37dp"
         android:id="@+id/button2"
-        android:layout_marginStart="42dp"
+        android:layout_marginStart="18dp"
         android:layout_below="@+id/editText8"
         android:layout_toEndOf="@+id/textView11" />
 
@@ -138,8 +138,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button"
-        android:layout_marginEnd="39dp"
         android:layout_alignBaseline="@+id/button2"
         android:layout_alignBottom="@+id/button2"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignEnd="@+id/editText8" />
 </RelativeLayout>
