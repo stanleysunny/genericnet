@@ -2,6 +2,7 @@ package com.temenos.dshubhamrajput.genericnet;
 
 import android.os.AsyncTask;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -153,11 +154,15 @@ public class Addbeneficiary extends AppCompatActivity {
 
         accNoCheck.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             public void onFocusChange(View v, boolean hasFocus) {
-                if (!(accNoCheck.getText().toString().equals(benAccNo.getText().toString()))) {
+
+                 if (!(accNoCheck.getText().toString().equals(benAccNo.getText().toString()))) {
+                     if (!((accNoCheck.getText().toString()).matches("")))
                     accNoCheck.setError("Account numbers don't match");
-                } else if (((accNoCheck.getText().toString()).matches(""))) {
-                    accNoCheck.setError("This field cannot be left blank");
                 }
+                else if(((accNoCheck.getText().toString()).matches("")))
+                     accNoCheck.setError("This field cannot be left blank");
+                else
+                    accNoCheck.setError(null);
 
             }
 
@@ -169,8 +174,9 @@ public class Addbeneficiary extends AppCompatActivity {
                 if (!hasFocus) {
                     final String email = emailUser.getText().toString();
                     if (!(emailValidator(email))) {
+                        if(!(email.equals("")))
                         emailUser.setError("Enter a valid email id");
-                    } else if ((emailUser.getText().toString()).matches("")) {
+                    } else  {
                         emailUser.setError(null);
                     }
                 }
@@ -183,11 +189,14 @@ public class Addbeneficiary extends AppCompatActivity {
                     String ifsc = ifscEtext.getText().toString();
                     boolean check = ifscMatcher(ifsc);
                     if (!check) {
+                        if(!(ifsc.equals("")))
                         ifscEtext.setError("IFSC is a 11 digit alpha numeric string");
                     }
                     else if (ifscEtext.getText().toString().matches("")) {
                         ifscEtext.setError("This field cannot be left blank");
                     }
+                    else
+                        ifscEtext.setError(null);
                 }
             }
         });
