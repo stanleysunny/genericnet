@@ -30,7 +30,7 @@ class HttpHandler {
         try {
             URL e = new URL(reqUrl);
             HttpURLConnection urlConnection = (HttpURLConnection)e.openConnection();
-            String userPass = "CREDITMGR" + ":" + "123456";
+             String userPass = "AUTHOR" + ":" + "123456";
             basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
             urlConnection.setRequestProperty("Authorization", basicAuth);
             urlConnection.setRequestProperty("Accept", "application/json");
@@ -43,7 +43,29 @@ class HttpHandler {
 
         return response;
     }
-    private String convertStreamToString(InputStream is) {
+    public String makeServiceCallGet(String reqUrl)
+    {
+        String response = null;
+        String basicAuth;
+
+    try {
+
+        URL e = new URL(reqUrl);
+        HttpURLConnection urlConnection = (HttpURLConnection)e.openConnection();
+        String userPass = "PAYUSER1"+ ":" +"123456";
+        basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
+        urlConnection.setRequestProperty("Authorization", basicAuth);
+        urlConnection.setRequestProperty("Accept", "application/json");
+        urlConnection.setRequestMethod("GET");
+        BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
+        response = this.convertStreamToString(in);
+    } catch (Exception var5) {
+        var5.printStackTrace();
+    }
+
+    return response;
+    }
+    public String convertStreamToString(InputStream is) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
 
