@@ -105,7 +105,7 @@ public class HttpHandler {
 
     String postfunc(String reurl, String jsonstring)
     {
-        String response = "";
+       String response = "";
         try {
 
             URL e = new URL(reurl);
@@ -130,10 +130,10 @@ public class HttpHandler {
             int responseCode=urlConnectio.getResponseCode();
 
             if (responseCode == HttpsURLConnection.HTTP_OK) {
-               System.out.println("The records are validated");
+               response="YES";
             }
             else {
-                response="";
+                response="NO";
             }
         }
         catch (Exception e) {
@@ -152,7 +152,7 @@ public class HttpHandler {
             urlcommit.setDoOutput(true);
             String basicAuth;
             String userPass;
-            userPass = "BTOOLS" + ":" + "123456";
+            userPass = "CREDITMGR" + ":" + "123456";
             basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
             urlcommit.setRequestProperty("Authorization", basicAuth);
             urlcommit.setRequestProperty("Accept", "application/json");
@@ -165,11 +165,11 @@ public class HttpHandler {
             commitout.close();
 
             int commitresponse = urlcommit.getResponseCode();
-            String line;
-            BufferedReader br=new BufferedReader(new InputStreamReader(urlcommit.getInputStream()));
-            while ((line=br.readLine()) != null) {
-                response+=line;
-                Log.e("Res:", response);
+            if (commitresponse == HttpsURLConnection.HTTP_CREATED) {
+                response="YES";
+            }
+            else {
+                response="NO";
             }
         }
         catch (Exception commit){
