@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="26dp"
-        android:id="@+id/textView"
+        android:id="@+id/from_within"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
@@ -29,10 +29,10 @@
         android:layout_height="30sp"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/edit_from_within"
         android:background="@drawable/acctedit"
-        android:layout_below="@+id/textView"
-        android:layout_alignStart="@+id/textView"
+        android:layout_below="@+id/from_within"
+        android:layout_alignStart="@+id/from_within"
         android:layout_marginTop="7dp"
         android:paddingLeft="5dp"/>
 
@@ -41,9 +41,9 @@
         app:srcCompat="@drawable/searchico"
         android:id="@+id/imageView"
         android:layout_alignParentEnd="false"
-        android:layout_toEndOf="@+id/editText"
-        android:layout_alignBottom="@+id/editText"
-        android:layout_alignTop="@+id/editText"
+        android:layout_toEndOf="@+id/edit_from_within"
+        android:layout_alignBottom="@+id/edit_from_within"
+        android:layout_alignTop="@+id/edit_from_within"
         android:layout_width="50dp" />
 
     <TextView
@@ -51,30 +51,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
-        android:id="@+id/textView3"
+        android:id="@+id/to_within"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:layout_below="@+id/editText"
-        android:layout_alignStart="@+id/editText" />
+        android:layout_below="@+id/edit_from_within"
+        android:layout_alignStart="@+id/edit_from_within" />
 
     <EditText
         android:layout_width="290sp"
         android:layout_height="30sp"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText6"
+        android:id="@+id/edit_to_within"
         android:background="@drawable/acctedit"
         android:layout_marginTop="12dp"
         android:paddingLeft="5dp"
-        android:layout_below="@+id/textView3"
-        android:layout_alignStart="@+id/textView3" />
+        android:layout_below="@+id/to_within"
+        android:layout_alignStart="@+id/to_within" />
 
     <ImageView
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/searchico"
         android:id="@+id/imageView5"
-        android:layout_alignBottom="@+id/editText6"
-        android:layout_alignTop="@+id/editText6"
-        android:layout_toEndOf="@+id/editText6"
+        android:layout_alignBottom="@+id/edit_to_within"
+        android:layout_alignTop="@+id/edit_to_within"
+        android:layout_toEndOf="@+id/edit_to_within"
         android:layout_width="50dp" />
 
     <TextView
@@ -82,40 +82,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="19dp"
-        android:id="@+id/textView5"
+        android:id="@+id/desc_within"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:layout_below="@+id/editText6"
-        android:layout_alignStart="@+id/editText6" />
+        android:layout_below="@+id/edit_to_within"
+        android:layout_alignStart="@+id/edit_to_within" />
 
     <EditText
         android:layout_width="290sp"
         android:layout_height="30sp"
         android:inputType="text"
         android:ems="10"
-        android:id="@+id/editText7"
+        android:id="@+id/edit_desc_within"
         android:background="@drawable/acctedit"
         android:layout_marginTop="7dp"
         android:paddingLeft="5dp"
-        android:layout_below="@+id/textView5"
-        android:layout_alignStart="@+id/textView5" />
+        android:layout_below="@+id/desc_within"
+        android:layout_alignStart="@+id/desc_within" />
 
     <EditText
         android:layout_width="290sp"
         android:layout_height="30sp"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText8"
+        android:id="@+id/edit_amt_within"
         android:background="@drawable/acctedit"
         android:layout_marginTop="9dp"
         android:paddingLeft="5dp"
-        android:layout_below="@+id/textView6"
-        android:layout_alignStart="@+id/textView6" />
+        android:layout_below="@+id/amt_within"
+        android:layout_alignStart="@+id/amt_within" />
 
     <Button
         android:text="Submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText8"
+        android:layout_below="@+id/edit_amt_within"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
         android:id="@+id/button" />
@@ -124,11 +124,11 @@
         android:text="Amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView6"
+        android:id="@+id/amt_within"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:layout_marginTop="16dp"
-        android:layout_below="@+id/editText7"
-        android:layout_alignStart="@+id/editText7" />
+        android:layout_below="@+id/edit_desc_within"
+        android:layout_alignStart="@+id/edit_desc_within" />
 </RelativeLayout>
 
 
