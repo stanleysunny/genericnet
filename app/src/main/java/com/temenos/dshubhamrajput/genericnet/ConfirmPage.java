@@ -321,7 +321,7 @@ public Commit(HashMap<String, String> obj )
         if(success)
         {
             final Intent AddBeneficiary = new Intent(ConfirmPage.this, SucessPage.class);
-            AddBeneficiary.putExtra("Succses","Ben");
+            AddBeneficiary.putExtra("Sucess","Ben");
             startActivity( AddBeneficiary);
         }
         else
