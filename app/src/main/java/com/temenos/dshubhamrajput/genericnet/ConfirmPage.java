@@ -35,9 +35,9 @@ import org.json.JSONObject;
 public class ConfirmPage extends AppCompatActivity {
     public Intent test;
     public static String imp;
-    public EditText e5;
-    public TextView t1,t2,t3,t4,t5;
-    public EditText e1,e2,e3,e4;
+    public TextView e5;
+    public TextView t1,t2,t3,t4,t5,t6;
+    public TextView e1,e2,e3,e4;
     final HashMap<String, String> obj = new HashMap<>();
     boolean success=true;
     static public String status;
@@ -53,12 +53,13 @@ public class ConfirmPage extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        e5=(EditText) findViewById(R.id.editText8);
+        e5=(TextView) findViewById(R.id.editText8);
         t1=(TextView) findViewById(R.id.textView);
         t2=(TextView) findViewById(R.id.textView3);
         t3=(TextView) findViewById(R.id.textView5);
         t4=(TextView) findViewById(R.id.textView6);
         t5=(TextView) findViewById(R.id.textView11);
+        t6=(TextView) findViewById(R.id.textView13);
 
 
         test=getIntent();
@@ -67,11 +68,12 @@ public class ConfirmPage extends AppCompatActivity {
         if(imp.equals("internal"))
         {
 
-            EditText Accno= (EditText)findViewById(R.id.editText);
-            EditText Email = (EditText)findViewById(R.id.editText6);
-            EditText nickname=(EditText)findViewById(R.id.editText7);
-            EditText Customername=(EditText)findViewById(R.id.editText10);
-           e5.setVisibility(View.GONE);
+            TextView Accno= (TextView) findViewById(R.id.editText);
+            TextView Email = (TextView)findViewById(R.id.editText6);
+            TextView nickname=(TextView)findViewById(R.id.editText7);
+            TextView Customername=(TextView)findViewById(R.id.editText10);
+            e5.setVisibility(View.GONE);
+            t6.setVisibility(View.GONE);
             t1.setText("Account Number");
             t2.setText("Email");
             t3.setText("Nick Name");
@@ -110,11 +112,11 @@ public class ConfirmPage extends AppCompatActivity {
         }
         else if(imp.equals("external"))
         {
-            EditText Accno= (EditText)findViewById(R.id.editText);
-            EditText Email = (EditText)findViewById(R.id.editText6);
-            EditText nickname=(EditText)findViewById(R.id.editText7);
-            EditText Customername=(EditText)findViewById(R.id.editText10);
-            EditText Ifsc=(EditText)findViewById(R.id.editText8);
+            TextView Accno= (TextView)findViewById(R.id.editText);
+            TextView Email = (TextView)findViewById(R.id.editText6);
+            TextView nickname=(TextView)findViewById(R.id.editText7);
+            TextView Customername=(TextView)findViewById(R.id.editText10);
+            TextView Ifsc=(TextView)findViewById(R.id.editText8);
 
 
             t1.setText("Account Number");
@@ -156,13 +158,14 @@ public class ConfirmPage extends AppCompatActivity {
         }
         else if(imp.equals("account"))
         {
-            EditText frmAcct = (EditText) findViewById(R.id.editText);
-            EditText toAcct = (EditText) findViewById(R.id.editText6);
-            EditText des = (EditText) findViewById(R.id.editText7);
-            EditText amtFunds = (EditText) findViewById(R.id.editText10);
+            TextView frmAcct = (TextView) findViewById(R.id.editText);
+            TextView toAcct = (TextView) findViewById(R.id.editText6);
+            TextView des = (TextView) findViewById(R.id.editText7);
+            TextView amtFunds = (TextView) findViewById(R.id.editText10);
 
             getSupportActionBar().setTitle("Confirm Transfer");
             e5.setVisibility(View.GONE);
+            t6.setVisibility(View.GONE);
             t1.setText("From Account");
             t2.setText("To Account");
             t3.setText("Description");
