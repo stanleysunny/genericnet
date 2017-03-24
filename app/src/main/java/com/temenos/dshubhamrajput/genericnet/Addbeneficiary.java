@@ -1,8 +1,6 @@
 package com.temenos.dshubhamrajput.genericnet;
 
 import android.os.AsyncTask;
-
-import android.util.Log;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -15,25 +13,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
-import org.apache.commons.codec.binary.Base64;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.HashMap;
 
 
@@ -52,8 +35,9 @@ public class Addbeneficiary extends AppCompatActivity {
     public Intent commit;
 
     public static String BenID;
-    private static String status = "no";
-    public static boolean success= true;
+    private static String status=null;
+    public static boolean success=true;
+
 
 
 
@@ -67,7 +51,6 @@ public class Addbeneficiary extends AppCompatActivity {
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-     //   final HashMap<String, String> obj = new HashMap<>();
         final CheckBox withinbank1 = (CheckBox) findViewById(R.id.withinbank);
         final CheckBox neft1 = (CheckBox) findViewById(R.id.neft);
         final TextView ifscTextview = (TextView) findViewById(R.id.textView5);
@@ -92,6 +75,7 @@ public class Addbeneficiary extends AppCompatActivity {
                     ifscEtext.setVisibility(View.INVISIBLE);
                     helpicon.setVisibility(View.INVISIBLE);
                     intentData = "internal";
+                    status="no";
 
                 }
             }
@@ -132,18 +116,18 @@ public class Addbeneficiary extends AppCompatActivity {
                      Nickname.setError("This field cannot be left blank");
                 if (((benAccNo.getError() == null) && (accNoCheck.getError() == null) && (emailUser.getError() == null) && ( Nickname.getError() == null) && (ifscEtext.getError() == null)))
                 {
-                    if (status.equals("yes")) {
+                    if (intentData.equals("external")) {
                         String AccNo = benAccNo.getText().toString();
                         String Emailstr = emailUser.getText().toString();
                         String Nick = Nickname.getText().toString();
                         String IFSCstr = ifscEtext.getText().toString();
-                        new PostDetails().execute(status,AccNo, Emailstr, Nick,IFSCstr);
+                        new PostDetails().execute(intentData,AccNo, Emailstr, Nick,IFSCstr);
                     } else {
                         String AccNo = benAccNo.getText().toString();
                         String Emailstr = emailUser.getText().toString();
                         String Nick = Nickname.getText().toString();
 
-                        new PostDetails().execute(status,AccNo, Emailstr, Nick);
+                        new PostDetails().execute(intentData,AccNo, Emailstr, Nick);
                     }
 
                 }
@@ -171,7 +155,7 @@ public class Addbeneficiary extends AppCompatActivity {
                     if (!(emailValidator(email))) {
                         emailUser.setError("Enter a valid email id");
                     } else if ((emailUser.getText().toString()).matches("")) {
-                        emailUser.setError(null);
+                        Bundle benBundle = new Bundle();
                     }
                 }
             }
@@ -248,76 +232,103 @@ public class Addbeneficiary extends AppCompatActivity {
             String urlStr = "";
             JSONObject postdata = new JSONObject();
             JSONArray array = new JSONArray();
+            JSONArray array1 = new JSONArray();
             JSONObject jsonObjarray = new JSONObject();
+            JSONObject jsonObjarray1 = new JSONObject();
             String BenAcctNo = param[1];
             System.out.println(BenAcctNo);
             String Email = param[2];
             String Nickname = param[3];
-            String Ifsc = "";
+            String Ifsc = "",response;
+
             localStatus= param[0];
             HttpHandler sh1 = new HttpHandler();
 
-            // Log.e(TAG,"Response from url: " + jsonStr);
-            String cusurl;
             String BencustomerNo = "";
-            String Benname = "";
+            String Benname = "",Name="",IfscBranch="";
             Bundle benBundle = new Bundle();
-            String text, info;
+
             // COMMON FOR BOTH
             try {
                 postdata.put("BenAcctNo", BenAcctNo);
-                PropertiesReader property1 = new PropertiesReader();
-                cusurl = property1.getProperty("url_BenCustomer", getApplicationContext());
-                GetBenCustomer benObj = new GetBenCustomer();
-                localobj = benObj.getBenCus(cusurl, BenAcctNo);
-                BencustomerNo = localobj.get("BencustomerNo");
-                Benname = localobj.get("Benname");
-                System.out.println(localobj.get("BencustomerNo"));
-                System.out.println(localobj.get("Benname"));
-
                 postdata.put("BenCustomer", BencustomerNo);
                 postdata.put("BeneficiaryId", BenID);
                 postdata.put("Email", Email);
+                jsonObjarray1.put("Name1",Name);
+                array1.put(jsonObjarray1);
+                postdata.put("Name1MvGroup", array1);
+                jsonObjarray.put("Nickname", Nickname);
+                array.put(jsonObjarray);
+                postdata.put("NicknameMvGroup", array);
+                postdata.put("OwningCustomer", "190090");
 
 
-                //common bundle
-                benBundle.putString("BenAcctNo", BenAcctNo);
-                benBundle.putString("BenCustomer",  BencustomerNo);
-                benBundle.putString("BeneficiaryId", BenID);
-                benBundle.putString("Email", Email);
-                benBundle.putString("Nickname", Nickname);
-                benBundle.putString("Benname", Benname);
-                benBundle.putString("OwningCustomer", "190077");
-                benBundle.putString("getintent", intentData);
-                if (localStatus.equals("yes")) {
+
+                if (localStatus.equals("external")) {
                     Ifsc=param[4];
-                    postdata.put("Ifsc", Ifsc);
-                    jsonObjarray.put("Nickname", Nickname);
-                    array.put(jsonObjarray);
-                    postdata.put("NicknameMvGroup", array);
-                    postdata.put("OwningCustomer", "190077");
-
-                    //adding the bundle
+                    postdata.put("BankSortCode", Ifsc);
                     benBundle.putString("Ifsc", Ifsc);
-                    // get it from constant properties
                     urlStr = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verBeneficiary_Obnks(\'" + BenID + "\')/validate";
                 } else {
-                    jsonObjarray.put("Nickname", Nickname);
-                    array.put(jsonObjarray);
-                    postdata.put("NicknameMvGroup", array);
-                    postdata.put("OwningCustomer", "190077");
                     // get it from constant properties
                     urlStr = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verBeneficiary_Wbnks(\'" + BenID + "\')/validate";
 
                 }
-                commit = new Intent(Addbeneficiary.this, ConfirmPage.class);
-                commit.putExtras(benBundle);
+
             } catch (JSONException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-            success=sh1.jsonWrite(urlStr,postdata);
+            success=sh1.jsonWrite(urlStr,postdata );
+            System.out.println(success);
+            if(success) {
+                        response=sh1.getResponse();
+
+                    if (response != null) {
+                        if(localStatus.equals("external")) {
+                            try {
+                                System.out.println(response);
+                                JSONObject cus1 = new JSONObject(response);
+                                IfscBranch= cus1.getString("BcSortCode");
+                                benBundle.putString("IfscBranch", IfscBranch);
+
+                            } catch (final JSONException e) {
+                                e.printStackTrace();
+
+                            }
+                        }
+                        else
+                        { try {
+                            System.out.println(response);
+                            JSONObject cus1 = new JSONObject(response);
+                            BencustomerNo = cus1.getString("BenCustomer");
+                            JSONArray cusarray1 = cus1.getJSONArray("Name1MvGroup");
+                            for (int k = 0; k < cusarray1.length(); k++) {
+                                JSONObject cus3 = cusarray1.getJSONObject(k);
+
+                                Benname = cus3.getString("Name1");
+
+                            }
+
+                        } catch (final JSONException e) {
+                            e.printStackTrace();
+
+                        }
+                        }
+                    }
+
+
+            }
+            //common bundle
+                 benBundle.putString("BenAcctNo", BenAcctNo);
+                 benBundle.putString("BenCustomer",  BencustomerNo);
+                 benBundle.putString("BeneficiaryId", BenID);
+                 benBundle.putString("Email", Email);
+                benBundle.putString("Nickname", Nickname);
+                benBundle.putString("Benname", Benname);
+                 benBundle.putString("OwningCustomer", "190090");
+                benBundle.putString("getintent", intentData);
+            commit = new Intent(Addbeneficiary.this, ConfirmPage.class);
+            commit.putExtras(benBundle);
             return null;
         }
 
@@ -328,6 +339,7 @@ public class Addbeneficiary extends AppCompatActivity {
             if(success) {
 
                 startActivity(commit);
+
             }
             else
                 Toast.makeText(Addbeneficiary.this, "error in connection ", Toast.LENGTH_LONG).show();
@@ -356,7 +368,6 @@ public class Addbeneficiary extends AppCompatActivity {
                             JSONObject jsonObj = new JSONObject(jsonStr);
                             BenID = jsonObj.getString("BeneficiaryId");
                         } catch (final JSONException e) {
-                            //  Log.e(TAG, "Json parsing error: " + e.getMessage());
                         }
                     }
 

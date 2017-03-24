@@ -9,9 +9,13 @@ import android.widget.Button;
 
 public class SucessPage extends AppCompatActivity {
 
+    String imp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Bundle extras = getIntent().getExtras();
+        //imp = extras.getString("page");
+        System.out.println(imp);
         setContentView(R.layout.activity_sucess_page);
         Button confirm = (Button) findViewById(R.id.button3);
         confirm.setOnClickListener(new View.OnClickListener() {

@@ -32,6 +32,7 @@ public class HttpHandler {
     private String response = "";
     private static String basicAuth = "";
     private static final String TAG = HttpHandler.class.getSimpleName();
+    private String returnresponse = "";
 
     HttpHandler() {
     }
@@ -41,8 +42,8 @@ public class HttpHandler {
         String basicAuth;
         try {
             URL e = new URL(reqUrl);
-            HttpURLConnection urlConnection = (HttpURLConnection)e.openConnection();
-             String userPass = "PAYUSER1" + ":" + "123456";
+            HttpURLConnection urlConnection = (HttpURLConnection) e.openConnection();
+            String userPass = "PAYUSER1" + ":" + "123456";
             basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
             urlConnection.setRequestProperty("Authorization", basicAuth);
             urlConnection.setRequestProperty("Accept", "application/json");
@@ -56,27 +57,26 @@ public class HttpHandler {
         return response;
     }
 
-        public String makeServiceCallGet(String reqUrl)
-        {
-            String response = null;
+    public String makeServiceCallGet(String reqUrl) {
+        String response = null;
 
-            try {
+        try {
 
-                URL e = new URL(reqUrl);
-                HttpURLConnection urlConnection = (HttpURLConnection)e.openConnection();
-                String userPass = "PAYUSER1"+ ":" +"123456";
-                basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
-                urlConnection.setRequestProperty("Authorization", basicAuth);
-                urlConnection.setRequestProperty("Accept", "application/json");
-                urlConnection.setRequestMethod("GET");
-                BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                this.response = this.convertStreamToString(in);
-            } catch (Exception var5) {
-                var5.printStackTrace();
-            }
-
-            return this.response;
+            URL e = new URL(reqUrl);
+            HttpURLConnection urlConnection = (HttpURLConnection) e.openConnection();
+            String userPass = "PAYUSER1" + ":" + "123456";
+            basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
+            urlConnection.setRequestProperty("Authorization", basicAuth);
+            urlConnection.setRequestProperty("Accept", "application/json");
+            urlConnection.setRequestMethod("GET");
+            BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            this.response = this.convertStreamToString(in);
+        } catch (Exception var5) {
+            var5.printStackTrace();
         }
+
+        return this.response;
+    }
 
     public String convertStreamToString(InputStream is) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -85,7 +85,7 @@ public class HttpHandler {
         try {
             String line;
             try {
-                while((line = reader.readLine()) != null) {
+                while ((line = reader.readLine()) != null) {
                     sb.append(line).append('\n');
                 }
             } catch (IOException var14) {
@@ -103,9 +103,8 @@ public class HttpHandler {
         return sb.toString();
     }
 
-    String postfunc(String reurl, String jsonstring)
-    {
-       String response = "";
+    String postfunc(String reurl, String jsonstring) {
+        String response = "";
         try {
 
             URL e = new URL(reurl);
@@ -127,16 +126,14 @@ public class HttpHandler {
             out.close();
 
 
-            int responseCode=urlConnectio.getResponseCode();
+            int responseCode = urlConnectio.getResponseCode();
 
             if (responseCode == HttpsURLConnection.HTTP_OK) {
-               response="YES";
+                response = "YES";
+            } else {
+                response = "NO";
             }
-            else {
-                response="NO";
-            }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -145,7 +142,7 @@ public class HttpHandler {
     }
 
     String posCommit(String reurl, String jsonstring) {
-        String response="";
+        String response = "";
         try {
             URL commit = new URL(reurl);
             HttpURLConnection urlcommit = (HttpURLConnection) commit.openConnection();
@@ -166,136 +163,139 @@ public class HttpHandler {
 
             int commitresponse = urlcommit.getResponseCode();
             if (commitresponse == HttpsURLConnection.HTTP_CREATED) {
-                response="YES";
+                response = "YES";
+            } else {
+                response = "NO";
             }
-            else {
-                response="NO";
-            }
-        }
-        catch (Exception commit){
+        } catch (Exception commit) {
             commit.printStackTrace();
         }
         return response;
     }
-    boolean jsonWrite(String urlStr, JSONObject postdata)
-    {
-        boolean success=true;
+
+    boolean jsonWrite(String urlStr, JSONObject postdata) {
+        boolean success = true;
         String text;
         String info;
-        try
-        {
-        URL u = new URL(urlStr);
-        String basicAuth = "";
-        HttpURLConnection conn = (HttpURLConnection) u.openConnection();
-        String userPass = "PAYUSER1" + ":" + "123456";
-        basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
-        conn.setRequestProperty("Authorization", basicAuth);
-        conn.setRequestProperty("Accept", "application/json");
-        conn.setRequestProperty("Content-Type", "application/json");
-        conn.setRequestMethod("POST");
-        conn.setDoInput(true);
-        conn.setDoOutput(true);
+        try {
+            URL u = new URL(urlStr);
+            String basicAuth = "";
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            String userPass = "PAYUSER1" + ":" + "123456";
+            basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
+            conn.setRequestProperty("Authorization", basicAuth);
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestMethod("POST");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
 
 
-        OutputStream os = conn.getOutputStream();
-        BufferedWriter writer = new BufferedWriter(
-                new OutputStreamWriter(os, "UTF-8"));
-        writer.write(postdata.toString());
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, "UTF-8"));
+            writer.write(postdata.toString());
 
-        writer.flush();
-        writer.close();
-        os.close();
-        int responseCode = conn.getResponseCode();
-        System.out.println(responseCode);
-        BufferedInputStream in;
-        BufferedReader reader;
-        StringBuilder sb;
+            writer.flush();
+            writer.close();
+            os.close();
+            int responseCode = conn.getResponseCode();
+            System.out.println(responseCode);
+            BufferedInputStream in;
+            BufferedReader reader;
+            StringBuilder sb;
 
-        if (responseCode >= 200 && responseCode < 400) {
-            in = new BufferedInputStream(conn.getInputStream());
-            reader = new BufferedReader(new InputStreamReader(in));
-            sb = new StringBuilder();
+            if (responseCode >= 200 && responseCode < 400) {
+                success=true;
+                in = new BufferedInputStream(conn.getInputStream());
+                reader = new BufferedReader(new InputStreamReader(in));
+                sb = new StringBuilder();
 
-            try {
-                String line;
                 try {
-                    while ((line = reader.readLine()) != null) {
-                        sb.append(line).append('\n');
+                    String line;
+                    try {
+                        while ((line = reader.readLine()) != null) {
+                            sb.append(line).append('\n');
+                        }
+                        returnresponse = sb.toString();
+                    } catch (IOException var14) {
+                        var14.printStackTrace();
                     }
-                } catch (IOException var14) {
-                    var14.printStackTrace();
+                } finally {
+                    try {
+                        in.close();
+                    } catch (IOException var13) {
+                        var13.printStackTrace();
+                    }
+
                 }
-            } finally {
+
+
+            } else {
+                // READING THE ERROR
+                success = false;
+                in = new BufferedInputStream(conn.getErrorStream());
+                reader = new BufferedReader(new InputStreamReader(in));
+                sb = new StringBuilder();
                 try {
-                    in.close();
-                } catch (IOException var13) {
-                    var13.printStackTrace();
+                    String line;
+                    try {
+                        while ((line = reader.readLine()) != null) {
+                            sb.append(line).append('\n');
+                        }
+                    } catch (IOException var14) {
+                        var14.printStackTrace();
+                    }
+                } finally {
+                    try {
+                        in.close();
+                    } catch (IOException var13) {
+                        var13.printStackTrace();
+                    }
+
+                }
+                String jsonStr1 = sb.toString();
+
+                JSONObject jsonErrorObj = new JSONObject(jsonStr1);
+                try {
+                    JSONObject jsonEmbedObj = jsonErrorObj.getJSONObject("_embedded");
+                    JSONArray jsonErrorArrObj = jsonEmbedObj.getJSONArray("http://temenostech.temenos.com/rels/errors");
+                    for (int i = 0; i < jsonErrorArrObj.length(); i++) {
+                        JSONObject item = jsonErrorArrObj.getJSONObject(i);
+                        JSONArray errorlist = item.getJSONArray("ErrorsMvGroup");
+
+                        for (int j = 0; j < errorlist.length(); j++) {
+                            JSONObject error = errorlist.getJSONObject(j);
+                            text = error.getString("Text");
+                            info = error.getString("Info");
+
+                            System.out.println(text);
+                            System.out.println(info);
+                        }
+                    }
+                } catch (Exception exception) {
                 }
 
             }
 
 
-        } else {
-            // READING THE ERROR
-            success=false;
-            in = new BufferedInputStream(conn.getErrorStream());
-            reader = new BufferedReader(new InputStreamReader(in));
-            sb = new StringBuilder();
-            try {
-                String line;
-                try {
-                    while ((line = reader.readLine()) != null) {
-                        sb.append(line).append('\n');
-                    }
-                } catch (IOException var14) {
-                    var14.printStackTrace();
-                }
-            } finally {
-                try {
-                    in.close();
-                } catch (IOException var13) {
-                    var13.printStackTrace();
-                }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
 
-            }
-            String jsonStr1 = sb.toString();
-
-            JSONObject jsonErrorObj = new JSONObject(jsonStr1);
-            try {
-                JSONObject jsonEmbedObj = jsonErrorObj.getJSONObject("_embedded");
-                JSONArray jsonErrorArrObj = jsonEmbedObj.getJSONArray("http://temenostech.temenos.com/rels/errors");
-                for (int i = 0; i < jsonErrorArrObj.length(); i++) {
-                    JSONObject item = jsonErrorArrObj.getJSONObject(i);
-                    JSONArray errorlist = item.getJSONArray("ErrorsMvGroup");
-
-                    for (int j = 0; j < errorlist.length(); j++) {
-                        JSONObject error = errorlist.getJSONObject(j);
-                        text = error.getString("Text");
-                        info = error.getString("Info");
-
-                        System.out.println(text);
-                        System.out.println(info);
-                    }
-                }
-            } catch (Exception exception) {
-            }
-
+            e.printStackTrace();
         }
-
-
-    } catch (JSONException e) {
-        e.printStackTrace();
-    } catch (UnsupportedEncodingException e) {
-        e.printStackTrace();
-    } catch (ProtocolException e) {
-        e.printStackTrace();
-    } catch (MalformedURLException e) {
-        e.printStackTrace();
-    } catch (IOException e) {
-
-        e.printStackTrace();
+        return success;
     }
-return success;
+
+    public String getResponse() {
+        return returnresponse;
+    }
 }
 
-}

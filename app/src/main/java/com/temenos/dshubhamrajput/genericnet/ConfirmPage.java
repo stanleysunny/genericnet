@@ -1,6 +1,4 @@
 package com.temenos.dshubhamrajput.genericnet;
-
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 
@@ -13,24 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.apache.commons.codec.binary.Base64;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
+
 import java.util.HashMap;
 
-import org.json.JSONObject;
+
 
 public class ConfirmPage extends AppCompatActivity {
     public Intent test;
@@ -41,6 +30,8 @@ public class ConfirmPage extends AppCompatActivity {
     final HashMap<String, String> obj = new HashMap<>();
     boolean success=true;
     static public String status;
+    static String response;
+   // Bundle Confirmbundle = new Bundle();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +62,9 @@ public class ConfirmPage extends AppCompatActivity {
             EditText Email = (EditText)findViewById(R.id.editText6);
             EditText nickname=(EditText)findViewById(R.id.editText7);
             EditText Customername=(EditText)findViewById(R.id.editText10);
+
            e5.setVisibility(View.GONE);
+
             t1.setText("Account Number");
             t2.setText("Email");
             t3.setText("Nick Name");
@@ -85,7 +78,7 @@ public class ConfirmPage extends AppCompatActivity {
             obj.put("BeneficiaryId",extras.getString("BeneficiaryId"));
             obj.put("Email",extras.getString("Email"));
             obj.put("Nickname",extras.getString("Nickname"));
-            obj.put("OwningCustomer",extras.getString("OwningCustomer"));
+            obj.put("OwningCustomer",extras.getString("190090"));
             Button viewStmt = (Button) findViewById(R.id.button2);
             viewStmt.setOnClickListener(new View.OnClickListener() {
 
@@ -115,7 +108,7 @@ public class ConfirmPage extends AppCompatActivity {
             EditText nickname=(EditText)findViewById(R.id.editText7);
             EditText Customername=(EditText)findViewById(R.id.editText10);
             EditText Ifsc=(EditText)findViewById(R.id.editText8);
-
+            EditText IfscBranch=(EditText)findViewById(R.id.editText9);
 
             t1.setText("Account Number");
             t2.setText("Email");
@@ -127,13 +120,14 @@ public class ConfirmPage extends AppCompatActivity {
             nickname.setText(extras.getString("Nickname"));
             Customername.setText(extras.getString("Ifsc"));
             Ifsc.setText(extras.getString("Benname"));
+            IfscBranch.setText(extras.getString("IfscBranch"));
             obj.put("BenAcctNo",extras.getString("BenAcctNo"));
             obj.put("BenCustomer",extras.getString("BenCustomer"));
             obj.put("BeneficiaryId",extras.getString("BeneficiaryId"));
             obj.put("Email",extras.getString("Email"));
             obj.put("Nickname",extras.getString("Nickname"));
             obj.put("Ifsc",extras.getString("Ifsc"));
-            obj.put("OwningCustomer",extras.getString("OwningCustomer"));
+            obj.put("OwningCustomer",extras.getString("190090"));
             Button viewStmt = (Button) findViewById(R.id.button2);
             viewStmt.setOnClickListener(new View.OnClickListener() {
 
@@ -271,7 +265,6 @@ public Commit(HashMap<String, String> obj )
             String Nickname = obj1.get("Nickname");
             String Ifsc = obj1.get("Ifsc");
 
-
             JSONObject jsonObjarray = new JSONObject();
             JSONObject postdata = new JSONObject();
             JSONArray array = new JSONArray();
@@ -283,11 +276,11 @@ public Commit(HashMap<String, String> obj )
                 postdata.put("BenCustomer", BencustomerNo);
                 postdata.put("BeneficiaryId", BenID);
                 postdata.put("Email", Email);
-                postdata.put("Ifsc", Ifsc);
+                postdata.put("BankSortCode", Ifsc);
                 jsonObjarray.put("Nickname", Nickname);
                 array.put(jsonObjarray);
                 postdata.put("NicknameMvGroup", array);
-                postdata.put("OwningCustomer", "190077");
+                postdata.put("OwningCustomer", "190090");
 
             } else {
                 postdata.put("BenAcctNo", BenAcctNo);
@@ -297,7 +290,7 @@ public Commit(HashMap<String, String> obj )
                 jsonObjarray.put("Nickname", Nickname);
                 array.put(jsonObjarray);
                 postdata.put("NicknameMvGroup", array);
-                postdata.put("OwningCustomer", "190077");
+                postdata.put("OwningCustomer", "190090");
             }
 
 
@@ -313,12 +306,11 @@ public Commit(HashMap<String, String> obj )
     }
 
     @Override
-    protected void onPostExecute(Void result) {
+    protected void onPostExecute(Void result){
         super.onPostExecute(result);
-        if(success)
-        {
+        if(success) {
             final Intent AddBeneficiary = new Intent(ConfirmPage.this, SucessPage.class);
-            startActivity( AddBeneficiary);
+            startActivity(AddBeneficiary);
         }
         else
         {

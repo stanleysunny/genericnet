@@ -127,20 +127,31 @@
         android:text="Confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
         android:id="@+id/button2"
-        android:layout_marginStart="18dp"
-        android:layout_below="@+id/editText8"
+        android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/textView11"
-        android:layout_alignParentLeft="true"/>
+        android:layout_marginBottom="17dp" />
 
     <Button
         android:text="back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button"
-        android:layout_marginEnd="39dp"
+        android:layout_marginEnd="36dp"
         android:layout_alignBaseline="@+id/button2"
         android:layout_alignBottom="@+id/button2"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:id="@+id/editText9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/editText8"
+        android:layout_alignStart="@+id/editText8"
+        android:layout_alignEnd="@+id/editText8"
+        android:focusable="false"
+        android:longClickable="false"/>
 </RelativeLayout>
