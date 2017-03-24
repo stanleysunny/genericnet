@@ -9,11 +9,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class SucessPage extends AppCompatActivity {
-    String imp="";
-
+    String imp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println(imp);
         setContentView(R.layout.activity_sucess_page);
         TextView setSucessText=(TextView)findViewById(R.id.textView8);
         Button confirm = (Button) findViewById(R.id.button3);
