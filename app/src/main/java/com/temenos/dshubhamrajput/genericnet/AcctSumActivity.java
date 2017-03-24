@@ -56,7 +56,7 @@ public class AcctSumActivity extends AppCompatActivity {
                     // Making a request to url and getting response
                 PropertiesReader property= new PropertiesReader();
                     String url = property.getProperty("url_account_summary", getApplicationContext());
-                    String jsonStr = sh.makeServiceCall(url);
+                    String jsonStr = sh.makeServiceCallGet(url);
 
                     Log.e(TAG, "Response from url: " + jsonStr);
                         if (jsonStr != null) {
