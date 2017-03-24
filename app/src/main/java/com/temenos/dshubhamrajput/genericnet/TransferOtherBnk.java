@@ -315,6 +315,7 @@ public class TransferOtherBnk extends AppCompatActivity {
                     fundsTransferData.putString("fromAccountNo", params[0]);
                     fundsTransferData.putString("toAccountNo", params[1]);
                     fundsTransferData.putString("description", params[2]);
+                    fundsTransferData.putString("creAcctNo", "USD1000110000001");
                     fundsTransferData.putString("amount", params[3]);
                     fundsTransferData.putString("transType", params[4]);
                     fundsTransferData.putString("Currency",currencyDeb);
