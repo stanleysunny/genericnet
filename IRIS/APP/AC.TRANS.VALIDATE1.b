@@ -1,5 +1,5 @@
-* @ValidationCode : MjotMTIwNjI4NzM5NjpDcDEyNTI6MTQ4ODg5MjQ5MTQ1ODpoc2hhc2hhbms6LTE6LTE6MDowOmZhbHNlOk4vQTpERVZfMjAxNzAxLjA6LTE6LTE=
-* @ValidationInfo : Timestamp         : 07 Mar 2017 18:44:51
+* @ValidationCode : MjotMTUzNzUwOTQyODpDcDEyNTI6MTQ5MDI0MjM2NDU1NDpoc2hhc2hhbms6LTE6LTE6MDowOmZhbHNlOk4vQTpERVZfMjAxNzAxLjA6LTE6LTE=
+* @ValidationInfo : Timestamp         : 23 Mar 2017 09:42:44
 * @ValidationInfo : Encoding          : Cp1252
 * @ValidationInfo : User Name         : hshashank
 * @ValidationInfo : Nb tests success  : N/A
@@ -20,16 +20,12 @@ $USING EB.SystemTables
 $USING AC.AccountOpening
 $USING FT.Contract
 
-*DEBIT.ACCT.NO=EB.SystemTables.getRNew(FT.Contract.FundsTransfer.DebitAcctNo)
-CREDIT.ACCT.NO=EB.SystemTables.getComi()
+BEN.ACCT.NO=EB.SystemTables.getComi()
 
-*R.DEBIT.ACC=AC.AccountOpening.Account.Read(DEBIT.ACCT.NO, Error)
-R.CREDIT.ACC=AC.AccountOpening.Account.Read(CREDIT.ACCT.NO, Error)
+R.CREDIT.ACC=AC.AccountOpening.Account.Read(BEN.ACCT.NO, Error)
 
-*DEBIT.CURR=R.DEBIT.ACC<AC.AccountOpening.Account.Currency>
-CREDIT.CURR=R.CREDIT.ACC<AC.AccountOpening.Account.Currency>
+BEN.CUS=R.CREDIT.ACC<AC.AccountOpening.Account.Customer>
 
-*EB.SystemTables.setRNew(FT.Contract.FundsTransfer.DebitCurrency,DEBIT.CURR)
-EB.SystemTables.setRNew(FT.Contract.FundsTransfer.CreditCurrency,CREDIT.CURR)
+EB.SystemTables.setRNew(FT.Contract.FundsTransfer.BenCustomer,BEN.CUS)
 
 RETURN

@@ -1,5 +1,5 @@
-* @ValidationCode : MjotNDgyNjg0NjM4OkNwMTI1MjoxNDkwMTU2MzQxMzY1OmhzaGFzaGFuazotMTotMTowOjA6ZmFsc2U6Ti9BOkRFVl8yMDE3MDEuMDotMTotMQ==
-* @ValidationInfo : Timestamp         : 22 Mar 2017 09:49:01
+* @ValidationCode : Mjo1OTg4Mzc1MzE6Q3AxMjUyOjE0OTAxMDUwNDE3MTM6aHNoYXNoYW5rOi0xOi0xOjA6MDpmYWxzZTpOL0E6REVWXzIwMTcwMS4wOi0xOi0x
+* @ValidationInfo : Timestamp         : 21 Mar 2017 19:34:01
 * @ValidationInfo : Encoding          : Cp1252
 * @ValidationInfo : User Name         : hshashank
 * @ValidationInfo : Nb tests success  : N/A
@@ -10,7 +10,7 @@
 * @ValidationInfo : Bypass GateKeeper : false
 * @ValidationInfo : Compiler Version  : DEV_201701.0
 $PACKAGE EB.BNFC
-SUBROUTINE AC.TRANS.VALIDATE
+SUBROUTINE BEN.OBNK.VALIDATE
 *-----------------------------------------------------------------------------
 *
 *-----------------------------------------------------------------------------
@@ -18,14 +18,12 @@ SUBROUTINE AC.TRANS.VALIDATE
 *-----------------------------------------------------------------------------
 $USING EB.SystemTables
 $USING AC.AccountOpening
-$USING FT.Contract
+$USING ST.Payments
 
-DEBIT.ACCT.NO=EB.SystemTables.getComi()
+BEN.NAME=EB.SystemTables.getComi()
 
-R.DEBIT.ACC=AC.AccountOpening.Account.Read(DEBIT.ACCT.NO, Error)
+EB.SystemTables.setRNew(ST.Payments.Beneficiary.ArcBenBenCustomer,BEN.NAME)
+EB.SystemTables.setRNew(ST.Payments.Beneficiary.ArcBenNameOne, BEN.NAME)
 
-DEBIT.CURR=R.DEBIT.ACC<AC.AccountOpening.Account.Currency>
-
-EB.SystemTables.setRNew(FT.Contract.FundsTransfer.DebitCurrency,DEBIT.CURR)
 
 RETURN

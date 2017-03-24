@@ -1,5 +1,5 @@
-* @ValidationCode : MjotNjExMjgwNjg6Q3AxMjUyOjE0ODg4MDI5NDU0NjI6aHNoYXNoYW5rOi0xOi0xOjA6MDpmYWxzZTpOL0E6REVWXzIwMTcwMS4wOi0xOi0x
-* @ValidationInfo : Timestamp         : 06 Mar 2017 17:52:25
+* @ValidationCode : MjoyODM5NTE1NzQ6Q3AxMjUyOjE0OTAxNzU2NDIzNTg6aHNoYXNoYW5rOi0xOi0xOjA6MDpmYWxzZTpOL0E6REVWXzIwMTcwMS4wOi0xOi0x
+* @ValidationInfo : Timestamp         : 22 Mar 2017 15:10:42
 * @ValidationInfo : Encoding          : Cp1252
 * @ValidationInfo : User Name         : hshashank
 * @ValidationInfo : Nb tests success  : N/A
@@ -22,14 +22,18 @@ SUBROUTINE BNFC.VALIDATE
 $USING EB.SystemTables
 $USING AC.AccountOpening
 $USING ST.Payments
+$USING ST.Customer
 
 BEN.ACCT.NO=EB.SystemTables.getComi()
 
 R.ACC=AC.AccountOpening.Account.Read(BEN.ACCT.NO, Error)
-
 CUST.NO=R.ACC<AC.AccountOpening.Account.Customer>
 
+R.CUS=ST.Customer.Customer.Read(CUST.NO, Error)
+CUS.NAME=R.CUS<ST.Customer.Customer.EbCusShortName>
+
 EB.SystemTables.setRNew(ST.Payments.Beneficiary.ArcBenBenCustomer,CUST.NO)
+EB.SystemTables.setRNew(ST.Payments.Beneficiary.ArcBenNameOne, CUS.NAME)
 
 
 RETURN

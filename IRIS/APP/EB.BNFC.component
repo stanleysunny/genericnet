@@ -60,3 +60,11 @@ private method IfscValidate
 {
     jBC: IFSC.VALIDATE
 }
+
+private method BenObnkValidate
+(
+    
+)
+{
+    jBC: BEN.OBNK.VALIDATE
+}

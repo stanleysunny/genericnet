@@ -1,5 +1,5 @@
-* @ValidationCode : MjotMTk5MjEzMjE5NzpDcDEyNTI6MTQ4OTk4NTAyMDIzNjpoc2hhc2hhbms6LTE6LTE6MDowOmZhbHNlOk4vQTpERVZfMjAxNzAxLjA6LTE6LTE=
-* @ValidationInfo : Timestamp         : 20 Mar 2017 10:13:40
+* @ValidationCode : MjotMTcwNTE3NDU3MzpDcDEyNTI6MTQ5MDE2MDE3NTA3ODpoc2hhc2hhbms6LTE6LTE6MDowOmZhbHNlOk4vQTpERVZfMjAxNzAxLjA6LTE6LTE=
+* @ValidationInfo : Timestamp         : 22 Mar 2017 10:52:55
 * @ValidationInfo : Encoding          : Cp1252
 * @ValidationInfo : User Name         : hshashank
 * @ValidationInfo : Nb tests success  : N/A
@@ -19,19 +19,13 @@ SUBROUTINE IFSC.VALIDATE
 $USING EB.SystemTables
 $USING FT.LocalClearing
 $USING EB.ErrorProcessing
+$USING ST.Payments
 
 IFSC=EB.SystemTables.getComi()
-
-IF IFSC NE '' THEN
 	
-	R.IFSC=FT.LocalClearing.BcSortCode.Read(IFSC, Error)
+R.IFSC=FT.LocalClearing.BcSortCode.Read(IFSC, Error)
+BRANCH.NAME=R.IFSC<FT.LocalClearing.BcSortCode.EbBscName>
 	
-	IF R.IFSC EQ '' THEN
-*	EB.SystemTables.setAf(ST.Payments.Beneficiary.ArcBenLocalRef)
-	EB.SystemTables.setEtext('ST-IFSC-MISSING')
-*	EB.ErrorProcessing.Err()
-	END
-
-END
+EB.SystemTables.setRNew(ST.Payments.Beneficiary.ArcBenBcSortCode, BRANCH.NAME)
 
 RETURN
