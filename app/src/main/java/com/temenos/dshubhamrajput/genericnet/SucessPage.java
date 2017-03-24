@@ -9,14 +9,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class SucessPage extends AppCompatActivity {
-    String imp="";
-
     String imp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Bundle extras = getIntent().getExtras();
-        //imp = extras.getString("page");
         System.out.println(imp);
         setContentView(R.layout.activity_sucess_page);
         TextView setSucessText=(TextView)findViewById(R.id.textView8);
