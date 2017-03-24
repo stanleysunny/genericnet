@@ -19,7 +19,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
-    <EditText
+    <Spinner
         android:layout_width="290sp"
         android:layout_height="30sp"
         android:inputType="number"
@@ -51,7 +51,7 @@
         android:layout_below="@+id/edit_from_other"
         android:layout_alignStart="@+id/edit_from_other" />
 
-    <EditText
+    <Spinner
         android:layout_width="290sp"
         android:layout_height="30sp"
         android:inputType="number"
@@ -124,4 +124,23 @@
         android:layout_marginTop="16dp"
         android:layout_below="@+id/edit_desc_other"
         android:layout_alignStart="@+id/edit_desc_other" />
+
+    <ImageView
+        app:srcCompat="@drawable/down_arrow"
+        android:id="@+id/imageView7"
+        android:layout_alignTop="@+id/edit_from_other"
+        android:layout_toStartOf="@+id/imageView"
+        android:layout_height="25dp"
+        android:layout_alignBottom="@+id/edit_from_other"
+        android:paddingRight="5dp"
+        android:layout_width="20sp" />
+    <ImageView
+        app:srcCompat="@drawable/down_arrow"
+        android:id="@+id/imageView8"
+        android:layout_alignTop="@+id/edit_to_other"
+        android:layout_toStartOf="@+id/imageView5"
+        android:layout_height="25dp"
+        android:layout_alignBottom="@+id/edit_to_other"
+        android:paddingRight="5dp"
+        android:layout_width="20sp" />
 </RelativeLayout>
