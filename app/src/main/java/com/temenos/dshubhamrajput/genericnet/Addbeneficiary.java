@@ -21,15 +21,18 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
  * Created by upriya on 06-03-2017.
  */
+
 public class Addbeneficiary extends AppCompatActivity {
 
     public String intentData = "internal";
     public Intent commit;
     public static String BenID;
     public static boolean success=true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +48,11 @@ public class Addbeneficiary extends AppCompatActivity {
         final EditText emailUser = (EditText) findViewById(R.id.Email);
         final EditText nickName = (EditText) findViewById(R.id.NickName);
         final ImageView helpicon = (ImageView) findViewById(R.id.help_icon);
-        //function for getting the application id
+
         new NewDeal().execute();
-        //listener for Withinbank
+
         withinbank1.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
@@ -61,8 +65,8 @@ public class Addbeneficiary extends AppCompatActivity {
                 }
             }
         });
-        neft1.setOnClickListener(new View.OnClickListener() {
 
+        neft1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
@@ -77,21 +81,18 @@ public class Addbeneficiary extends AppCompatActivity {
         });
         Button viewStmt = (Button) findViewById(R.id.BenButton);
         viewStmt.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View arg0) {
-
                 if(intentData.equals("external")) {
                     if ((ifscEtext.getText().toString()).matches(""))
                         ifscEtext.setError("This field cannot be left blank");
-                }
-                if ((benAccNo.getText().toString()).matches(""))
+                }if ((benAccNo.getText().toString()).matches(""))
                     benAccNo.setError("This field cannot be left blank");
                 if ((accNoCheck.getText().toString()).matches(""))
                     accNoCheck.setError("This field cannot be left blank");
                 if ((nickName.getText().toString()).matches(""))
                     nickName.setError("This field cannot be left blank");
-                if (((benAccNo.getError() == null) && (accNoCheck.getError() == null)&& ( nickName.getError() == null) && (ifscEtext.getError() == null))){
+                if (((benAccNo.getError() == null) && (accNoCheck.getError() == null) && (emailUser.getError() == null) && (nickName.getError() == null) && (ifscEtext.getError() == null))) {
                     String accNo = benAccNo.getText().toString();
                     String emailStr = emailUser.getText().toString();
                     String nick = nickName.getText().toString();
@@ -99,7 +100,7 @@ public class Addbeneficiary extends AppCompatActivity {
                         String IFSCstr = ifscEtext.getText().toString();
                         new PostDetails().execute(intentData,accNo, emailStr, nick,IFSCstr);
                     } else {
-                        new PostDetails().execute(intentData,accNo, emailStr, nick);
+                        new PostDetails().execute(intentData,accNo,emailStr,nick);
                     }
                 }
             }
@@ -107,11 +108,15 @@ public class Addbeneficiary extends AppCompatActivity {
 
         accNoCheck.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             public void onFocusChange(View v, boolean hasFocus) {
+
                 if (!(accNoCheck.getText().toString().equals(benAccNo.getText().toString()))) {
-                    accNoCheck.setError("Account numbers don't match");
-                } else if (((accNoCheck.getText().toString()).matches(""))) {
-                    accNoCheck.setError("This field cannot be left blank");
+                    if (!((accNoCheck.getText().toString()).matches("")))
+                        accNoCheck.setError("Account numbers don't match");
                 }
+                else if(((accNoCheck.getText().toString()).matches("")))
+                    accNoCheck.setError("This field cannot be left blank");
+                else
+                    accNoCheck.setError(null);
 
             }
 
@@ -123,9 +128,10 @@ public class Addbeneficiary extends AppCompatActivity {
                 if (!hasFocus) {
                     final String email = emailUser.getText().toString();
                     if (!(emailValidator(email))) {
-                        emailUser.setError("Enter a valid email id");
-                    } else if ((emailUser.getText().toString()).matches("")) {
-                        Bundle benBundle = new Bundle();
+                        if(!(email.equals("")))
+                            emailUser.setError("Enter a valid email id");
+                    } else  {
+                        emailUser.setError(null);
                     }
                 }
             }
@@ -137,11 +143,14 @@ public class Addbeneficiary extends AppCompatActivity {
                     String ifsc = ifscEtext.getText().toString();
                     boolean check = ifscMatcher(ifsc);
                     if (!check) {
-                        ifscEtext.setError("IFSC is a 11 digit alpha numeric string");
+                        if(!(ifsc.equals("")))
+                            ifscEtext.setError("IFSC is a 11 digit alpha numeric string");
                     }
                     else if (ifscEtext.getText().toString().matches("")) {
                         ifscEtext.setError("This field cannot be left blank");
                     }
+                    else
+                        ifscEtext.setError(null);
                 }
             }
         });
@@ -185,11 +194,11 @@ public class Addbeneficiary extends AppCompatActivity {
         return true;
     }
 
+
+
     private class PostDetails extends AsyncTask<String, Void, Void> {
 
         public String localStatus;
-        public HashMap<String, String> localobj;
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -197,37 +206,40 @@ public class Addbeneficiary extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... param) {
-           // initalisation
-            String urlStr = "",BencustomerNo = "",Benname = "",Name="",IfscBranch="";
+            String urlStr = "";
             JSONObject postData = new JSONObject();
             JSONArray array = new JSONArray();
             JSONArray array1 = new JSONArray();
             JSONObject jsonObjarray = new JSONObject();
             JSONObject jsonObjarray1 = new JSONObject();
-            HttpHandler sh1 = new HttpHandler();
-            Bundle benBundle = new Bundle();
-
-            // reading the parameters
-            String benAcctNo = param[1];
-            String email = param[2];
-            String nickName = param[3];
+            String BenAcctNo = param[1];
+            System.out.println(BenAcctNo);
+            String Email = param[2];
+            String Nickname = param[3];
             String Ifsc = "",response;
+
             localStatus= param[0];
+            HttpHandler sh1 = new HttpHandler();
+
+            String BencustomerNo = "";
+            String Benname = "",Name="",IfscBranch="";
+            Bundle benBundle = new Bundle();
 
             // COMMON FOR BOTH
             try {
-                // creating the json object for validate
-                postData.put("BenAcctNo", benAcctNo);
+                postData.put("BenAcctNo", BenAcctNo);
                 postData.put("BenCustomer", BencustomerNo);
                 postData.put("BeneficiaryId", BenID);
-                postData.put("Email", email);
+                postData.put("Email", Email);
                 jsonObjarray1.put("Name1",Name);
                 array1.put(jsonObjarray1);
                 postData.put("Name1MvGroup", array1);
-                jsonObjarray.put("Nickname", nickName);
+                jsonObjarray.put("Nickname", Nickname);
                 array.put(jsonObjarray);
                 postData.put("NicknameMvGroup", array);
                 postData.put("OwningCustomer", "190090");
+
+
 
                 if (localStatus.equals("external")) {
                     Ifsc=param[4];
@@ -237,7 +249,6 @@ public class Addbeneficiary extends AppCompatActivity {
                 } else {
                     // get it from constant properties
                     urlStr = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verBeneficiary_Wbnks(\'" + BenID + "\')/validate";
-
                 }
 
             } catch (JSONException e) {
@@ -247,7 +258,6 @@ public class Addbeneficiary extends AppCompatActivity {
             System.out.println(success);
             if(success) {
                 response=sh1.getResponse();
-
                 if (response != null) {
                     if(localStatus.equals("external")) {
                         try {
@@ -255,7 +265,6 @@ public class Addbeneficiary extends AppCompatActivity {
                             JSONObject cus1 = new JSONObject(response);
                             IfscBranch= cus1.getString("BcSortCode");
                             benBundle.putString("IfscBranch", IfscBranch);
-
                         } catch (final JSONException e) {
                             e.printStackTrace();
                         }
@@ -277,11 +286,11 @@ public class Addbeneficiary extends AppCompatActivity {
                 }
             }
             //common bundle
-            benBundle.putString("BenAcctNo", benAcctNo);
+            benBundle.putString("BenAcctNo", BenAcctNo);
             benBundle.putString("BenCustomer",  BencustomerNo);
             benBundle.putString("BeneficiaryId", BenID);
-            benBundle.putString("Email", email);
-            benBundle.putString("Nickname",nickName);
+            benBundle.putString("Email", Email);
+            benBundle.putString("Nickname", Nickname);
             benBundle.putString("Benname", Benname);
             benBundle.putString("OwningCustomer", "190090");
             benBundle.putString("getintent", intentData);
@@ -289,7 +298,6 @@ public class Addbeneficiary extends AppCompatActivity {
             commit.putExtras(benBundle);
             return null;
         }
-
 
         @Override
         protected void onPostExecute(Void result) {
@@ -303,10 +311,12 @@ public class Addbeneficiary extends AppCompatActivity {
     }
 
     private class NewDeal extends AsyncTask<Void, Void, Void> {
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
+
         @Override
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
@@ -322,7 +332,6 @@ public class Addbeneficiary extends AppCompatActivity {
                     } catch (final JSONException e) {
                     }
                 }
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -332,7 +341,6 @@ public class Addbeneficiary extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
         }
-
     }
 }
 
