@@ -37,14 +37,13 @@ public class ConfirmPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_page);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Button backbutton = (Button) findViewById(R.id.button);
-        backbutton.setOnClickListener(new View.OnClickListener() {
+        Button backButton = (Button) findViewById(R.id.button);
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-        e5=(TextView) findViewById(R.id.editText8);
         t1=(TextView) findViewById(R.id.textView);
         t2=(TextView) findViewById(R.id.textView3);
         t3=(TextView) findViewById(R.id.textView5);
@@ -64,7 +63,8 @@ public class ConfirmPage extends AppCompatActivity {
             TextView Email = (TextView)findViewById(R.id.editText6);
             TextView nickname=(TextView)findViewById(R.id.editText7);
             TextView Customername=(TextView)findViewById(R.id.editText10);
-            e5.setVisibility(View.GONE);
+            TextView Ifsc=(TextView)findViewById(R.id.editText8);
+            Ifsc.setVisibility(View.GONE);
             t6.setVisibility(View.GONE);
 
 
@@ -92,8 +92,7 @@ public class ConfirmPage extends AppCompatActivity {
 
                 }
             });
-            Button viewStmt1 = (Button) findViewById(R.id.button);
-            viewStmt1.setOnClickListener(new View.OnClickListener() {
+            backButton.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View arg0) {
@@ -145,8 +144,7 @@ public class ConfirmPage extends AppCompatActivity {
 
                 }
             });
-            Button viewStmt1 = (Button) findViewById(R.id.button);
-            viewStmt1.setOnClickListener(new View.OnClickListener() {
+            backButton.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View arg0) {
@@ -156,7 +154,7 @@ public class ConfirmPage extends AppCompatActivity {
                 }
             });
         }
-        else if(imp.equals("account"))
+        else if(imp.equals("account")||imp.equals("others"))
         {
             TextView frmAcct = (TextView) findViewById(R.id.editText);
             TextView toAcct = (TextView) findViewById(R.id.editText6);
@@ -164,7 +162,6 @@ public class ConfirmPage extends AppCompatActivity {
             TextView amtFunds = (TextView) findViewById(R.id.editText10);
 
             getSupportActionBar().setTitle("Confirm Transfer");
-            e5.setVisibility(View.GONE);
             t6.setVisibility(View.GONE);
             t1.setText("From Account");
             t2.setText("To Account");
@@ -174,7 +171,13 @@ public class ConfirmPage extends AppCompatActivity {
             toAcct.setText(extras.getString("toAccountNo"));
             des.setText(extras.getString("description"));
             amtFunds.setText(extras.getString("amount"));
-            final String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
+            final String url;
+            if(imp.equals("account")) {
+                url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
+            }
+            else{
+                url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTransObnks()/input";
+            }
 
             Button confirmButton = (Button) findViewById(R.id.button2);
             confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -225,7 +228,7 @@ public class ConfirmPage extends AppCompatActivity {
                 }
                 else
                 {
-                    return false;
+                  return false;
                 }
             }catch (Exception e) {
                 e.printStackTrace();
@@ -234,8 +237,10 @@ public class ConfirmPage extends AppCompatActivity {
         }
         protected void onPostExecute(Boolean aBoolean) {
             if(aBoolean){
-                final Intent TransferBwAccounts = new Intent(ConfirmPage.this, SucessPage.class);
-                startActivity(TransferBwAccounts);
+
+                final Intent TransferAccounts = new Intent(ConfirmPage.this, SucessPage.class);
+                TransferAccounts.putExtra("Sucess", "within");
+                startActivity(TransferAccounts);
             }
             else{
                 final Intent TransferBwAccounts = new Intent(ConfirmPage.this, ConfirmPage.class);
