@@ -18,38 +18,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.HashMap;
-
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by upriya on 06-03-2017.
  */
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-
 public class Addbeneficiary extends AppCompatActivity {
 
     public String intentData = "internal";
     public Intent commit;
-
     public static String BenID;
-    private static String status=null;
     public static boolean success=true;
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_addbeneficiary);
         getSupportActionBar().setTitle("Add beneficiary");
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final CheckBox withinbank1 = (CheckBox) findViewById(R.id.withinbank);
         final CheckBox neft1 = (CheckBox) findViewById(R.id.neft);
@@ -58,14 +43,12 @@ public class Addbeneficiary extends AppCompatActivity {
         final EditText benAccNo = (EditText) findViewById(R.id.BenAccNo);
         final EditText accNoCheck = (EditText) findViewById(R.id.ReenterAccNo);
         final EditText emailUser = (EditText) findViewById(R.id.Email);
-        final EditText Nickname = (EditText) findViewById(R.id.NickName);
+        final EditText nickName = (EditText) findViewById(R.id.NickName);
         final ImageView helpicon = (ImageView) findViewById(R.id.help_icon);
-
+        //function for getting the application id
         new NewDeal().execute();
-
-
+        //listener for Withinbank
         withinbank1.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
@@ -75,12 +58,9 @@ public class Addbeneficiary extends AppCompatActivity {
                     ifscEtext.setVisibility(View.INVISIBLE);
                     helpicon.setVisibility(View.INVISIBLE);
                     intentData = "internal";
-                    status="no";
-
                 }
             }
         });
-
         neft1.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -92,13 +72,10 @@ public class Addbeneficiary extends AppCompatActivity {
                     ifscEtext.setVisibility(View.VISIBLE);
                     helpicon.setVisibility(View.VISIBLE);
                     intentData = "external";
-                    status="yes";
-
-
                 }
             }
         });
-         Button viewStmt = (Button) findViewById(R.id.BenButton);
+        Button viewStmt = (Button) findViewById(R.id.BenButton);
         viewStmt.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -112,26 +89,19 @@ public class Addbeneficiary extends AppCompatActivity {
                     benAccNo.setError("This field cannot be left blank");
                 if ((accNoCheck.getText().toString()).matches(""))
                     accNoCheck.setError("This field cannot be left blank");
-                if ((Nickname.getText().toString()).matches(""))
-                     Nickname.setError("This field cannot be left blank");
-                if (((benAccNo.getError() == null) && (accNoCheck.getError() == null) && (emailUser.getError() == null) && ( Nickname.getError() == null) && (ifscEtext.getError() == null)))
-                {
+                if ((nickName.getText().toString()).matches(""))
+                    nickName.setError("This field cannot be left blank");
+                if (((benAccNo.getError() == null) && (accNoCheck.getError() == null)&& ( nickName.getError() == null) && (ifscEtext.getError() == null))){
+                    String accNo = benAccNo.getText().toString();
+                    String emailStr = emailUser.getText().toString();
+                    String nick = nickName.getText().toString();
                     if (intentData.equals("external")) {
-                        String AccNo = benAccNo.getText().toString();
-                        String Emailstr = emailUser.getText().toString();
-                        String Nick = Nickname.getText().toString();
                         String IFSCstr = ifscEtext.getText().toString();
-                        new PostDetails().execute(intentData,AccNo, Emailstr, Nick,IFSCstr);
+                        new PostDetails().execute(intentData,accNo, emailStr, nick,IFSCstr);
                     } else {
-                        String AccNo = benAccNo.getText().toString();
-                        String Emailstr = emailUser.getText().toString();
-                        String Nick = Nickname.getText().toString();
-
-                        new PostDetails().execute(intentData,AccNo, Emailstr, Nick);
+                        new PostDetails().execute(intentData,accNo, emailStr, nick);
                     }
-
                 }
-
             }
         });
 
@@ -215,8 +185,6 @@ public class Addbeneficiary extends AppCompatActivity {
         return true;
     }
 
-
-
     private class PostDetails extends AsyncTask<String, Void, Void> {
 
         public String localStatus;
@@ -229,44 +197,41 @@ public class Addbeneficiary extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... param) {
-            String urlStr = "";
-            JSONObject postdata = new JSONObject();
+           // initalisation
+            String urlStr = "",BencustomerNo = "",Benname = "",Name="",IfscBranch="";
+            JSONObject postData = new JSONObject();
             JSONArray array = new JSONArray();
             JSONArray array1 = new JSONArray();
             JSONObject jsonObjarray = new JSONObject();
             JSONObject jsonObjarray1 = new JSONObject();
-            String BenAcctNo = param[1];
-            System.out.println(BenAcctNo);
-            String Email = param[2];
-            String Nickname = param[3];
-            String Ifsc = "",response;
-
-            localStatus= param[0];
             HttpHandler sh1 = new HttpHandler();
-
-            String BencustomerNo = "";
-            String Benname = "",Name="",IfscBranch="";
             Bundle benBundle = new Bundle();
+
+            // reading the parameters
+            String benAcctNo = param[1];
+            String email = param[2];
+            String nickName = param[3];
+            String Ifsc = "",response;
+            localStatus= param[0];
 
             // COMMON FOR BOTH
             try {
-                postdata.put("BenAcctNo", BenAcctNo);
-                postdata.put("BenCustomer", BencustomerNo);
-                postdata.put("BeneficiaryId", BenID);
-                postdata.put("Email", Email);
+                // creating the json object for validate
+                postData.put("BenAcctNo", benAcctNo);
+                postData.put("BenCustomer", BencustomerNo);
+                postData.put("BeneficiaryId", BenID);
+                postData.put("Email", email);
                 jsonObjarray1.put("Name1",Name);
                 array1.put(jsonObjarray1);
-                postdata.put("Name1MvGroup", array1);
-                jsonObjarray.put("Nickname", Nickname);
+                postData.put("Name1MvGroup", array1);
+                jsonObjarray.put("Nickname", nickName);
                 array.put(jsonObjarray);
-                postdata.put("NicknameMvGroup", array);
-                postdata.put("OwningCustomer", "190090");
-
-
+                postData.put("NicknameMvGroup", array);
+                postData.put("OwningCustomer", "190090");
 
                 if (localStatus.equals("external")) {
                     Ifsc=param[4];
-                    postdata.put("BankSortCode", Ifsc);
+                    postData.put("BankSortCode", Ifsc);
                     benBundle.putString("Ifsc", Ifsc);
                     urlStr = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verBeneficiary_Obnks(\'" + BenID + "\')/validate";
                 } else {
@@ -278,55 +243,48 @@ public class Addbeneficiary extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            success=sh1.jsonWrite(urlStr,postdata );
+            success=sh1.jsonWrite(urlStr,postData );
             System.out.println(success);
             if(success) {
-                        response=sh1.getResponse();
+                response=sh1.getResponse();
 
-                    if (response != null) {
-                        if(localStatus.equals("external")) {
-                            try {
-                                System.out.println(response);
-                                JSONObject cus1 = new JSONObject(response);
-                                IfscBranch= cus1.getString("BcSortCode");
-                                benBundle.putString("IfscBranch", IfscBranch);
-
-                            } catch (final JSONException e) {
-                                e.printStackTrace();
-
-                            }
-                        }
-                        else
-                        { try {
+                if (response != null) {
+                    if(localStatus.equals("external")) {
+                        try {
                             System.out.println(response);
                             JSONObject cus1 = new JSONObject(response);
-                            BencustomerNo = cus1.getString("BenCustomer");
-                            JSONArray cusarray1 = cus1.getJSONArray("Name1MvGroup");
-                            for (int k = 0; k < cusarray1.length(); k++) {
-                                JSONObject cus3 = cusarray1.getJSONObject(k);
-
-                                Benname = cus3.getString("Name1");
-
-                            }
+                            IfscBranch= cus1.getString("BcSortCode");
+                            benBundle.putString("IfscBranch", IfscBranch);
 
                         } catch (final JSONException e) {
                             e.printStackTrace();
-
-                        }
                         }
                     }
-
-
+                    else
+                    { try {
+                        System.out.println(response);
+                        JSONObject cus1 = new JSONObject(response);
+                        BencustomerNo = cus1.getString("BenCustomer");
+                        JSONArray cusarray1 = cus1.getJSONArray("Name1MvGroup");
+                        for (int k = 0; k < cusarray1.length(); k++) {
+                            JSONObject cus3 = cusarray1.getJSONObject(k);
+                            Benname = cus3.getString("Name1");
+                        }
+                    } catch (final JSONException e) {
+                        e.printStackTrace();
+                    }
+                    }
+                }
             }
             //common bundle
-                 benBundle.putString("BenAcctNo", BenAcctNo);
-                 benBundle.putString("BenCustomer",  BencustomerNo);
-                 benBundle.putString("BeneficiaryId", BenID);
-                 benBundle.putString("Email", Email);
-                benBundle.putString("Nickname", Nickname);
-                benBundle.putString("Benname", Benname);
-                 benBundle.putString("OwningCustomer", "190090");
-                benBundle.putString("getintent", intentData);
+            benBundle.putString("BenAcctNo", benAcctNo);
+            benBundle.putString("BenCustomer",  BencustomerNo);
+            benBundle.putString("BeneficiaryId", BenID);
+            benBundle.putString("Email", email);
+            benBundle.putString("Nickname",nickName);
+            benBundle.putString("Benname", Benname);
+            benBundle.putString("OwningCustomer", "190090");
+            benBundle.putString("getintent", intentData);
             commit = new Intent(Addbeneficiary.this, ConfirmPage.class);
             commit.putExtras(benBundle);
             return null;
@@ -337,54 +295,45 @@ public class Addbeneficiary extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             if(success) {
-
                 startActivity(commit);
-
             }
             else
                 Toast.makeText(Addbeneficiary.this, "error in connection ", Toast.LENGTH_LONG).show();
         }
     }
 
-        private class NewDeal extends AsyncTask<Void, Void, Void> {
-
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-
-            @Override
-            protected Void doInBackground(Void... arg0) {
-                HttpHandler sh = new HttpHandler();
-                String url;
-                try {
-                    PropertiesReader property = new PropertiesReader();
-                    url = property.getProperty("url_beneficiary_Wbnk_new", getApplicationContext());
-                    String jsonStr = sh.makeServiceCall(url);
-                    if (jsonStr != null) {
-                        try {
-                            JSONObject jsonObj = new JSONObject(jsonStr);
-                            BenID = jsonObj.getString("BeneficiaryId");
-                        } catch (final JSONException e) {
-                        }
+    private class NewDeal extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpHandler sh = new HttpHandler();
+            String url;
+            try {
+                PropertiesReader property = new PropertiesReader();
+                url = property.getProperty("url_beneficiary_Wbnk_new", getApplicationContext());
+                String jsonStr = sh.makeServiceCall(url);
+                if (jsonStr != null) {
+                    try {
+                        JSONObject jsonObj = new JSONObject(jsonStr);
+                        BenID = jsonObj.getString("BeneficiaryId");
+                    } catch (final JSONException e) {
                     }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
 
-                return null;
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
-            }
-
-
+            return null;
         }
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
+
     }
+}
 
 
