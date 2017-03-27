@@ -1,6 +1,7 @@
 package com.temenos.dshubhamrajput.genericnet;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -30,6 +31,8 @@ public class TransferWithinBnk extends AppCompatActivity {
     public String intentData;
     public static String status;
     public Intent commit;
+    ProgressDialog progressDialog;
+    ProgressDialog preprogressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +119,15 @@ public class TransferWithinBnk extends AppCompatActivity {
          * Establishes connection with the url and authenticates the user name
          * and password.
          */
+        @Override
+        protected void onPreExecute() {
+            preprogressDialog= new ProgressDialog(TransferWithinBnk.this);
+            preprogressDialog.setMessage("Please wait...");
+            preprogressDialog.show();
+            preprogressDialog.setCancelable(false);
+            super.onPreExecute();
+        }
+
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
@@ -245,10 +257,23 @@ public class TransferWithinBnk extends AppCompatActivity {
             return null;
 
         }
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            preprogressDialog.dismiss();
+        }
     }
 
     public class jsonResponse extends AsyncTask<String,Void,Boolean>
     {
+        @Override
+        protected void onPreExecute() {
+            progressDialog= new ProgressDialog(TransferWithinBnk.this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
+            progressDialog.setCancelable(true);
+            super.onPreExecute();
+        }
+
         protected Boolean doInBackground(String... params) {
             String currencyDeb="";
             String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss(\'"+RefNo+"\')/validate";
@@ -318,6 +343,7 @@ public class TransferWithinBnk extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if(aBoolean){
+                progressDialog.dismiss();
                 startActivity(commit);
             }
             else{
