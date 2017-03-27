@@ -217,6 +217,20 @@ public class Addbeneficiary extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+    public void showErrorText() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(R.string.Error_text)
+                .setTitle("ERROR")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //nothing is done
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
     public boolean onSupportNavigateUp() {
         finish();
@@ -366,7 +380,7 @@ public class Addbeneficiary extends AppCompatActivity {
                 startActivity(commit);
             }
             else
-                Toast.makeText(Addbeneficiary.this, "error in connection ", Toast.LENGTH_LONG).show();
+                    showErrorText();
         }
     }
 
