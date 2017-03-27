@@ -51,17 +51,17 @@
         android:layout_below="@+id/editText"
         android:layout_alignStart="@+id/editText" />
 
-    <EditText
+    <Spinner
         android:layout_width="290sp"
         android:layout_height="30sp"
         android:inputType="number"
         android:ems="10"
         android:id="@+id/editText6"
         android:background="@drawable/acctedit"
-        android:layout_marginTop="12dp"
-        android:paddingLeft="5dp"
         android:layout_below="@+id/textView3"
-        android:layout_alignStart="@+id/textView3" />
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="7dp"
+        android:paddingLeft="5dp"/>
 
     <ImageView
         android:layout_height="wrap_content"
@@ -132,6 +132,15 @@
         android:layout_toStartOf="@+id/imageView"
         android:layout_height="25dp"
         android:layout_alignBottom="@+id/editText"
+        android:paddingRight="5dp"
+        android:layout_width="20sp" />
+    <ImageView
+        app:srcCompat="@drawable/down_arrow"
+        android:id="@+id/imageView8"
+        android:layout_alignTop="@+id/editText6"
+        android:layout_toStartOf="@+id/imageView5"
+        android:layout_height="25dp"
+        android:layout_alignBottom="@+id/editText6"
         android:paddingRight="5dp"
         android:layout_width="20sp" />
 </RelativeLayout>

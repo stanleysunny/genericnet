@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -24,7 +19,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
-    <EditText
+    <Spinner
         android:layout_width="290sp"
         android:layout_height="30sp"
         android:inputType="number"
@@ -56,7 +51,7 @@
         android:layout_below="@+id/edit_from_within"
         android:layout_alignStart="@+id/edit_from_within" />
 
-    <EditText
+    <Spinner
         android:layout_width="290sp"
         android:layout_height="30sp"
         android:inputType="number"
@@ -129,7 +124,22 @@
         android:layout_marginTop="16dp"
         android:layout_below="@+id/edit_desc_within"
         android:layout_alignStart="@+id/edit_desc_within" />
+    <ImageView
+        app:srcCompat="@drawable/down_arrow"
+        android:id="@+id/imageView7"
+        android:layout_alignTop="@+id/edit_from_within"
+        android:layout_toStartOf="@+id/imageView"
+        android:layout_height="25dp"
+        android:layout_alignBottom="@+id/edit_from_within"
+        android:paddingRight="5dp"
+        android:layout_width="20sp" />
+    <ImageView
+        app:srcCompat="@drawable/down_arrow"
+        android:id="@+id/imageView8"
+        android:layout_alignTop="@+id/edit_to_within"
+        android:layout_toStartOf="@+id/imageView5"
+        android:layout_height="25dp"
+        android:layout_alignBottom="@+id/edit_to_within"
+        android:paddingRight="5dp"
+        android:layout_width="20sp" />
 </RelativeLayout>
-
-
-</ScrollView>
