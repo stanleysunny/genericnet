@@ -50,7 +50,8 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
        android:inputType="number"
        android:background="@drawable/acctedit"
        android:layout_below="@+id/textView1"
-       android:layout_alignStart="@+id/textView1" />
+       android:layout_alignStart="@+id/textView1"
+       />
    <TextView
        android:id="@+id/textView2"
        android:layout_width="wrap_content"
@@ -166,7 +167,6 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
        android:layout_marginBottom="31dp"
        android:layout_alignParentBottom="true"
        android:layout_centerHorizontal="true" />
-
 
 
 </RelativeLayout>
