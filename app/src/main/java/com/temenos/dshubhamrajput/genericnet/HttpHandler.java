@@ -4,8 +4,6 @@ package com.temenos.dshubhamrajput.genericnet;
  * Created by Administrator on 20-02-2017.
  */
 
-import android.util.Log;
-import android.widget.Toast;
 
 import org.apache.commons.codec.binary.Base64;
 import org.json.JSONArray;
@@ -32,19 +30,20 @@ public class HttpHandler {
     private String response = "";
     private static String basicAuth = "";
     private static final String TAG = HttpHandler.class.getSimpleName();
-    private String returnresponse = "";
+    private String returnResponse = "";
+    private static String userName="";
+    private static String passWord="";
+
+
 
     HttpHandler() {
     }
 
     String makeServiceCall(String reqUrl) {
         String response = null;
-        String basicAuth;
         try {
             URL e = new URL(reqUrl);
             HttpURLConnection urlConnection = (HttpURLConnection) e.openConnection();
-            String userPass = "PAYUSER1" + ":" + "123456";
-            basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
             urlConnection.setRequestProperty("Authorization", basicAuth);
             urlConnection.setRequestProperty("Accept", "application/json");
             urlConnection.setRequestMethod("POST");
@@ -64,8 +63,6 @@ public class HttpHandler {
 
             URL e = new URL(reqUrl);
             HttpURLConnection urlConnection = (HttpURLConnection) e.openConnection();
-            String userPass = "PAYUSER1" + ":" + "123456";
-            basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
             urlConnection.setRequestProperty("Authorization", basicAuth);
             urlConnection.setRequestProperty("Accept", "application/json");
             urlConnection.setRequestMethod("GET");
@@ -110,11 +107,6 @@ public class HttpHandler {
             URL e = new URL(reurl);
             HttpURLConnection urlConnectio = (HttpURLConnection) e.openConnection();
             urlConnectio.setDoOutput(true);
-            String basicAuth;
-            String userPass;
-
-            userPass = "CREDITMGR" + ":" + "123456";
-            basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
             urlConnectio.setRequestProperty("Authorization", basicAuth);
             urlConnectio.setRequestProperty("Accept", "application/json");
             urlConnectio.setRequestProperty("Content-Type", "application/json");
@@ -147,10 +139,6 @@ public class HttpHandler {
             URL commit = new URL(reurl);
             HttpURLConnection urlcommit = (HttpURLConnection) commit.openConnection();
             urlcommit.setDoOutput(true);
-            String basicAuth;
-            String userPass;
-            userPass = "CREDITMGR" + ":" + "123456";
-            basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
             urlcommit.setRequestProperty("Authorization", basicAuth);
             urlcommit.setRequestProperty("Accept", "application/json");
             urlcommit.setRequestProperty("Content-Type", "application/json");
@@ -179,10 +167,8 @@ public class HttpHandler {
         String info;
         try {
             URL u = new URL(urlStr);
-            String basicAuth = "";
+
             HttpURLConnection conn = (HttpURLConnection) u.openConnection();
-            String userPass = "PAYUSER1" + ":" + "123456";
-            basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
             conn.setRequestProperty("Authorization", basicAuth);
             conn.setRequestProperty("Accept", "application/json");
             conn.setRequestProperty("Content-Type", "application/json");
@@ -217,7 +203,7 @@ public class HttpHandler {
                         while ((line = reader.readLine()) != null) {
                             sb.append(line).append('\n');
                         }
-                        returnresponse = sb.toString();
+                        returnResponse = sb.toString();
                     } catch (IOException var14) {
                         var14.printStackTrace();
                     }
@@ -268,9 +254,6 @@ public class HttpHandler {
                             JSONObject error = errorlist.getJSONObject(j);
                             text = error.getString("Text");
                             info = error.getString("Info");
-
-                            System.out.println(text);
-                            System.out.println(info);
                         }
                     }
                 } catch (Exception exception) {
@@ -295,7 +278,16 @@ public class HttpHandler {
     }
 
     public String getResponse() {
-        return returnresponse;
+        return returnResponse;
     }
+
+    public void setCredentials(String user,String mpassword)
+    {
+            userName = user;
+            passWord = mpassword;
+        String userPass =  user + ":" + mpassword;
+        basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
+    }
+
 }
 

@@ -27,6 +27,7 @@ import android.graphics.Typeface;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -50,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
         session1 = new SessionManager(getApplicationContext());
         Intent intent = getIntent();
         getSupportActionBar().setTitle("TEMENOS");
+        HashMap<String,String> owner;
+        SessionManager session =new SessionManager(getApplicationContext());
+        owner=session.getUserDetails();
+        String user= owner.get( "name");
+        TextView welcomeText= (TextView) findViewById(R.id.textView9);
+                welcomeText.setText("Welcome "+user);
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         final Intent Addbeneficiary = new Intent(MainActivity.this, Addbeneficiary.class);
         final Intent TransferBwAccounts = new Intent(MainActivity.this, TransferBwAccounts.class);
