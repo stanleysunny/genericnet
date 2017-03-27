@@ -261,6 +261,7 @@ public class TransferBwAccounts extends AppCompatActivity {
             progressDialog.setMessage("Please wait...");
             progressDialog.show();
             progressDialog.setCancelable(true);
+
             super.onPreExecute();
         }
 
