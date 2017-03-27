@@ -1,6 +1,7 @@
 package com.temenos.dshubhamrajput.genericnet;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -30,6 +31,8 @@ public class TransferBwAccounts extends AppCompatActivity {
     public String intentData;
     public static String status;
     public Intent commit;
+    ProgressDialog progressDialog;
+    ProgressDialog preprogressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +117,15 @@ public class TransferBwAccounts extends AppCompatActivity {
          * Establishes connection with the url and authenticates the user name
          * and password.
          */
+        @Override
+        protected void onPreExecute() {
+            preprogressDialog= new ProgressDialog(TransferBwAccounts.this);
+            preprogressDialog.setMessage("Please wait...");
+            preprogressDialog.show();
+            preprogressDialog.setCancelable(false);
+            super.onPreExecute();
+        }
+
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
@@ -218,10 +230,25 @@ public class TransferBwAccounts extends AppCompatActivity {
                 return null;
 
         }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            preprogressDialog.dismiss();
+        }
     }
 
     public class jsonResponse extends AsyncTask<String,Void,Boolean>
     {
+        @Override
+        protected void onPreExecute() {
+            progressDialog= new ProgressDialog(TransferBwAccounts.this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
+            progressDialog.setCancelable(true);
+            preprogressDialog.setCanceledOnTouchOutside(false);
+            super.onPreExecute();
+        }
+
         protected Boolean doInBackground(String... params) {
             InputStream inputStream = null;
             String result = "";
@@ -293,6 +320,7 @@ public class TransferBwAccounts extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             if(aBoolean){
+                progressDialog.dismiss();
                 startActivity(commit);
             }
             else{
