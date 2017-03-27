@@ -356,8 +356,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
          */
         @Override
         protected Boolean doInBackground(Void... params) {
-            //ConstantClass constantObj= new ConstantClass();
-            //String urlString=constantObj.getLoginUrl();
             try{
                 PropertiesReader pro = new PropertiesReader();
                 String urlString=pro.getProperty("url_login_screen",getApplicationContext());
@@ -368,14 +366,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             catch (IOException e) {
                 e.printStackTrace();
             }
-
-//            try{
-//                Properties properties = new Properties();
-//                properties.load(new FileInputStream("src/main/java/constant.properties"));
-//                loginURL=properties.getProperty("url_login_screen");
-//            }catch(Exception e){
-//
-//            }
             return true;
         }
 

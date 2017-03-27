@@ -41,7 +41,7 @@ public class TransferBwAccounts extends AppCompatActivity {
         getSupportActionBar().setTitle("Account Transfer");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Spinner from = (Spinner) findViewById(R.id.editText);
-        EditText to = (EditText) findViewById(R.id.editText6);
+        Spinner to = (Spinner) findViewById(R.id.editText6);
         EditText desc = (EditText) findViewById(R.id.editText7);
         EditText amt = (EditText) findViewById(R.id.editText8);
         from.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -89,8 +89,8 @@ public class TransferBwAccounts extends AppCompatActivity {
             public void onClick(View arg0) {
                 Spinner fromAcctNo = (Spinner) findViewById(R.id.editText);
                 String fromAccountNo = fromAcctNo.getSelectedItem().toString();
-                EditText toAcctNo = (EditText) findViewById(R.id.editText6);
-                String toAccountNo = toAcctNo.getText().toString();
+                Spinner toAcctNo = (Spinner) findViewById(R.id.editText6);
+                String toAccountNo = toAcctNo.getSelectedItem().toString();
                 EditText descr = (EditText) findViewById(R.id.editText7);
                 String description = descr.getText().toString();
                 EditText amt = (EditText) findViewById(R.id.editText8);
@@ -172,8 +172,11 @@ public class TransferBwAccounts extends AppCompatActivity {
                         JSONObject firstObj = jsonObjCusAcct.getJSONObject("_embedded");
                         JSONArray item = firstObj.getJSONArray("item");
                         final Spinner spinner = (Spinner)findViewById(R.id.editText);
+                        final Spinner secondSpinner = (Spinner)findViewById(R.id.editText6);
                         final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
+                        final ArrayAdapter<String> secondSpinnerAdptr = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
                         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        secondSpinnerAdptr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                         for (int i = 0; i < item.length(); i++) {
                             JSONObject acctNoOfCustomer = item.getJSONObject(i);
@@ -182,7 +185,9 @@ public class TransferBwAccounts extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     spinner.setAdapter(spinnerAdapter);
+                                    secondSpinner.setAdapter(secondSpinnerAdptr);
                                     spinnerAdapter.add(diffAcctNo);
+                                    secondSpinnerAdptr.add(diffAcctNo);
                                 }
                             });
                         }
@@ -190,6 +195,7 @@ public class TransferBwAccounts extends AppCompatActivity {
                             @Override
                             public void run() {
                                 spinnerAdapter.notifyDataSetChanged();
+                                secondSpinnerAdptr.notifyDataSetChanged();
                             }
                         });
 
@@ -287,7 +293,7 @@ public class TransferBwAccounts extends AppCompatActivity {
                 HttpHandler newObj = new HttpHandler();
                 status = newObj.postfunc(url,json);
                 if(status.equals("YES")) {
-                    intentData = "account";
+                    intentData = "bwAccounts";
                     Bundle fundsTransferData = new Bundle();
                     fundsTransferData.putString("RefNo", RefNo);
                     fundsTransferData.putString("fromAccountNo", params[0]);
