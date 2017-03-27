@@ -107,21 +107,6 @@ public class Addbeneficiary extends AppCompatActivity {
             }
         });
 
-//        accNoCheck.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            public void onFocusChange(View v, boolean hasFocus) {
-//
-//                if (!(accNoCheck.getText().toString().equals(benAccNo.getText().toString()))) {
-//                    if (!((accNoCheck.getText().toString()).matches("")))
-//                        accNoCheck.setError("Account numbers don't match");
-//                }
-//                else if(((accNoCheck.getText().toString()).matches("")))
-//                    accNoCheck.setError("This field cannot be left blank");
-//                else
-//                    accNoCheck.setError(null);
-//
-//            }
-//
-//        });
         accNoCheck.addTextChangedListener(new TextWatcher() {
             // ...
             @Override
@@ -273,7 +258,7 @@ public class Addbeneficiary extends AppCompatActivity {
                     Ifsc=param[4];
                     postData.put("BankSortCode", Ifsc);
                     benBundle.putString("Ifsc", Ifsc);
-                    // for priya ------------- make a genral class for this logic
+                    // for priya ------------- make a general method for this logic
                     try {
                         String trialURl;
                         PropertiesReader property = new PropertiesReader();
