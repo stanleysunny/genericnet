@@ -1,5 +1,6 @@
 package com.temenos.dshubhamrajput.genericnet;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -41,6 +42,7 @@ public class ConfirmPage extends AppCompatActivity {
     final HashMap<String, String> obj = new HashMap<>();
     boolean success=true;
     static public String status;
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -200,6 +202,15 @@ public class ConfirmPage extends AppCompatActivity {
 
     public class commitFunCall extends AsyncTask<String,Void,Boolean>
     {
+        @Override
+        protected void onPreExecute() {
+            progressDialog= new ProgressDialog(ConfirmPage.this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
+            progressDialog.setCancelable(false);
+            super.onPreExecute();
+        }
+
         protected Boolean doInBackground(String... params)
         {
             try {
@@ -234,6 +245,7 @@ public class ConfirmPage extends AppCompatActivity {
         }
         protected void onPostExecute(Boolean aBoolean) {
             if(aBoolean){
+                progressDialog.dismiss();
                 final Intent TransferBwAccounts = new Intent(ConfirmPage.this, SucessPage.class);
                 startActivity(TransferBwAccounts);
             }
