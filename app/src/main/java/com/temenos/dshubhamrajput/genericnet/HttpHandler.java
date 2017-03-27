@@ -269,8 +269,7 @@ public class HttpHandler {
                             text = error.getString("Text");
                             info = error.getString("Info");
 
-                            System.out.println(text);
-                            System.out.println(info);
+
                         }
                     }
                 } catch (Exception exception) {

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -106,9 +108,25 @@ public class Addbeneficiary extends AppCompatActivity {
             }
         });
 
-        accNoCheck.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View v, boolean hasFocus) {
-
+//        accNoCheck.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            public void onFocusChange(View v, boolean hasFocus) {
+//
+//                if (!(accNoCheck.getText().toString().equals(benAccNo.getText().toString()))) {
+//                    if (!((accNoCheck.getText().toString()).matches("")))
+//                        accNoCheck.setError("Account numbers don't match");
+//                }
+//                else if(((accNoCheck.getText().toString()).matches("")))
+//                    accNoCheck.setError("This field cannot be left blank");
+//                else
+//                    accNoCheck.setError(null);
+//
+//            }
+//
+//        });
+        accNoCheck.addTextChangedListener(new TextWatcher() {
+            // ...
+            @Override
+            public void onTextChanged(CharSequence text, int start, int count, int after) {
                 if (!(accNoCheck.getText().toString().equals(benAccNo.getText().toString()))) {
                     if (!((accNoCheck.getText().toString()).matches("")))
                         accNoCheck.setError("Account numbers don't match");
@@ -117,10 +135,20 @@ public class Addbeneficiary extends AppCompatActivity {
                     accNoCheck.setError("This field cannot be left blank");
                 else
                     accNoCheck.setError(null);
+                }
 
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
             }
 
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
         });
+
 
         emailUser.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
