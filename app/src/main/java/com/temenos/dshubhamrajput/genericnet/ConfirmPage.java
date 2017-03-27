@@ -155,7 +155,38 @@ public class ConfirmPage extends AppCompatActivity {
                 }
             });
         }
-        else if(imp.equals("account"))
+
+        else if(imp.equals("bwAccounts")){
+            TextView frmAcct = (TextView) findViewById(R.id.editText);
+            TextView toAcct = (TextView) findViewById(R.id.editText6);
+            TextView des = (TextView) findViewById(R.id.editText7);
+            TextView amtFunds = (TextView) findViewById(R.id.editText10);
+
+            getSupportActionBar().setTitle("Confirm Transfer");
+            t6.setVisibility(View.GONE);
+            t1.setText("From Account");
+            t2.setText("To Account");
+            t3.setText("Description");
+            t4.setText("Amount");
+            frmAcct.setText(extras.getString("fromAccountNo"));
+            toAcct.setText(extras.getString("toAccountNo"));
+            des.setText(extras.getString("description"));
+            amtFunds.setText(extras.getString("amount"));
+
+
+            Button confirmButton = (Button) findViewById(R.id.button2);
+            confirmButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View arg0) {
+                    String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
+                    new commitFunCall().execute("account",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
+                            ,extras.getString("toAccountNo"),extras.getString("description"));
+
+                }
+            });
+        }
+        else if(imp.equals("withinBank"))
         {
             TextView frmAcct = (TextView) findViewById(R.id.editText);
             TextView toAcct = (TextView) findViewById(R.id.editText6);
@@ -205,7 +236,7 @@ public class ConfirmPage extends AppCompatActivity {
             t3.setText("Description");
             t4.setText("Amount");
             t5.setText("Branch Name");
-            t6.setText("Beneficiary Customer");
+            t6.setText("Nick Name");
             t7.setText("Bank Sort Code");
             frmAcct.setText(extras.getString("fromAccountNo"));
             toAcct.setText(extras.getString("toAccountNo"));
@@ -250,7 +281,7 @@ public class ConfirmPage extends AppCompatActivity {
             try {
                 String json = "";
                 JSONObject jsonObject = new JSONObject();
-                if(params[0].equals("account")) {
+                if(params[0].equals("withinBank") || params[0].equals("bwAccounts")) {
 
                     // 3. build jsonObject
 

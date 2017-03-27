@@ -290,7 +290,7 @@ public class TransferWithinBnk extends AppCompatActivity {
                 HttpHandler newObj = new HttpHandler();
                 status = newObj.postfunc(url,json);
                 if(status.equals("YES")) {
-                    intentData = "account";
+                    intentData = "withinBank";
                     Bundle fundsTransferData = new Bundle();
                     fundsTransferData.putString("RefNo", RefNo);
                     fundsTransferData.putString("fromAccountNo", params[0]);
