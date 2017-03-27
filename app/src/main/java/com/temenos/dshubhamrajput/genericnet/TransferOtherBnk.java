@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +48,19 @@ public class TransferOtherBnk extends AppCompatActivity {
         Spinner to = (Spinner) findViewById(R.id.edit_to_other);
         EditText desc = (EditText) findViewById(R.id.edit_desc_other);
         EditText amt = (EditText) findViewById(R.id.edit_amt_other);
+        InputFilter filter = new InputFilter() {
+            public CharSequence filter(CharSequence source, int start, int end,
+                                       Spanned dest, int dstart, int dend) {
+                for (int i = start; i < end; i++) {
+                    if (!Character.isLetterOrDigit(source.charAt(i))) {
+                        return "";
+                    }
+                }
+                return null;
+            }
+        };
+        amt.setFilters(new InputFilter[] { filter });
+        amt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(10)});
         from.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -268,6 +283,7 @@ public class TransferOtherBnk extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             preprogressDialog.dismiss();
+            super.onPostExecute(aBoolean);
         }
 
     }
