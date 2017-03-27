@@ -25,7 +25,7 @@ public class ConfirmPage extends AppCompatActivity {
     public Intent test;
     public static String imp;
     public TextView e5;
-    public TextView t1,t2,t3,t4,t5,t6;
+    public TextView t1,t2,t3,t4,t5,t6,t7;
     public TextView e1,e2,e3,e4;
     final HashMap<String, String> obj = new HashMap<>();
     boolean success=true;
@@ -50,6 +50,7 @@ public class ConfirmPage extends AppCompatActivity {
         t4=(TextView) findViewById(R.id.textView6);
         t5=(TextView) findViewById(R.id.textView11);
         t6=(TextView) findViewById(R.id.textView13);
+        t7=(TextView) findViewById(R.id.textView19);
 
 
         test=getIntent();
@@ -154,8 +155,8 @@ public class ConfirmPage extends AppCompatActivity {
                 }
             });
         }
-        else if(imp.equals("account")||imp.equals("others"))
-        {
+
+        else if(imp.equals("bwAccounts")){
             TextView frmAcct = (TextView) findViewById(R.id.editText);
             TextView toAcct = (TextView) findViewById(R.id.editText6);
             TextView des = (TextView) findViewById(R.id.editText7);
@@ -171,21 +172,93 @@ public class ConfirmPage extends AppCompatActivity {
             toAcct.setText(extras.getString("toAccountNo"));
             des.setText(extras.getString("description"));
             amtFunds.setText(extras.getString("amount"));
-            final String url;
-            if(imp.equals("account")) {
-                url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
-            }
-            else{
-                url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTransObnks()/input";
-            }
+
 
             Button confirmButton = (Button) findViewById(R.id.button2);
             confirmButton.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View arg0) {
-                    new commitFunCall().execute(url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
+                    String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
+                    new commitFunCall().execute("account",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
                             ,extras.getString("toAccountNo"),extras.getString("description"));
+
+                }
+            });
+        }
+        else if(imp.equals("withinBank"))
+        {
+            TextView frmAcct = (TextView) findViewById(R.id.editText);
+            TextView toAcct = (TextView) findViewById(R.id.editText6);
+            TextView des = (TextView) findViewById(R.id.editText7);
+            TextView amtFunds = (TextView) findViewById(R.id.editText10);
+            TextView cName = (TextView) findViewById(R.id.editText8);
+
+            getSupportActionBar().setTitle("Confirm Transfer");
+            t6.setVisibility(View.GONE);
+            t1.setText("From Account");
+            t2.setText("To Account");
+            t3.setText("Description");
+            t4.setText("Amount");
+            t5.setText("Nick Name");
+            frmAcct.setText(extras.getString("fromAccountNo"));
+            toAcct.setText(extras.getString("toAccountNo"));
+            des.setText(extras.getString("description"));
+            amtFunds.setText(extras.getString("amount"));
+            cName.setText(extras.getString("nickName"));
+
+
+            Button confirmButton = (Button) findViewById(R.id.button2);
+            confirmButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View arg0) {
+                        String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
+                        new commitFunCall().execute("account",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
+                                ,extras.getString("toAccountNo"),extras.getString("description"));
+
+                }
+            });
+        }
+
+        else if(imp.equals("others"))
+        {
+            TextView frmAcct = (TextView) findViewById(R.id.editText);
+            TextView toAcct = (TextView) findViewById(R.id.editText6);
+            TextView des = (TextView) findViewById(R.id.editText7);
+            TextView amtFunds = (TextView) findViewById(R.id.editText10);
+            TextView benCust = (TextView) findViewById(R.id.editText11);
+            TextView sortCode= (TextView) findViewById(R.id.editText20);
+            TextView bName = (TextView) findViewById(R.id.editText8);
+
+            t1.setText("From Account");
+            t2.setText("To Account");
+            t3.setText("Description");
+            t4.setText("Amount");
+            t5.setText("Branch Name");
+            t6.setText("Nick Name");
+            t7.setText("Bank Sort Code");
+            frmAcct.setText(extras.getString("fromAccountNo"));
+            toAcct.setText(extras.getString("toAccountNo"));
+            des.setText(extras.getString("description"));
+            amtFunds.setText(extras.getString("amount"));
+            benCust.setText(extras.getString("benCustomer"));
+            sortCode.setText(extras.getString("bankSortCode"));
+            bName.setText(extras.getString("branchName"));
+
+
+            Button confirmButton = (Button) findViewById(R.id.button2);
+            confirmButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View arg0) {
+                    String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTransObnks()/input";
+                    new commitFunCall().execute("other", url, extras.getString("RefNo"), extras.getString("transType"),
+                            extras.getString("bankSortCode"), extras.getString("toAccountNo"),
+                            extras.getString("benCustomer"), extras.getString("branchName"),
+                            extras.getString("creAcctNo"), extras.getString("fromAccountNo"),
+                            extras.getString("amount"), extras.getString("Currency"),
+                            extras.getString("description"));
                 }
             });
         }
@@ -207,22 +280,46 @@ public class ConfirmPage extends AppCompatActivity {
         {
             try {
                 String json = "";
-
-                // 3. build jsonObject
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("RefNo", params[1]);
-                jsonObject.accumulate("TransactionType", params[2]);
-                jsonObject.accumulate("DebitAcctNo", params[3]);
-                jsonObject.accumulate("DebitCurrency", params[4]);
-                jsonObject.accumulate("DebitAmount", params[5]);
-                jsonObject.accumulate("CreditAcctNo", params[6]);
-                jsonObject.accumulate("Description", params[7]);
+                if(params[0].equals("withinBank") || params[0].equals("bwAccounts")) {
+
+                    // 3. build jsonObject
+
+                    jsonObject.accumulate("RefNo", params[2]);
+                    jsonObject.accumulate("TransactionType", params[3]);
+                    jsonObject.accumulate("DebitAcctNo", params[4]);
+                    jsonObject.accumulate("DebitCurrency", params[5]);
+                    jsonObject.accumulate("DebitAmount", params[6]);
+                    jsonObject.accumulate("CreditAcctNo", params[7]);
+                    jsonObject.accumulate("Description", params[8]);
+                }
+                else
+                {
+                    jsonObject.accumulate("RefNo", params[2]);
+                    jsonObject.accumulate("TransactionType", params[3]);
+                    jsonObject.accumulate("BcBankSortCode", params[4]);
+                    jsonObject.accumulate("BenAcctNo", params[5]);
+
+                    JSONArray array = new JSONArray();
+                    JSONObject jsonObjarray = new JSONObject();
+
+                    jsonObjarray.accumulate("BenCustomer",params[6]);
+                    array.put(jsonObjarray);
+
+                    jsonObject.put("BenCustomerMvGroup",array);
+                    jsonObject.accumulate("BranchName", params[7]);
+                    jsonObject.accumulate("CreditAcctNo", params[8]);
+                    jsonObject.accumulate("DebitAcctNo", params[9]);
+                    jsonObject.accumulate("DebitAmount", params[10]);
+                    jsonObject.accumulate("DebitCurrency",params[11]);
+                    jsonObject.accumulate("Description", params[12]);
+                }
 
                 // 4. convert JSONObject to JSON to String
                 json = jsonObject.toString();
 
                 HttpHandler newObj = new HttpHandler();
-                status = newObj.posCommit(params[0], json);
+                status = newObj.posCommit(params[1], json);
                 if(status.equals("YES")) {
                     return true;
                 }
