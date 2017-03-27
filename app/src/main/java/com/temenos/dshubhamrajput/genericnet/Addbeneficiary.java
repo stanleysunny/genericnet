@@ -1,5 +1,6 @@
 package com.temenos.dshubhamrajput.genericnet;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,6 +32,7 @@ public class Addbeneficiary extends AppCompatActivity {
     public Intent commit;
     public static String BenID;
     public static boolean success=true;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,6 +202,10 @@ public class Addbeneficiary extends AppCompatActivity {
         public String localStatus;
         @Override
         protected void onPreExecute() {
+            progressDialog= new ProgressDialog(Addbeneficiary.this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
+            progressDialog.setCancelable(true);
             super.onPreExecute();
         }
 
@@ -328,6 +334,7 @@ public class Addbeneficiary extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             if(success) {
+                progressDialog.dismiss();
                 startActivity(commit);
             }
             else
