@@ -106,7 +106,8 @@
         android:layout_alignParentStart="true"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:paddingLeft="20dp"/>
+        android:paddingLeft="20dp"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -120,28 +121,16 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30sp"
-        android:ems="11"
-        android:id="@+id/editText11"
-        android:focusable="false"
-        android:longClickable="false"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:layout_alignBaseline="@+id/textView13"
-        android:layout_alignBottom="@+id/textView13"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
+        android:id="@+id/textView13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView13"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView11"
+        android:background="#aed7fc"
+        android:paddingBottom="5dp"
         android:paddingLeft="20dp"
         android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:background="#aed7fc"
-        android:layout_below="@+id/textView11"
-        android:layout_alignParentStart="true" />
+        android:textAppearance="@style/TextAppearance.AppCompat" />
 
     <TextView
         android:layout_width="match_parent"
@@ -191,5 +180,17 @@
         android:layout_alignBaseline="@+id/textView19"
         android:layout_alignBottom="@+id/textView19"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/editText11"
+
+        android:layout_width="wrap_content"
+        android:layout_height="30sp"
+        android:layout_alignBaseline="@+id/textView13"
+        android:layout_alignBottom="@+id/textView13"
+        android:layout_alignParentEnd="true"
+        android:ems="11"
+        android:focusable="false"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
 
 </RelativeLayout>

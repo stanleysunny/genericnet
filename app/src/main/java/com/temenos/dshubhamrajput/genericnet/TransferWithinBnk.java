@@ -96,7 +96,7 @@ public class TransferWithinBnk extends AppCompatActivity {
                 String amount = amt.getText().toString();
                 String transType = "AC";
 
-                new jsonResponse().execute(fromAccountNo,toAccountNo,description,amount,transType);
+                new jsonResponse().execute(fromAccountNo,toAccountNo,description,amount,transType,firstValue[1]);
             }
         });
     }
@@ -290,7 +290,7 @@ public class TransferWithinBnk extends AppCompatActivity {
                 HttpHandler newObj = new HttpHandler();
                 status = newObj.postfunc(url,json);
                 if(status.equals("YES")) {
-                    intentData = "account";
+                    intentData = "withinBank";
                     Bundle fundsTransferData = new Bundle();
                     fundsTransferData.putString("RefNo", RefNo);
                     fundsTransferData.putString("fromAccountNo", params[0]);
@@ -300,6 +300,7 @@ public class TransferWithinBnk extends AppCompatActivity {
                     fundsTransferData.putString("transType", params[4]);
                     fundsTransferData.putString("Currency",currencyDeb);
                     fundsTransferData.putString("getintent", intentData);
+                    fundsTransferData.putString("nickName", params[5]);
 
                     commit = new Intent(TransferWithinBnk.this, ConfirmPage.class);
                     commit.putExtras(fundsTransferData);

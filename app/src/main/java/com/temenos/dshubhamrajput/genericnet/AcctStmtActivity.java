@@ -29,7 +29,6 @@ import static java.security.AccessController.getContext;
 public class AcctStmtActivity extends AppCompatActivity  {
     static EditText DateEdit;
     static EditText DateEdit2;
-    static Context context;
     String imp;
     public static int year1,year,month1,month,day1,day;
     public Intent test;
