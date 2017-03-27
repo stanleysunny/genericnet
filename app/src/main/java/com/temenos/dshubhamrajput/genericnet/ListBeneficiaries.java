@@ -44,5 +44,9 @@ public class ListBeneficiaries extends AppCompatActivity {
             }
         });
     }
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
 
 }
