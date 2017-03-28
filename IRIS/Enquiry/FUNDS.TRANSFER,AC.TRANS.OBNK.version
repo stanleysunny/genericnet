@@ -1,5 +1,5 @@
-Screen FT_Contract:FUNDS_TRANSFER, AC_TRANS
-    t24Name: "FUNDS.TRANSFER,AC.TRANS"
+Screen FT_Contract:FUNDS_TRANSFER, AC_TRANS_OBNK
+    t24Name: "FUNDS.TRANSFER,AC.TRANS.OBNK"
     metamodelVersion: "1.30.6"
     numberOfAuthorisers: 0
 reportLocks: Yes
@@ -18,10 +18,11 @@ Fields {
     "TRANSACTION_TYPE" {
 
         Presentation {
+            inputBehaviour: NoInput
             column: 1
         }
 
-        default: IF ( ) "NULL" THEN "AC"
+        default: IF ( ) "NULL" THEN "BC"
     }
 
     "DEBIT_ACCT_NO" {
@@ -59,22 +60,27 @@ Fields {
     "CREDIT_ACCT_NO" {
 
         Presentation {
+            inputBehaviour: NoInput
             column: 5
-            mandatory: Yes
             hotField: Yes
         }
 
-        API {
-            validation-routines:
-                jBC: "AC.TRANS.VALIDATE1"
+        default: IF ( ) "NULL" THEN "USD1000110000001"
+    }
+
+    "BEN_ACCT_NO" {
+
+        Presentation {
+            column: 6
+            mandatory: Yes
         }
 
     }
 
-    "CREDIT_CURRENCY" {
+    "BEN_CUSTOMER" {
 
         Presentation {
-            column: 6
+            column: 7
         }
 
     }
@@ -82,7 +88,23 @@ Fields {
     "Description" {
 
         Presentation {
-            column: 7
+            column: 8
+        }
+
+    }
+
+    "BC_BANK_SORT_CODE" {
+
+        Presentation {
+            column: 9
+        }
+
+    }
+
+    "BranchName" {
+
+        Presentation {
+            column: 10
         }
 
     }

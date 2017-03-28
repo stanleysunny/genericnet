@@ -23,6 +23,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.HashMap;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -33,7 +34,8 @@ public class HttpHandler {
     private String returnResponse = "";
     private static String userName="";
     private static String passWord="";
-
+    private static HashMap<String,String> innerErrorObj = new HashMap<>();
+    private static HashMap<String,HashMap<String,String>> outerErrorObj = new HashMap<>();
 
 
     HttpHandler() {
@@ -242,6 +244,7 @@ public class HttpHandler {
                 }
                 String jsonStr1 = sb.toString();
 
+
                 JSONObject jsonErrorObj = new JSONObject(jsonStr1);
                 try {
                     JSONObject jsonEmbedObj = jsonErrorObj.getJSONObject("_embedded");
@@ -254,7 +257,11 @@ public class HttpHandler {
                             JSONObject error = errorlist.getJSONObject(j);
                             text = error.getString("Text");
                             info = error.getString("Info");
+                            innerErrorObj.put("text",text);
+                            innerErrorObj.put("info",info);
+                            outerErrorObj.put("Error"+j,innerErrorObj);
                         }
+
                     }
                 } catch (Exception exception) {
                 }
@@ -287,6 +294,10 @@ public class HttpHandler {
             passWord = mpassword;
         String userPass =  user + ":" + mpassword;
         basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
+    }
+    public HashMap<String,HashMap<String,String>> getErrorList()
+    {
+            return outerErrorObj;
     }
 
 }
