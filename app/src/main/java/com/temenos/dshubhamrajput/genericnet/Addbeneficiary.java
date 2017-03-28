@@ -1,6 +1,7 @@
 package com.temenos.dshubhamrajput.genericnet;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +20,8 @@ import java.util.regex.Pattern;
 public class Addbeneficiary extends AppCompatActivity  {
 
     Matcher matcher;
-    public String intentData="";
+    public String intentData="internal";
+    public  Intent commit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class Addbeneficiary extends AppCompatActivity  {
                     ifscTextview.setVisibility(View.INVISIBLE);
                     ifscEtext.setVisibility(View.INVISIBLE);
                     helpicon.setVisibility(View.INVISIBLE);
+                    intentData="internal";
 
                 }
             }
@@ -70,6 +73,7 @@ public class Addbeneficiary extends AppCompatActivity  {
                     ifscTextview.setVisibility(View.VISIBLE);
                     ifscEtext.setVisibility(View.VISIBLE);
                     helpicon.setVisibility(View.VISIBLE);
+                    intentData="external";
 
                 }
             }
@@ -168,6 +172,14 @@ public class Addbeneficiary extends AppCompatActivity  {
     public boolean onSupportNavigateUp(){
         finish();
         return true;
+    }
+    public void ButtonClicked(View V)
+    {
+
+            commit=new Intent(this,ConfirmPage.class);
+            commit.putExtra("getintent",intentData);
+            startActivity(commit);
+
     }
 
 }
