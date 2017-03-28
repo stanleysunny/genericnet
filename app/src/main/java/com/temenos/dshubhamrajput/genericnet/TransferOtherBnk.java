@@ -309,22 +309,6 @@ public class TransferOtherBnk extends AppCompatActivity {
                 HttpHandler debCur = new HttpHandler();
                 String debitCurrJson = debCur.makeServiceCallGet(debitCurrency);
 
-//                if (debitCurrJson != null) {
-//                    try {
-//                        JSONObject jsonObj = new JSONObject(debitCurrJson);
-//                        JSONObject fobj = jsonObj.getJSONObject("_embedded");
-//                        JSONArray item = fobj.getJSONArray("item");
-//                        JSONObject c = item.getJSONObject(0);
-//                        currencyDeb = c.getString("Currency");
-//                        System.out.println(currencyDeb);
-//                    } catch (final JSONException e) {
-//                        Log.e(TAG, "Json parsing error: " + e.getMessage());
-//                    }
-//                } else {
-//                    Log.e(TAG, "Couldn't get json from server.");
-//                }
-
-                // 3. build jsonObject
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.accumulate("RefNo", RefNo);
                 jsonObject.accumulate("TransactionType", params[4]);

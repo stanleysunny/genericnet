@@ -370,16 +370,16 @@ public class Addbeneficiary extends AppCompatActivity {
                 progressDialog.dismiss();
                 startActivity(commit);
             }
-            else
+            else {
                 errorObj = new HttpHandler();
-               errorList = errorObj.getErrorList();
-                for(int i=0;i<errorList.size();i++)
-                {
-                    error= errorList.get("Error"+i);
+                errorList = errorObj.getErrorList();
+                for (int i = 0; i < errorList.size(); i++) {
+                    error = errorList.get("Error" + i);
                     text = error.get("text");
                     info = error.get("info");
                 }
-                    showErrorText();
+                showErrorText();
+            }
         }
     }
 
