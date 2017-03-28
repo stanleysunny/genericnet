@@ -286,7 +286,7 @@ public class TransferWithinBnk extends AppCompatActivity {
             progressDialog= new ProgressDialog(TransferWithinBnk.this);
             progressDialog.setMessage("Please wait...");
             progressDialog.show();
-            progressDialog.setCancelable(true);
+            progressDialog.setCancelable(false);
             super.onPreExecute();
         }
 

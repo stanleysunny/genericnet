@@ -29,12 +29,12 @@ import java.io.InputStream;
 
 public class TransferBwAccounts extends AppCompatActivity {
     private String TAG = MainActivity.class.getSimpleName();
-    static public String RefNo="";
+    static public String RefNo="";  //ID of the F.T. returned when new() routine URL is called
     public String intentData;
     public static String status;
     public Intent commit;
     ProgressDialog progressDialog;
-    ProgressDialog preprogressDialog;
+    ProgressDialog preProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,8 @@ public class TransferBwAccounts extends AppCompatActivity {
         setContentView(R.layout.activity_transfer_bw_accts);
         getSupportActionBar().setTitle("Account Transfer");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        /* Takes the id of the spinner and EditText field*/
         Spinner from = (Spinner) findViewById(R.id.editText);
         Spinner to = (Spinner) findViewById(R.id.editText6);
         EditText desc = (EditText) findViewById(R.id.editText7);
@@ -100,6 +102,9 @@ public class TransferBwAccounts extends AppCompatActivity {
         Button fundsTransfer = (Button) findViewById(R.id.button);
         fundsTransfer.setOnClickListener(new View.OnClickListener() {
 
+            /*
+            * onClick function triggers when SUBMIT button
+            * is clicked*/
             @Override
             public void onClick(View arg0) {
                 Spinner fromAcctNo = (Spinner) findViewById(R.id.editText);
@@ -112,6 +117,9 @@ public class TransferBwAccounts extends AppCompatActivity {
                 String amount = amt.getText().toString();
                 String transType = "AC";
 
+                /*Field value are paassed to doinbackground function to form JSON response
+                and validate the values of the fields
+                 */
                 new jsonResponse().execute(fromAccountNo,toAccountNo,description,amount,transType);
             }
         });
@@ -127,17 +135,17 @@ public class TransferBwAccounts extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class FundTransfer extends AsyncTask<Void, Void, Boolean> {
+    private class FundTransfer extends AsyncTask<Void, Void, Boolean> {
         /**
          * Establishes connection with the url and authenticates the user name
          * and password.
          */
         @Override
         protected void onPreExecute() {
-            preprogressDialog= new ProgressDialog(TransferBwAccounts.this);
-            preprogressDialog.setMessage("Please wait...");
-            preprogressDialog.show();
-            preprogressDialog.setCancelable(false);
+            preProgressDialog= new ProgressDialog(TransferBwAccounts.this);
+            preProgressDialog.setMessage("Please wait...");
+            preProgressDialog.show();
+            preProgressDialog.setCancelable(false);
             super.onPreExecute();
         }
 
@@ -188,8 +196,8 @@ public class TransferBwAccounts extends AppCompatActivity {
                         JSONArray item = firstObj.getJSONArray("item");
                         final Spinner spinner = (Spinner)findViewById(R.id.editText);
                         final Spinner secondSpinner = (Spinner)findViewById(R.id.editText6);
-                        final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
-                        final ArrayAdapter<String> secondSpinnerAdptr = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
+                        final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
+                        final ArrayAdapter<String> secondSpinnerAdptr = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
                         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         secondSpinnerAdptr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -248,27 +256,23 @@ public class TransferBwAccounts extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
-            preprogressDialog.dismiss();
+            preProgressDialog.dismiss();
             super.onPostExecute(aBoolean);
         }
     }
 
-    public class jsonResponse extends AsyncTask<String,Void,Boolean>
+    private class jsonResponse extends AsyncTask<String,Void,Boolean>
     {
         @Override
         protected void onPreExecute() {
             progressDialog= new ProgressDialog(TransferBwAccounts.this);
             progressDialog.setMessage("Please wait...");
             progressDialog.show();
-            progressDialog.setCancelable(true);
-
+            progressDialog.setCancelable(false);
             super.onPreExecute();
         }
 
         protected Boolean doInBackground(String... params) {
-            InputStream inputStream = null;
-            String result = "";
-            String response = "";
             String currencyDeb="";
             String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss(\'"+RefNo+"\')/validate";
             String debitCurrency = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/enqAcctHomes()?$filter=AccountNo%20eq%20"+params[0];

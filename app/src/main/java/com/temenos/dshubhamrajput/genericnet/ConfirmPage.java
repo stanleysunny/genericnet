@@ -97,17 +97,6 @@ public class ConfirmPage extends AppCompatActivity {
 
                 }
             });
-            backButton.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-
-                    final Intent Back = new Intent(ConfirmPage.this,Addbeneficiary.class);
-                    startActivity(Back);
-                }
-            });
-
-
         }
         else if(imp.equals("external"))
         {
@@ -147,15 +136,6 @@ public class ConfirmPage extends AppCompatActivity {
                 public void onClick(View arg0) {
                     new Commit(obj).execute();
 
-                }
-            });
-            backButton.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-
-                    final Intent Back = new Intent(ConfirmPage.this,Addbeneficiary.class);
-                    startActivity(Back);
                 }
             });
         }
