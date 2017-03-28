@@ -1,9 +1,8 @@
 package com.temenos.dshubhamrajput.genericnet;
-
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
+
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,65 +10,159 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
+import android.widget.Toast;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+
+import java.util.HashMap;
+
+
 
 public class ConfirmPage extends AppCompatActivity {
     public Intent test;
-    public String imp;
-    public EditText e5;
-    public TextView t1,t2,t3,t4,t5;
+    public static String imp;
+    public TextView e5;
+    public TextView t1,t2,t3,t4,t5,t6;
+    public TextView e1,e2,e3,e4;
+    final HashMap<String, String> obj = new HashMap<>();
+    boolean success=true;
     static public String status;
+    static String response;
+    // Bundle Confirmbundle = new Bundle();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_page);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Button backbutton = (Button) findViewById(R.id.button);
-        backbutton.setOnClickListener(new View.OnClickListener() {
+        Button backButton = (Button) findViewById(R.id.button);
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
-        e5=(EditText) findViewById(R.id.editText8);
         t1=(TextView) findViewById(R.id.textView);
         t2=(TextView) findViewById(R.id.textView3);
         t3=(TextView) findViewById(R.id.textView5);
         t4=(TextView) findViewById(R.id.textView6);
         t5=(TextView) findViewById(R.id.textView11);
+        t6=(TextView) findViewById(R.id.textView13);
+
+
         test=getIntent();
         final Bundle extras = getIntent().getExtras();
-//        imp=extras.getString("getintent");
-//        imp=test.getExtras().getString("getintent");
         imp = extras.getString("getintent");
         if(imp.equals("internal"))
         {
-            getSupportActionBar().setTitle("Confirm Beneficiary");
-            e5.setVisibility(View.GONE);
+
+
+            TextView Accno= (TextView) findViewById(R.id.editText);
+            TextView Email = (TextView)findViewById(R.id.editText6);
+            TextView nickname=(TextView)findViewById(R.id.editText7);
+            TextView Customername=(TextView)findViewById(R.id.editText10);
+            TextView Ifsc=(TextView)findViewById(R.id.editText8);
+            Ifsc.setVisibility(View.GONE);
+            t6.setVisibility(View.GONE);
+
+
+
             t1.setText("Account Number");
             t2.setText("Email");
             t3.setText("Nick Name");
             t4.setText("Customer Name");
+            Accno.setText(extras.getString("BenAcctNo"));
+            Email.setText(extras.getString("Email"));
+            nickname.setText(extras.getString("Nickname"));
+            Customername.setText(extras.getString("Benname"));
+            obj.put("BenAcctNo",extras.getString("BenAcctNo"));
+            obj.put("BenCustomer",extras.getString("BenCustomer"));
+            obj.put("BeneficiaryId",extras.getString("BeneficiaryId"));
+            obj.put("Email",extras.getString("Email"));
+            obj.put("Nickname",extras.getString("Nickname"));
+            obj.put("OwningCustomer",extras.getString("190090"));
+            Button viewStmt = (Button) findViewById(R.id.button2);
+            viewStmt.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View arg0) {
+                    new Commit(obj).execute();
+
+                }
+            });
+            backButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View arg0) {
+
+                    final Intent Back = new Intent(ConfirmPage.this,Addbeneficiary.class);
+                    startActivity(Back);
+                }
+            });
+
+
         }
         else if(imp.equals("external"))
         {
-            getSupportActionBar().setTitle("Confirm Beneficiary");
+
+            TextView Accno= (TextView)findViewById(R.id.editText);
+            TextView Email = (TextView)findViewById(R.id.editText6);
+            TextView nickname=(TextView)findViewById(R.id.editText7);
+            TextView IfscBranch=(TextView)findViewById(R.id.editText10);
+            TextView Ifsc=(TextView)findViewById(R.id.editText8);
+            //TextView IfscBranch=(TextView)findViewById(R.id.editText20);
+            t6.setVisibility(View.GONE);
+
+
+
             t1.setText("Account Number");
             t2.setText("Email");
             t3.setText("Nick Name");
             t4.setText("IFSC code");
-            t5.setText("Customer Name");
+            t5.setText("Branch Name");
+            Accno.setText(extras.getString("BenAcctNo"));
+            Email.setText(extras.getString("Email"));
+            nickname.setText(extras.getString("Nickname"));
+            //Customername.setText(extras.getString("Ifsc"));
+            Ifsc.setText(extras.getString("IfscBranch"));
+            IfscBranch.setText(extras.getString("Ifsc"));
+            obj.put("BenAcctNo",extras.getString("BenAcctNo"));
+            obj.put("BenCustomer",extras.getString("BenCustomer"));
+            obj.put("BeneficiaryId",extras.getString("BeneficiaryId"));
+            obj.put("Email",extras.getString("Email"));
+            obj.put("Nickname",extras.getString("Nickname"));
+            obj.put("Ifsc",extras.getString("Ifsc"));
+            obj.put("OwningCustomer",extras.getString("190090"));
+            Button viewStmt = (Button) findViewById(R.id.button2);
+            viewStmt.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View arg0) {
+                    new Commit(obj).execute();
+
+                }
+            });
+            backButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View arg0) {
+
+                    final Intent Back = new Intent(ConfirmPage.this,Addbeneficiary.class);
+                    startActivity(Back);
+                }
+            });
         }
-        else if(imp.equals("account"))
+        else if(imp.equals("account")||imp.equals("others"))
         {
-            EditText frmAcct = (EditText) findViewById(R.id.editText);
-            EditText toAcct = (EditText) findViewById(R.id.editText6);
-            EditText des = (EditText) findViewById(R.id.editText7);
-            EditText amtFunds = (EditText) findViewById(R.id.editText10);
+            TextView frmAcct = (TextView) findViewById(R.id.editText);
+            TextView toAcct = (TextView) findViewById(R.id.editText6);
+            TextView des = (TextView) findViewById(R.id.editText7);
+            TextView amtFunds = (TextView) findViewById(R.id.editText10);
 
             getSupportActionBar().setTitle("Confirm Transfer");
-            e5.setVisibility(View.GONE);
+            t6.setVisibility(View.GONE);
             t1.setText("From Account");
             t2.setText("To Account");
             t3.setText("Description");
@@ -78,7 +171,13 @@ public class ConfirmPage extends AppCompatActivity {
             toAcct.setText(extras.getString("toAccountNo"));
             des.setText(extras.getString("description"));
             amtFunds.setText(extras.getString("amount"));
-            final String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
+            final String url;
+            if(imp.equals("account")) {
+                url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
+            }
+            else{
+                url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTransObnks()/input";
+            }
 
             Button confirmButton = (Button) findViewById(R.id.button2);
             confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +189,7 @@ public class ConfirmPage extends AppCompatActivity {
                 }
             });
         }
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -128,7 +228,7 @@ public class ConfirmPage extends AppCompatActivity {
                 }
                 else
                 {
-                    return false;
+                  return false;
                 }
             }catch (Exception e) {
                 e.printStackTrace();
@@ -137,13 +237,104 @@ public class ConfirmPage extends AppCompatActivity {
         }
         protected void onPostExecute(Boolean aBoolean) {
             if(aBoolean){
-                final Intent TransferBwAccounts = new Intent(ConfirmPage.this, SucessPage.class);
-                startActivity(TransferBwAccounts);
+
+                final Intent TransferAccounts = new Intent(ConfirmPage.this, SucessPage.class);
+                TransferAccounts.putExtra("Sucess", "within");
+                startActivity(TransferAccounts);
             }
             else{
                 final Intent TransferBwAccounts = new Intent(ConfirmPage.this, ConfirmPage.class);
                 startActivity(TransferBwAccounts);
             }
         }
+    }
+    private class Commit extends AsyncTask<Void, Void, Void> {
+
+        HashMap<String, String> obj1= new HashMap<>();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+        public Commit(HashMap<String, String> obj )
+        {
+            obj1=obj;
+        }
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpHandler sh = new HttpHandler();
+            String url;
+            try {
+                PropertiesReader property = new PropertiesReader();
+                if (imp.equals("external"))
+                    url = property.getProperty("url_beneficiary_Obnk_Input", getApplicationContext());
+                else
+                    url = property.getProperty("url_beneficiary_Wbnk_Input", getApplicationContext());
+
+
+                String BenAcctNo = obj1.get("BenAcctNo");
+                String BencustomerNo = obj1.get("BenCustomer");
+                String BenID = obj1.get("BeneficiaryId");
+                String Email = obj1.get("Email");
+                String Nickname = obj1.get("Nickname");
+                String Ifsc = obj1.get("Ifsc");
+
+                JSONObject jsonObjarray = new JSONObject();
+                JSONObject postdata = new JSONObject();
+                JSONArray array = new JSONArray();
+
+
+                if (imp.equals("external")) {
+
+                    postdata.put("BenAcctNo", BenAcctNo);
+                    postdata.put("BenCustomer", BencustomerNo);
+                    postdata.put("BeneficiaryId", BenID);
+                    postdata.put("Email", Email);
+                    postdata.put("BankSortCode", Ifsc);
+                    jsonObjarray.put("Nickname", Nickname);
+                    array.put(jsonObjarray);
+                    postdata.put("NicknameMvGroup", array);
+                    postdata.put("OwningCustomer", "190090");
+
+                } else {
+                    postdata.put("BenAcctNo", BenAcctNo);
+                    postdata.put("BenCustomer", BencustomerNo);
+                    postdata.put("BeneficiaryId", BenID);
+                    postdata.put("Email", Email);
+                    jsonObjarray.put("Nickname", Nickname);
+                    array.put(jsonObjarray);
+                    postdata.put("NicknameMvGroup", array);
+                    postdata.put("OwningCustomer", "190090");
+                }
+
+
+                success = sh.jsonWrite(url, postdata);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(Void result){
+            super.onPostExecute(result);
+            if(success) {
+                final Intent AddBeneficiary = new Intent(ConfirmPage.this, SucessPage.class);
+
+                AddBeneficiary.putExtra("Sucess","Ben");
+                startActivity( AddBeneficiary);
+
+            }
+            else
+            {
+                Toast.makeText(ConfirmPage.this, "error in connection ", Toast.LENGTH_LONG).show();
+            }
+        }
+
+
     }
 }
