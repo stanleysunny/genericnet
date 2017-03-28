@@ -299,6 +299,18 @@ public class HttpHandler {
     {
             return outerErrorObj;
     }
+    public String getValidateURL(String initialURL,String benID)
+    {
+            String urlStr;
+            String trial[] = initialURL.split("\\(");
+            System.out.println(trial[0]);
+            System.out.println(trial[1]);
+            String str="'"+ benID +"'";
+            trial[0]=trial[0]+"(";
+            trial[0]=trial[0]+str;
+            urlStr  = trial[0]+trial[1];
+        return urlStr;
+    }
 
 }
 
