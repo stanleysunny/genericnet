@@ -205,7 +205,7 @@ public class Addbeneficiary extends AppCompatActivity {
             progressDialog= new ProgressDialog(Addbeneficiary.this);
             progressDialog.setMessage("Please wait...");
             progressDialog.show();
-            progressDialog.setCancelable(true);
+            progressDialog.setCancelable(false);
             super.onPreExecute();
         }
 
@@ -338,7 +338,11 @@ public class Addbeneficiary extends AppCompatActivity {
                 startActivity(commit);
             }
             else
+            {
                 Toast.makeText(Addbeneficiary.this, "error in connection ", Toast.LENGTH_LONG).show();
+                progressDialog.dismiss();
+
+            }
         }
     }
 

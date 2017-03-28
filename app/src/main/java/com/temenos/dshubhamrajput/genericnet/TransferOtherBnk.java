@@ -295,7 +295,7 @@ public class TransferOtherBnk extends AppCompatActivity {
             progressDialog= new ProgressDialog(TransferOtherBnk.this);
             progressDialog.setMessage("Please wait...");
             progressDialog.show();
-            progressDialog.setCancelable(true);
+            progressDialog.setCancelable(false);
             super.onPreExecute();
         }
 
