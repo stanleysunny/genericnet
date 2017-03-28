@@ -1,7 +1,7 @@
 Enquiry "ENQ.WBNK" for "name:/ST_Payments:BENEFICIARY#" {
     metamodelVersion: "1.30.6"
     start-line: 10
-    end-line: 20 fixed-selection "IFSC" {
+    end-line: 20 fixed-selection "BANK.SORT.CODE" {
         Equals "\'\'"
     }
 
@@ -26,7 +26,21 @@ Enquiry "ENQ.WBNK" for "name:/ST_Payments:BENEFICIARY#" {
             column: 2
         }
 
+        processing-mode: Multi
         operation: application-field-name "NICKNAME"
+    }
+
+    field "OWNING.CUSTOMER" {
+        length: 10
+        alignment: Right
+        comma-separator: false
+        position {
+            column: 3
+        }
+
+        processing-mode: Single
+        hidden: true
+        operation: application-field-name "OWNING.CUSTOMER"
     }
 
 }

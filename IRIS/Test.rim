@@ -35,6 +35,7 @@ domain Test {
             GET -> T24.verBeneficiary_Obnk.verBeneficiary_Obnks
             GET -> T24.verBeneficiary_Wbnk.verBeneficiary_Wbnks
             GET -> T24.verFundsTransfer_AcTrans.verFundsTransfer_AcTranss
+            GET -> T24.verFundsTransfer_AcTransObnk.verFundsTransfer_AcTransObnks
             GET -> T24.enqEnqObnk.enqEnqObnks
             GET -> T24.enqEnqWbnk.enqEnqWbnks
         }
