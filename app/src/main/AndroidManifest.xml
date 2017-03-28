@@ -36,6 +36,7 @@
         <activity android:name=".TransferBwAccounts" />
         <activity android:name=".TransferWithinBnk" />
         <activity android:name=".TransferOtherBnk" />
+        <activity android:name=".QrCodeScanner" />
         <activity android:name=".ConfirmPage" />
         <activity android:name=".SucessPage" />
         <activity android:name=".ListBeneficiaries"/>
