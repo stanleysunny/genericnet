@@ -237,7 +237,7 @@ public class Addbeneficiary extends AppCompatActivity {
             progressDialog= new ProgressDialog(Addbeneficiary.this);
             progressDialog.setMessage("Please wait...");
             progressDialog.show();
-            progressDialog.setCancelable(true);
+            progressDialog.setCancelable(false);
             super.onPreExecute();
         }
 
@@ -354,15 +354,15 @@ public class Addbeneficiary extends AppCompatActivity {
             super.onPostExecute(result);
             HttpHandler errorObj;
 
-            String text,info;
+            String text, info;
 
-            HashMap<String,HashMap<String,String>> errorList;
-            HashMap<String,String> error;
-            if(success) {
+            HashMap<String, HashMap<String, String>> errorList;
+            HashMap<String, String> error;
+            if (success) {
                 progressDialog.dismiss();
                 startActivity(commit);
-            }
-            else {
+            } else {
+                progressDialog.dismiss();
                 errorObj = new HttpHandler();
                 errorList = errorObj.getErrorList();
                 for (int i = 0; i < errorList.size(); i++) {
