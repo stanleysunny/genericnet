@@ -109,21 +109,6 @@ public class Addbeneficiary extends AppCompatActivity {
             }
         });
 
-//        accNoCheck.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            public void onFocusChange(View v, boolean hasFocus) {
-//
-//                if (!(accNoCheck.getText().toString().equals(benAccNo.getText().toString()))) {
-//                    if (!((accNoCheck.getText().toString()).matches("")))
-//                        accNoCheck.setError("Account numbers don't match");
-//                }
-//                else if(((accNoCheck.getText().toString()).matches("")))
-//                    accNoCheck.setError("This field cannot be left blank");
-//                else
-//                    accNoCheck.setError(null);
-//
-//            }
-//
-//        });
         accNoCheck.addTextChangedListener(new TextWatcher() {
             // ...
             @Override
@@ -293,7 +278,7 @@ public class Addbeneficiary extends AppCompatActivity {
                     Ifsc=param[4];
                     postData.put("BankSortCode", Ifsc);
                     benBundle.putString("Ifsc", Ifsc);
-                    // for priya ------------- make a genral class for this logic
+                    // for priya ------------- make a general method for this logic
                     try {
                         String trialURl;
                         PropertiesReader property = new PropertiesReader();
@@ -375,11 +360,25 @@ public class Addbeneficiary extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
+            HttpHandler errorObj = null;
+
+            String text,info;
+
+            HashMap<String,HashMap<String,String>> errorList;
+            HashMap<String,String> error;
             if(success) {
                 progressDialog.dismiss();
                 startActivity(commit);
             }
             else
+                errorObj = new HttpHandler();
+               errorList = errorObj.getErrorList();
+                for(int i=0;i<errorList.size();i++)
+                {
+                    error= errorList.get("Error"+i);
+                    text = error.get("text");
+                    info = error.get("info");
+                }
                     showErrorText();
         }
     }
