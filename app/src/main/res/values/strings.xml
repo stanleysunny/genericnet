@@ -34,4 +34,6 @@
     <string name="internal_indicator">internal</string>
     <string name="external_indicator">external</string>
     <string name="ft_indicator">ftintetnt</string>
+    <string name="title_activity_list_beneficiaries">ListBeneficiaries</string>
+    <string name="Error_text">Check the data entered</string>
 </resources>

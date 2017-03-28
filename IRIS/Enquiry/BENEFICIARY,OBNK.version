@@ -20,12 +20,6 @@ Fields {
         Presentation {
             column: 1
             mandatory: Yes
-            selectionEnquiry: "%ACCOUNT"
-        }
-
-        API {
-            validation-routines:
-                jBC: "BNFC.VALIDATE"
         }
 
     }
@@ -35,6 +29,11 @@ Fields {
         Presentation {
             column: 2
             mandatory: Yes
+        }
+
+        API {
+            validation-routines:
+                jBC: "BEN.OBNK.VALIDATE"
         }
 
     }
@@ -47,11 +46,16 @@ Fields {
 
     }
 
-    "IFSC" {
+    "BANK_SORT_CODE" {
 
         Presentation {
             column: 4
             mandatory: Yes
+        }
+
+        API {
+            validation-routines:
+                jBC: "IFSC.VALIDATE"
         }
 
     }
@@ -67,8 +71,23 @@ Fields {
     "BEN_CUSTOMER" {
 
         Presentation {
-            inputBehaviour: NoInput
             column: 6
+        }
+
+    }
+
+    "BC_SORT_CODE" {
+
+        Presentation {
+            column: 7
+        }
+
+    }
+
+    "NAME_1" {
+
+        Presentation {
+            column: 8
         }
 
     }

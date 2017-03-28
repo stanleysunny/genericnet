@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -107,9 +109,10 @@ public class Addbeneficiary extends AppCompatActivity {
             }
         });
 
-        accNoCheck.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View v, boolean hasFocus) {
-
+        accNoCheck.addTextChangedListener(new TextWatcher() {
+            // ...
+            @Override
+            public void onTextChanged(CharSequence text, int start, int count, int after) {
                 if (!(accNoCheck.getText().toString().equals(benAccNo.getText().toString()))) {
                     if (!((accNoCheck.getText().toString()).matches("")))
                         accNoCheck.setError("Account numbers don't match");
@@ -118,10 +121,20 @@ public class Addbeneficiary extends AppCompatActivity {
                     accNoCheck.setError("This field cannot be left blank");
                 else
                     accNoCheck.setError(null);
+                }
 
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
             }
 
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
         });
+
 
         emailUser.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -180,6 +193,20 @@ public class Addbeneficiary extends AppCompatActivity {
 
         builder.setMessage(R.string.ifsc_help)
                 .setTitle(R.string.ifschelppopup)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //nothing is done
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+    public void showErrorText() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(R.string.Error_text)
+                .setTitle("ERROR")
                 .setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -251,7 +278,7 @@ public class Addbeneficiary extends AppCompatActivity {
                     Ifsc=param[4];
                     postData.put("BankSortCode", Ifsc);
                     benBundle.putString("Ifsc", Ifsc);
-                    // for priya ------------- make a genral class for this logic
+                    // for priya ------------- make a general method for this logic
                     try {
                         String trialURl;
                         PropertiesReader property = new PropertiesReader();
@@ -333,15 +360,26 @@ public class Addbeneficiary extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            if(success) {
+            HttpHandler errorObj = null;
+
+            String text, info;
+
+            HashMap<String, HashMap<String, String>> errorList;
+            HashMap<String, String> error;
+            if (success) {
                 progressDialog.dismiss();
                 startActivity(commit);
-            }
-            else
-            {
-                Toast.makeText(Addbeneficiary.this, "error in connection ", Toast.LENGTH_LONG).show();
-                progressDialog.dismiss();
+            } else {
 
+                progressDialog.dismiss();
+                errorObj = new HttpHandler();
+                errorList = errorObj.getErrorList();
+                for (int i = 0; i < errorList.size(); i++) {
+                    error = errorList.get("Error" + i);
+                    text = error.get("text");
+                    info = error.get("info");
+                }
+                showErrorText();
             }
         }
     }

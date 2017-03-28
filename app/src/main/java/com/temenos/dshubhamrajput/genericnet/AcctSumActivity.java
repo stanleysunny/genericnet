@@ -53,9 +53,15 @@ public class AcctSumActivity extends AppCompatActivity {
         protected Void doInBackground(Void... arg0) {
             try {
                     HttpHandler sh = new HttpHandler();
+                String user,owningCustomer;
                     // Making a request to url and getting response
                 PropertiesReader property= new PropertiesReader();
-                    String url = property.getProperty("url_account_summary", getApplicationContext());
+                String url = property.getProperty("url_account_summary", getApplicationContext());
+                HashMap<String,String> owner;
+                SessionManager session =new SessionManager(getApplicationContext());
+                owner=session.getUserDetails();
+                owningCustomer= owner.get("cusId");
+                     url= url+owningCustomer;
                     String jsonStr = sh.makeServiceCallGet(url);
 
                     Log.e(TAG, "Response from url: " + jsonStr);
