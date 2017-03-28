@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 
 
 public class TransferBwAccounts extends AppCompatActivity {
@@ -155,7 +156,14 @@ public class TransferBwAccounts extends AppCompatActivity {
                 HttpHandler sh = new HttpHandler();
                 // Making a request to url and getting response
                 PropertiesReader property = new PropertiesReader();
-                String cusAcctNos="http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/enqAcctHomes()?$filter=CustomerNo%20eq%20100292";
+                String owningCustomer;
+                // changes here
+                HashMap<String,String> owner;
+                SessionManager session =new SessionManager(getApplicationContext());
+                owner=session.getUserDetails();
+                owningCustomer= owner.get("cusId");
+                //----------------
+                String cusAcctNos="http://27b25854.ngrok.io/Test-iris/Test.svc/GB0010001/enqAcctHomes()?$filter=CustomerNo%20eq%20"+owningCustomer;
                 String url = property.getProperty("new_id_url", getApplicationContext());
                 String jsonStr = sh.makeServiceCall(url);
                 String jsonCusAcct = sh.makeServiceCallGet(cusAcctNos);
@@ -274,8 +282,8 @@ public class TransferBwAccounts extends AppCompatActivity {
 
         protected Boolean doInBackground(String... params) {
             String currencyDeb="";
-            String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss(\'"+RefNo+"\')/validate";
-            String debitCurrency = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/enqAcctHomes()?$filter=AccountNo%20eq%20"+params[0];
+            String url = "http://27b25854.ngrok.io/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss(\'"+RefNo+"\')/validate";
+            String debitCurrency = "http://27b25854.ngrok.io/Test-iris/Test.svc/GB0010001/enqAcctHomes()?$filter=AccountNo%20eq%20"+params[0];
             try {
                 String json;
 

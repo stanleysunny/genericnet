@@ -108,6 +108,13 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
+                else if(expandableListTitle.get(groupPosition).equals("qrCode"))
+                {
+                    Intent intent = new Intent(MainActivity.this, QrCodeScanner.class);
+                    startActivity(intent);
+                    layout.closeDrawer(GravityCompat.START);
+                }
+
             }
         });
 
