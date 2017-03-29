@@ -118,7 +118,7 @@ public class TransferOtherBnk extends AppCompatActivity {
                 String description = descr.getText().toString();
                 EditText amt = (EditText) findViewById(R.id.edit_amt_other);
                 String amount = amt.getText().toString();
-                String transType = "BC";
+                String transType = "";
                 new jsonResponse().execute(fromAccountNo,toAccountNo,description,amount,transType,nickName,bankSortCodePass,branchPass);
             }
         });
@@ -316,12 +316,8 @@ public class TransferOtherBnk extends AppCompatActivity {
             String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_verFundsTransfer_AcTransObnks"};
             String urlStr= urlObj.getURL(URLAddressList);
             String url= urlObj.getValidateURL(urlStr,RefNo);
-           //-------------------------------------------------------------------
-            String debitCurrency = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/enqAcctHomes()?$filter=AccountNo%20eq%20"+params[0];
             try {
                 String json;
-                HttpHandler debCur = new HttpHandler();
-                String debitCurrJson = debCur.makeServiceCallGet(debitCurrency);
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.accumulate("RefNo", RefNo);
                 jsonObject.accumulate("TransactionType", params[4]);
@@ -339,7 +335,7 @@ public class TransferOtherBnk extends AppCompatActivity {
                 jsonObject.accumulate("CreditAcctNo", "USD1000110000001");
                 jsonObject.accumulate("DebitAcctNo", params[0]);
                 jsonObject.accumulate("DebitAmount", params[3]);
-                jsonObject.accumulate("DebitCurrency",currencyDeb);
+                jsonObject.accumulate("DebitCurrency","");
                 jsonObject.accumulate("Description", params[2]);
 
                 // 4. convert JSONObject to JSON to String
@@ -357,7 +353,7 @@ public class TransferOtherBnk extends AppCompatActivity {
                     fundsTransferData.putString("creAcctNo", "USD1000110000001");
                     fundsTransferData.putString("amount", params[3]);
                     fundsTransferData.putString("transType", params[4]);
-                    fundsTransferData.putString("Currency",currencyDeb);
+                    fundsTransferData.putString("Currency","");
                     fundsTransferData.putString("benCustomer",params[5]);
                     fundsTransferData.putString("bankSortCode",params[6]);
                     fundsTransferData.putString("branchName",params[7]);

@@ -49,18 +49,6 @@ public class TransferBwAccounts extends AppCompatActivity {
         Spinner to = (Spinner) findViewById(R.id.editText6);
         EditText desc = (EditText) findViewById(R.id.editText7);
         EditText amt = (EditText) findViewById(R.id.editText8);
-        InputFilter filter = new InputFilter() {
-            public CharSequence filter(CharSequence source, int start, int end,
-                                       Spanned dest, int dstart, int dend) {
-                for (int i = start; i < end; i++) {
-                    if (!Character.isLetterOrDigit(source.charAt(i))) {
-                        return "";
-                    }
-                }
-                return null;
-            }
-        };
-        amt.setFilters(new InputFilter[] { filter });
         amt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(10)});
         from.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -116,7 +104,7 @@ public class TransferBwAccounts extends AppCompatActivity {
                 String description = descr.getText().toString();
                 EditText amt = (EditText) findViewById(R.id.editText8);
                 String amount = amt.getText().toString();
-                String transType = "AC";
+                String transType = "";
 
                 /*Field value are paassed to doinbackground function to form JSON response
                 and validate the values of the fields
@@ -291,35 +279,16 @@ public class TransferBwAccounts extends AppCompatActivity {
             String url= urlObj.getValidateURL(urlStr,RefNo);
             String[] URLAddressList1= {"url_ip","url_iris_project","url_company","url_enqAcctHomes"};
             String urlStr1= urlObj.getURL(URLAddressList1);
-            String debitCurrency= urlObj.getValidateURL(urlStr1,params[0]);
             //-----------------------------------
             try {
                 String json;
-
-                HttpHandler debCur = new HttpHandler();
-                String debitCurrJson = debCur.makeServiceCallGet(debitCurrency);
-
-                if (debitCurrJson != null) {
-                    try {
-                        JSONObject jsonObj = new JSONObject(debitCurrJson);
-                        JSONObject fobj = jsonObj.getJSONObject("_embedded");
-                        JSONArray item = fobj.getJSONArray("item");
-                        JSONObject c = item.getJSONObject(0);
-                        currencyDeb = c.getString("Currency");
-                        System.out.println(currencyDeb);
-                    } catch (final JSONException e) {
-                        Log.e(TAG, "Json parsing error: " + e.getMessage());
-                    }
-                } else {
-                    Log.e(TAG, "Couldn't get json from server.");
-                }
 
                 // 3. build jsonObject
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.accumulate("RefNo", RefNo);
                 jsonObject.accumulate("TransactionType", params[4]);
                 jsonObject.accumulate("DebitAcctNo", params[0]);
-                jsonObject.accumulate("DebitCurrency",currencyDeb);
+                jsonObject.accumulate("DebitCurrency","");
                 jsonObject.accumulate("DebitAmount", params[3]);
                 jsonObject.accumulate("CreditAcctNo", params[1]);
                 jsonObject.accumulate("Description", params[2]);
@@ -338,7 +307,7 @@ public class TransferBwAccounts extends AppCompatActivity {
                     fundsTransferData.putString("description", params[2]);
                     fundsTransferData.putString("amount", params[3]);
                     fundsTransferData.putString("transType", params[4]);
-                    fundsTransferData.putString("Currency",currencyDeb);
+                    fundsTransferData.putString("Currency","");
                     fundsTransferData.putString("getintent", intentData);
 
                     commit = new Intent(TransferBwAccounts.this, ConfirmPage.class);
