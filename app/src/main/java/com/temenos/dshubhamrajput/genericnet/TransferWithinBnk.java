@@ -113,7 +113,7 @@ public class TransferWithinBnk extends AppCompatActivity {
                 String description = descr.getText().toString();
                 EditText amt = (EditText) findViewById(R.id.edit_amt_within);
                 String amount = amt.getText().toString();
-                String transType = "AC";
+                String transType = "";
 
                 new jsonResponse().execute(fromAccountNo,toAccountNo,description,amount,transType,firstValue[1]);
             }
@@ -146,9 +146,10 @@ public class TransferWithinBnk extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            try {
+
                 HttpHandler sh = new HttpHandler();
                 String owningCustomer;
+                URLRelated urlObj = new URLRelated(getApplicationContext());
                 // Making a request to url and getting response
                 PropertiesReader property = new PropertiesReader();
                 //
@@ -156,10 +157,14 @@ public class TransferWithinBnk extends AppCompatActivity {
                 SessionManager session =new SessionManager(getApplicationContext());
                 owner=session.getUserDetails();
                 owningCustomer= owner.get("cusId");
-                //
-                String cusAcctNos="http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/enqAcctHomes()?$filter=CustomerNo%20eq%20"+owningCustomer;
-                String owingCust="http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/enqEnqWbnks()?$filter=OwningCustomer%20eq%20"+owningCustomer;
-                String url = property.getProperty("new_id_url", getApplicationContext());
+                //added by priya
+                String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_cusaccno"};
+                String cusAcctNos= urlObj.getURLParameter(URLAddressList,owningCustomer);
+                String[] URLAddressList1= {"url_ip","url_iris_project","url_company","url_enqEnqWbnks"};
+                String  owingCust= urlObj.getURLParameter(URLAddressList1,owningCustomer);
+                String[] URLAddressList2= {"url_ip","url_iris_project","url_company","new_id_url"};
+                String url = urlObj.getURL(URLAddressList2);
+                //-------------------------------------------------------------
                 String jsonStr = sh.makeServiceCall(url);
                 String jsonCusAcct = sh.makeServiceCallGet(cusAcctNos);
                 String jsonOwingCus = sh.makeServiceCallGet(owingCust);
@@ -273,10 +278,8 @@ public class TransferWithinBnk extends AppCompatActivity {
                     });
                 }
 
-            }
-            catch(IOException e ){
-                e.printStackTrace();
-            }
+
+
             return null;
 
         }
@@ -300,35 +303,21 @@ public class TransferWithinBnk extends AppCompatActivity {
 
         protected Boolean doInBackground(String... params) {
             String currencyDeb="";
-            String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss(\'"+RefNo+"\')/validate";
-            String debitCurrency = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/enqAcctHomes()?$filter=AccountNo%20eq%20"+params[0];
+            //added by priya
+            URLRelated urlObj = new URLRelated(getApplicationContext());
+            String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_verFundsTransfer_AcTranss"};
+            String urlStr= urlObj.getURL(URLAddressList);
+            String url= urlObj.getValidateURL(urlStr,RefNo);
+            //---------------------------------------------------------------------------
             try {
                 String json;
-
-                HttpHandler debCur = new HttpHandler();
-                String debitCurrJson = debCur.makeServiceCallGet(debitCurrency);
-
-                if (debitCurrJson != null) {
-                    try {
-                        JSONObject jsonObj = new JSONObject(debitCurrJson);
-                        JSONObject fobj = jsonObj.getJSONObject("_embedded");
-                        JSONArray item = fobj.getJSONArray("item");
-                        JSONObject c = item.getJSONObject(0);
-                        currencyDeb = c.getString("Currency");
-                        System.out.println(currencyDeb);
-                    } catch (final JSONException e) {
-                        Log.e(TAG, "Json parsing error: " + e.getMessage());
-                    }
-                } else {
-                    Log.e(TAG, "Couldn't get json from server.");
-                }
 
                 // 3. build jsonObject
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.accumulate("RefNo", RefNo);
                 jsonObject.accumulate("TransactionType", params[4]);
                 jsonObject.accumulate("DebitAcctNo", params[0]);
-                jsonObject.accumulate("DebitCurrency",currencyDeb);
+                jsonObject.accumulate("DebitCurrency","");
                 jsonObject.accumulate("DebitAmount", params[3]);
                 jsonObject.accumulate("CreditAcctNo", params[1]);
                 jsonObject.accumulate("Description", params[2]);
@@ -347,7 +336,7 @@ public class TransferWithinBnk extends AppCompatActivity {
                     fundsTransferData.putString("description", params[2]);
                     fundsTransferData.putString("amount", params[3]);
                     fundsTransferData.putString("transType", params[4]);
-                    fundsTransferData.putString("Currency",currencyDeb);
+                    fundsTransferData.putString("Currency","");
                     fundsTransferData.putString("getintent", intentData);
                     fundsTransferData.putString("nickName", params[5]);
 
