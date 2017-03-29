@@ -146,9 +146,10 @@ public class TransferWithinBnk extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            try {
+
                 HttpHandler sh = new HttpHandler();
                 String owningCustomer;
+                URLRelated urlObj = new URLRelated(getApplicationContext());
                 // Making a request to url and getting response
                 PropertiesReader property = new PropertiesReader();
                 //
@@ -156,10 +157,14 @@ public class TransferWithinBnk extends AppCompatActivity {
                 SessionManager session =new SessionManager(getApplicationContext());
                 owner=session.getUserDetails();
                 owningCustomer= owner.get("cusId");
-                //
-                String cusAcctNos="http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/enqAcctHomes()?$filter=CustomerNo%20eq%20"+owningCustomer;
-                String owingCust="http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/enqEnqWbnks()?$filter=OwningCustomer%20eq%20"+owningCustomer;
-                String url = property.getProperty("new_id_url", getApplicationContext());
+                //added by priya
+                String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_cusaccno"};
+                String cusAcctNos= urlObj.getURLParameter(URLAddressList,owningCustomer);
+                String[] URLAddressList1= {"url_ip","url_iris_project","url_company","url_enqEnqWbnks"};
+                String  owingCust= urlObj.getURLParameter(URLAddressList1,owningCustomer);
+                String[] URLAddressList2= {"url_ip","url_iris_project","url_company","new_id_url"};
+                String url = urlObj.getURL(URLAddressList2);
+                //-------------------------------------------------------------
                 String jsonStr = sh.makeServiceCall(url);
                 String jsonCusAcct = sh.makeServiceCallGet(cusAcctNos);
                 String jsonOwingCus = sh.makeServiceCallGet(owingCust);
@@ -273,10 +278,8 @@ public class TransferWithinBnk extends AppCompatActivity {
                     });
                 }
 
-            }
-            catch(IOException e ){
-                e.printStackTrace();
-            }
+
+
             return null;
 
         }
@@ -300,7 +303,12 @@ public class TransferWithinBnk extends AppCompatActivity {
 
         protected Boolean doInBackground(String... params) {
             String currencyDeb="";
-            String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss(\'"+RefNo+"\')/validate";
+            //added by priya
+            URLRelated urlObj = new URLRelated(getApplicationContext());
+            String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_verFundsTransfer_AcTranss"};
+            String urlStr= urlObj.getURL(URLAddressList);
+            String url= urlObj.getValidateURL(urlStr,RefNo);
+            //---------------------------------------------------------------------------
             String debitCurrency = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/enqAcctHomes()?$filter=AccountNo%20eq%20"+params[0];
             try {
                 String json;

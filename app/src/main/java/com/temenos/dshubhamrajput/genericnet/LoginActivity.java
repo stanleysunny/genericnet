@@ -356,25 +356,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
             String  urlString;
-            String user;
+            URLRelated urlObj = new URLRelated(getApplicationContext());
             boolean status;
-            try{
-                PropertiesReader pro = new PropertiesReader();
-                urlString=pro.getProperty("url_login_screen",getApplicationContext());
-                user= "'"+Username+"'";
-                urlString= urlString+user;
+                String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_login_screen"};
+                urlString  = urlObj.getURLParameter(URLAddressList,Username);
                 GenUrl gen= new GenUrl();
                 status = gen.getUrlConnection( urlString, Username, mPassword);
                 response =gen.getResponse();
                 return status;
-
-
-
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-            return true;
         }
 
         @Override
@@ -385,18 +374,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             HttpHandler httpObj= new HttpHandler();
 
             if (success) {
-                try {
+                try {// reading the customer No
                     JSONObject JSONouterObj = new JSONObject(response);
                     JSONObject JSONObj2 = JSONouterObj.getJSONObject("_embedded");
                     JSONArray jsonArrObj = JSONObj2.getJSONArray("item");
                     for (int i = 0; i < jsonArrObj.length(); i++) {
                         JSONObject item = jsonArrObj.getJSONObject(i);
                         JSONArray jsonArrObj2 = item.getJSONArray("AllowedCustomerMvGroup");
-
                         for (int j = 0; j < jsonArrObj2.length(); j++) {
                             JSONObject JSONObj3 = jsonArrObj2.getJSONObject(j);
                             owningCusId = JSONObj3.getString("AllowedCustomer");
-
                         }
                     }
                 } catch (JSONException e) {

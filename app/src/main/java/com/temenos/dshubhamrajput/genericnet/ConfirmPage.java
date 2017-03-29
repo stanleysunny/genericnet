@@ -1,27 +1,19 @@
 package com.temenos.dshubhamrajput.genericnet;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-
-
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-
 import java.util.HashMap;
-
 
 
 public class ConfirmPage extends AppCompatActivity {
@@ -62,8 +54,6 @@ public class ConfirmPage extends AppCompatActivity {
         imp = extras.getString("getintent");
         if(imp.equals("internal"))
         {
-
-
             TextView Accno= (TextView) findViewById(R.id.editText);
             TextView Email = (TextView)findViewById(R.id.editText6);
             TextView nickname=(TextView)findViewById(R.id.editText7);
@@ -71,8 +61,6 @@ public class ConfirmPage extends AppCompatActivity {
             TextView Ifsc=(TextView)findViewById(R.id.editText8);
             Ifsc.setVisibility(View.GONE);
             t6.setVisibility(View.GONE);
-
-
 
             t1.setText("Account Number");
             t2.setText("Email");
@@ -100,7 +88,6 @@ public class ConfirmPage extends AppCompatActivity {
         }
         else if(imp.equals("external"))
         {
-
             TextView Accno= (TextView)findViewById(R.id.editText);
             TextView Email = (TextView)findViewById(R.id.editText6);
             TextView nickname=(TextView)findViewById(R.id.editText7);
@@ -108,8 +95,6 @@ public class ConfirmPage extends AppCompatActivity {
             TextView Ifsc=(TextView)findViewById(R.id.editText8);
             //TextView IfscBranch=(TextView)findViewById(R.id.editText20);
             t6.setVisibility(View.GONE);
-
-
 
             t1.setText("Account Number");
             t2.setText("Email");
@@ -119,7 +104,6 @@ public class ConfirmPage extends AppCompatActivity {
             Accno.setText(extras.getString("BenAcctNo"));
             Email.setText(extras.getString("Email"));
             nickname.setText(extras.getString("Nickname"));
-            //Customername.setText(extras.getString("Ifsc"));
             Ifsc.setText(extras.getString("IfscBranch"));
             IfscBranch.setText(extras.getString("Ifsc"));
             obj.put("BenAcctNo",extras.getString("BenAcctNo"));
@@ -163,7 +147,9 @@ public class ConfirmPage extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String url = "http://27b25854.ngrok.io/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
+                    URLRelated urlObj = new URLRelated(getApplicationContext());
+                    String[] URLAddressList = {"url_ip", "url_iris_project", "url_company", "url_verFundsTransfer_AcTranss_input"};
+                   String url = urlObj.getURL(URLAddressList);
                     new commitFunCall().execute("account",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
                             ,extras.getString("toAccountNo"),extras.getString("description"));
 
@@ -197,7 +183,9 @@ public class ConfirmPage extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                        String url = "http://27b25854.ngrok.io/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
+                    URLRelated urlObj = new URLRelated(getApplicationContext());
+                    String[] URLAddressList = {"url_ip", "url_iris_project", "url_company", "url_verFundsTransfer_AcTranss_input"};
+                    String url = urlObj.getURL(URLAddressList);
                         new commitFunCall().execute("account",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
                                 ,extras.getString("toAccountNo"),extras.getString("description"));
 
@@ -236,7 +224,10 @@ public class ConfirmPage extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String url = "http://27b25854.ngrok.io/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTransObnks()/input";
+
+                    URLRelated urlObj = new URLRelated(getApplicationContext());
+                    String[] URLAddressList = {"url_ip", "url_iris_project", "url_company", "url_verFundsTransfer_AcTransObnks_input"};
+                    String url = urlObj.getURL(URLAddressList);
                     new commitFunCall().execute("other", url, extras.getString("RefNo"), extras.getString("transType"),
                             extras.getString("bankSortCode"), extras.getString("toAccountNo"),
                             extras.getString("benCustomer"), extras.getString("branchName"),
@@ -358,12 +349,16 @@ public class ConfirmPage extends AppCompatActivity {
             HttpHandler sh = new HttpHandler();
             String url;
             try {
+                URLRelated urlObj = new URLRelated(getApplicationContext());
                 PropertiesReader property = new PropertiesReader();
-                if (imp.equals("external"))
-                    url = property.getProperty("url_beneficiary_Obnk_Input", getApplicationContext());
-                else
-                    url = property.getProperty("url_beneficiary_Wbnk_Input", getApplicationContext());
-
+                if (imp.equals("external")) {
+                    String[] URLAddressList = {"url_ip", "url_iris_project", "url_company", "url_beneficiary_Obnk_Input"};
+                    url = urlObj.getURL(URLAddressList);
+                }
+                else {
+                    String[] URLAddressList = {"url_ip", "url_iris_project", "url_company", "url_beneficiary_Wbnk_Input"};
+                    url = urlObj.getURL(URLAddressList);
+                }
 
                 String BenAcctNo = obj1.get("BenAcctNo");
                 String BencustomerNo = obj1.get("BenCustomer");
@@ -408,8 +403,6 @@ public class ConfirmPage extends AppCompatActivity {
                 success = sh.jsonWrite(url, postdata);
 
             } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
                 e.printStackTrace();
             }
             return null;

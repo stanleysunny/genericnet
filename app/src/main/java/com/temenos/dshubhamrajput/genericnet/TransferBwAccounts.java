@@ -152,19 +152,23 @@ public class TransferBwAccounts extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            try {
+
+                String url;
                 HttpHandler sh = new HttpHandler();
+                URLRelated urlObj = new URLRelated(getApplicationContext());
                 // Making a request to url and getting response
-                PropertiesReader property = new PropertiesReader();
                 String owningCustomer;
                 // changes here
                 HashMap<String,String> owner;
                 SessionManager session =new SessionManager(getApplicationContext());
                 owner=session.getUserDetails();
                 owningCustomer= owner.get("cusId");
+                //added by priya
+                String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_cusaccno"};
+                String cusAcctNos= urlObj.getURLParameter(URLAddressList,owningCustomer);
+                String[] URLAddressList1= {"url_ip","url_iris_project","url_company","new_id_url"};
+                  url = urlObj.getURL(URLAddressList1);
                 //----------------
-                String cusAcctNos="http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/enqAcctHomes()?$filter=CustomerNo%20eq%20"+owningCustomer;
-                String url = property.getProperty("new_id_url", getApplicationContext());
                 String jsonStr = sh.makeServiceCall(url);
                 String jsonCusAcct = sh.makeServiceCallGet(cusAcctNos);
                 Log.e(TAG, "Response from url: " + jsonStr);
@@ -254,10 +258,8 @@ public class TransferBwAccounts extends AppCompatActivity {
                     });
                 }
 
-            }
-            catch(IOException e ){
-                    e.printStackTrace();
-                }
+
+
                 return null;
 
         }
@@ -281,9 +283,16 @@ public class TransferBwAccounts extends AppCompatActivity {
         }
 
         protected Boolean doInBackground(String... params) {
+            URLRelated urlObj= new URLRelated(getApplicationContext());
             String currencyDeb="";
-            String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss(\'"+RefNo+"\')/validate";
-            String debitCurrency = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/enqAcctHomes()?$filter=AccountNo%20eq%20"+params[0];
+            // added by priya
+            String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_verFundsTransfer_AcTranss"};
+            String urlStr= urlObj.getURL(URLAddressList);
+            String url= urlObj.getValidateURL(urlStr,RefNo);
+            String[] URLAddressList1= {"url_ip","url_iris_project","url_company","url_enqAcctHomes"};
+            String urlStr1= urlObj.getURL(URLAddressList1);
+            String debitCurrency= urlObj.getValidateURL(urlStr1,params[0]);
+            //-----------------------------------
             try {
                 String json;
 

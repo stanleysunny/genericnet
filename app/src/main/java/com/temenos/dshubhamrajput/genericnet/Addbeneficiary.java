@@ -290,7 +290,7 @@ public class Addbeneficiary extends AppCompatActivity {
             JSONObject jsonObjarray1 = new JSONObject();
             Bundle benBundle = new Bundle();
             HttpHandler sh1 = new HttpHandler();
-
+            URLRelated urlObj = new URLRelated(getApplicationContext());
             String benAcctNo = param[1];
             String email = param[2];
             String nickName = param[3];
@@ -322,23 +322,19 @@ public class Addbeneficiary extends AppCompatActivity {
                     Ifsc=param[4];
                     postData.put("BankSortCode", Ifsc);
                     benBundle.putString("Ifsc", Ifsc);
-                    try {
+
                         String trialURL;
-                        PropertiesReader property = new PropertiesReader();
-                        trialURL= property.getProperty("url_beneficiary_Obnk_validate", getApplicationContext());
-                        urlStr= sh1.getValidateURL(trialURL,benID);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                        String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_beneficiary_Obnk_validate"};
+                        trialURL = urlObj.getURL(URLAddressList);
+                        urlStr= urlObj.getValidateURL(trialURL,benID);
+
                 } else {
-                    try {
+
                         String trialURL;
-                        PropertiesReader property = new PropertiesReader();
-                        trialURL= property.getProperty("url_beneficiary_Wbnk_validate", getApplicationContext());
-                        urlStr= sh1.getValidateURL(trialURL,benID);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                        String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_beneficiary_Wbnk_validate"};
+                        trialURL = urlObj.getURL(URLAddressList);
+                        urlStr= urlObj.getValidateURL(trialURL,benID);
+
                 }//----------------------
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -440,9 +436,9 @@ public class Addbeneficiary extends AppCompatActivity {
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
             String url;
-            try {
-                PropertiesReader property = new PropertiesReader();
-                url = property.getProperty("url_beneficiary_Wbnk_new", getApplicationContext());
+            URLRelated urlObj = new URLRelated(getApplicationContext());
+                String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_beneficiary_Wbnk_new"};
+                url = urlObj.getURL(URLAddressList);
                 String jsonStr = sh.makeServiceCall(url);
                 if (jsonStr != null) {
                     try {
@@ -451,9 +447,7 @@ public class Addbeneficiary extends AppCompatActivity {
                     } catch (final JSONException e) {
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
             return null;
         }
         @Override
