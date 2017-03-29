@@ -87,7 +87,11 @@ public class ConfirmPage extends AppCompatActivity {
             obj.put("BeneficiaryId",extras.getString("BeneficiaryId"));
             obj.put("Email",extras.getString("Email"));
             obj.put("Nickname",extras.getString("Nickname"));
-            obj.put("OwningCustomer",extras.getString("190090"));
+            HashMap<String,String> owner;
+            SessionManager session =new SessionManager(getApplicationContext());
+            owner=session.getUserDetails();
+           String  owningCustomer= owner.get("cusId");
+            obj.put("OwningCustomer",extras.getString(owningCustomer));
             Button viewStmt = (Button) findViewById(R.id.button2);
             viewStmt.setOnClickListener(new View.OnClickListener() {
 
@@ -128,7 +132,11 @@ public class ConfirmPage extends AppCompatActivity {
             obj.put("Email",extras.getString("Email"));
             obj.put("Nickname",extras.getString("Nickname"));
             obj.put("Ifsc",extras.getString("Ifsc"));
-            obj.put("OwningCustomer",extras.getString("190090"));
+            HashMap<String,String> owner;
+            SessionManager session =new SessionManager(getApplicationContext());
+            owner=session.getUserDetails();
+            String owningCustomer= owner.get("cusId");
+            obj.put("OwningCustomer",extras.getString(owningCustomer));
             Button viewStmt = (Button) findViewById(R.id.button2);
             viewStmt.setOnClickListener(new View.OnClickListener() {
 
@@ -163,8 +171,8 @@ public class ConfirmPage extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String url = "http://27b25854.ngrok.io/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
-                    new commitFunCall().execute("account",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
+                    String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
+                    new commitFunCall().execute("bwAccounts",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
                             ,extras.getString("toAccountNo"),extras.getString("description"));
 
                 }
@@ -197,8 +205,8 @@ public class ConfirmPage extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                        String url = "http://27b25854.ngrok.io/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
-                        new commitFunCall().execute("account",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
+                        String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
+                        new commitFunCall().execute("withinBank",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
                                 ,extras.getString("toAccountNo"),extras.getString("description"));
 
                 }
@@ -236,7 +244,7 @@ public class ConfirmPage extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String url = "http://27b25854.ngrok.io/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTransObnks()/input";
+                    String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTransObnks()/input";
                     new commitFunCall().execute("other", url, extras.getString("RefNo"), extras.getString("transType"),
                             extras.getString("bankSortCode"), extras.getString("toAccountNo"),
                             extras.getString("benCustomer"), extras.getString("branchName"),
