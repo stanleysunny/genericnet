@@ -49,18 +49,6 @@ public class TransferBwAccounts extends AppCompatActivity {
         Spinner to = (Spinner) findViewById(R.id.editText6);
         EditText desc = (EditText) findViewById(R.id.editText7);
         EditText amt = (EditText) findViewById(R.id.editText8);
-        InputFilter filter = new InputFilter() {
-            public CharSequence filter(CharSequence source, int start, int end,
-                                       Spanned dest, int dstart, int dend) {
-                for (int i = start; i < end; i++) {
-                    if (!Character.isLetterOrDigit(source.charAt(i))) {
-                        return "";
-                    }
-                }
-                return null;
-            }
-        };
-        amt.setFilters(new InputFilter[] { filter });
         amt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(10)});
         from.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
