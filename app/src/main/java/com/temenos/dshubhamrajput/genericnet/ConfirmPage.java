@@ -160,7 +160,7 @@ public class ConfirmPage extends AppCompatActivity {
                     URLRelated urlObj = new URLRelated(getApplicationContext());
                     String[] URLAddressList = {"url_ip", "url_iris_project", "url_company", "url_verFundsTransfer_AcTranss_input"};
                    String url = urlObj.getURL(URLAddressList);
-                    new commitFunCall().execute("account",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
+                    new commitFunCall().execute("bwAccounts",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
                             ,extras.getString("toAccountNo"),extras.getString("description"));
 
                 }
@@ -196,7 +196,7 @@ public class ConfirmPage extends AppCompatActivity {
                     URLRelated urlObj = new URLRelated(getApplicationContext());
                     String[] URLAddressList = {"url_ip", "url_iris_project", "url_company", "url_verFundsTransfer_AcTranss_input"};
                     String url = urlObj.getURL(URLAddressList);
-                        new commitFunCall().execute("account",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
+                        new commitFunCall().execute("withinBank",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
                                 ,extras.getString("toAccountNo"),extras.getString("description"));
 
                 }
@@ -238,7 +238,7 @@ public class ConfirmPage extends AppCompatActivity {
                     URLRelated urlObj = new URLRelated(getApplicationContext());
                     String[] URLAddressList = {"url_ip", "url_iris_project", "url_company", "url_verFundsTransfer_AcTransObnks_input"};
                     String url = urlObj.getURL(URLAddressList);
-                    new commitFunCall().execute("other", url, extras.getString("RefNo"), extras.getString("transType"),
+                    new commitFunCall().execute("others", url, extras.getString("RefNo"), extras.getString("transType"),
                             extras.getString("bankSortCode"), extras.getString("toAccountNo"),
                             extras.getString("benCustomer"), extras.getString("branchName"),
                             extras.getString("creAcctNo"), extras.getString("fromAccountNo"),
