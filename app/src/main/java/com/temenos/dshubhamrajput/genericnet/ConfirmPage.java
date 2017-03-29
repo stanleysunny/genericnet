@@ -97,17 +97,6 @@ public class ConfirmPage extends AppCompatActivity {
 
                 }
             });
-            backButton.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-
-                    final Intent Back = new Intent(ConfirmPage.this,Addbeneficiary.class);
-                    startActivity(Back);
-                }
-            });
-
-
         }
         else if(imp.equals("external"))
         {
@@ -149,15 +138,6 @@ public class ConfirmPage extends AppCompatActivity {
 
                 }
             });
-            backButton.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-
-                    final Intent Back = new Intent(ConfirmPage.this,Addbeneficiary.class);
-                    startActivity(Back);
-                }
-            });
         }
 
         else if(imp.equals("bwAccounts")){
@@ -183,7 +163,7 @@ public class ConfirmPage extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
+                    String url = "http://27b25854.ngrok.io/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
                     new commitFunCall().execute("account",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
                             ,extras.getString("toAccountNo"),extras.getString("description"));
 
@@ -217,7 +197,7 @@ public class ConfirmPage extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                        String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
+                        String url = "http://27b25854.ngrok.io/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTranss()/input";
                         new commitFunCall().execute("account",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
                                 ,extras.getString("toAccountNo"),extras.getString("description"));
 
@@ -256,7 +236,7 @@ public class ConfirmPage extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String url = "http://10.93.22.116:9089/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTransObnks()/input";
+                    String url = "http://27b25854.ngrok.io/Test-iris/Test.svc/GB0010001/verFundsTransfer_AcTransObnks()/input";
                     new commitFunCall().execute("other", url, extras.getString("RefNo"), extras.getString("transType"),
                             extras.getString("bankSortCode"), extras.getString("toAccountNo"),
                             extras.getString("benCustomer"), extras.getString("branchName"),
@@ -395,12 +375,11 @@ public class ConfirmPage extends AppCompatActivity {
                 JSONObject jsonObjarray = new JSONObject();
                 JSONObject postdata = new JSONObject();
                 JSONArray array = new JSONArray();
-    String owningCustomer ="";
+                String owningCustomer;
                 HashMap<String,String> owner;
                 SessionManager session =new SessionManager(getApplicationContext());
                 owner=session.getUserDetails();
                 owningCustomer= owner.get("cusId");
-
                 if (imp.equals("external")) {
 
                     postdata.put("BenAcctNo", BenAcctNo);
@@ -411,7 +390,8 @@ public class ConfirmPage extends AppCompatActivity {
                     jsonObjarray.put("Nickname", Nickname);
                     array.put(jsonObjarray);
                     postdata.put("NicknameMvGroup", array);
-                    postdata.put("OwningCustomer", owningCustomer);
+                    postdata.put("OwningCustomer", owningCustomer );
+
 
                 } else {
                     postdata.put("BenAcctNo", BenAcctNo);

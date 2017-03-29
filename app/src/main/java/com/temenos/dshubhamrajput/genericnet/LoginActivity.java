@@ -413,7 +413,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 mPasswordView.setText("");
                 TextView change_text = (TextView)findViewById(R.id.errormessage);
                 change_text.setText(getString(R.string.error_message));
-                mPasswordView.requestFocus();
+                UsernameView.requestFocus();
             }
         }
 

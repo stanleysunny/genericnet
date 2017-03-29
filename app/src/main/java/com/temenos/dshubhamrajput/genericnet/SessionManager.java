@@ -108,7 +108,8 @@ public class SessionManager {
 
         /**
          * Quick check for login
-         * **/ public void logoutUser(){
+         * **/
+        public void logoutUser(){
             // Clearing all data from Shared Preferences
             editor.clear();
             editor.commit();
