@@ -62,8 +62,6 @@ public class ConfirmPage extends AppCompatActivity {
         imp = extras.getString("getintent");
         if(imp.equals("internal"))
         {
-
-
             TextView Accno= (TextView) findViewById(R.id.editText);
             TextView Email = (TextView)findViewById(R.id.editText6);
             TextView nickname=(TextView)findViewById(R.id.editText7);
@@ -74,10 +72,10 @@ public class ConfirmPage extends AppCompatActivity {
 
 
 
-            t1.setText("Account Number");
-            t2.setText("Email");
-            t3.setText("Nick Name");
-            t4.setText("Customer Name");
+            t1.setText(R.string.account_number);
+            t2.setText(R.string.prompt_email);
+            t3.setText(R.string.nick_name);
+            t4.setText(R.string.cus_name);
             Accno.setText(extras.getString("BenAcctNo"));
             Email.setText(extras.getString("Email"));
             nickname.setText(extras.getString("Nickname"));
@@ -115,11 +113,11 @@ public class ConfirmPage extends AppCompatActivity {
 
 
 
-            t1.setText("Account Number");
-            t2.setText("Email");
-            t3.setText("Nick Name");
-            t4.setText("IFSC code");
-            t5.setText("Branch Name");
+            t1.setText(R.string.account_number);
+            t2.setText(R.string.prompt_email);
+            t3.setText(R.string.nick_name);
+            t4.setText(R.string.ifsc_code);
+            t5.setText(R.string.branch_name);
             Accno.setText(extras.getString("BenAcctNo"));
             Email.setText(extras.getString("Email"));
             nickname.setText(extras.getString("Nickname"));
@@ -156,10 +154,10 @@ public class ConfirmPage extends AppCompatActivity {
 
             getSupportActionBar().setTitle("Confirm Transfer");
             t6.setVisibility(View.GONE);
-            t1.setText("From Account");
-            t2.setText("To Account");
-            t3.setText("Description");
-            t4.setText("Amount");
+            t1.setText(R.string.from_account);
+            t2.setText(R.string.to_account);
+            t3.setText(R.string.desc);
+            t4.setText(R.string.amt);
             frmAcct.setText(extras.getString("fromAccountNo"));
             toAcct.setText(extras.getString("toAccountNo"));
             des.setText(extras.getString("description"));
@@ -188,11 +186,11 @@ public class ConfirmPage extends AppCompatActivity {
 
             getSupportActionBar().setTitle("Confirm Transfer");
             t6.setVisibility(View.GONE);
-            t1.setText("From Account");
-            t2.setText("To Account");
-            t3.setText("Description");
-            t4.setText("Amount");
-            t5.setText("Nick Name");
+            t1.setText(R.string.from_account);
+            t2.setText(R.string.to_account);
+            t3.setText(R.string.desc);
+            t4.setText(R.string.amt);
+            t5.setText(R.string.nick_name);
             frmAcct.setText(extras.getString("fromAccountNo"));
             toAcct.setText(extras.getString("toAccountNo"));
             des.setText(extras.getString("description"));
@@ -223,13 +221,13 @@ public class ConfirmPage extends AppCompatActivity {
             TextView sortCode= (TextView) findViewById(R.id.editText20);
             TextView bName = (TextView) findViewById(R.id.editText8);
 
-            t1.setText("From Account");
-            t2.setText("To Account");
-            t3.setText("Description");
-            t4.setText("Amount");
-            t5.setText("Branch Name");
-            t6.setText("Nick Name");
-            t7.setText("Bank Sort Code");
+            t1.setText(R.string.from_account);
+            t2.setText(R.string.to_account);
+            t3.setText(R.string.desc);
+            t4.setText(R.string.amt);
+            t5.setText(R.string.branch_name);
+            t6.setText(R.string.nick_name);
+            t7.setText(R.string.bank_sort_code);
             frmAcct.setText(extras.getString("fromAccountNo"));
             toAcct.setText(extras.getString("toAccountNo"));
             des.setText(extras.getString("description"));
@@ -280,7 +278,7 @@ public class ConfirmPage extends AppCompatActivity {
         protected Boolean doInBackground(String... params)
         {
             try {
-                String json = "";
+                String json;
                 JSONObject jsonObject = new JSONObject();
                 if(params[0].equals("withinBank") || params[0].equals("bwAccounts")) {
 
@@ -321,13 +319,9 @@ public class ConfirmPage extends AppCompatActivity {
 
                 HttpHandler newObj = new HttpHandler();
                 status = newObj.posCommit(params[1], json);
-                if(status.equals("YES")) {
-                    return true;
-                }
-                else
-                {
-                  return false;
-                }
+
+                return status.equals("YES");
+
             }catch (Exception e) {
                 e.printStackTrace();
             }
