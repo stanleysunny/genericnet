@@ -395,7 +395,11 @@ public class ConfirmPage extends AppCompatActivity {
                 JSONObject jsonObjarray = new JSONObject();
                 JSONObject postdata = new JSONObject();
                 JSONArray array = new JSONArray();
-
+    String owningCustomer ="";
+                HashMap<String,String> owner;
+                SessionManager session =new SessionManager(getApplicationContext());
+                owner=session.getUserDetails();
+                owningCustomer= owner.get("cusId");
 
                 if (imp.equals("external")) {
 
@@ -407,7 +411,7 @@ public class ConfirmPage extends AppCompatActivity {
                     jsonObjarray.put("Nickname", Nickname);
                     array.put(jsonObjarray);
                     postdata.put("NicknameMvGroup", array);
-                    postdata.put("OwningCustomer", "190090");
+                    postdata.put("OwningCustomer", owningCustomer);
 
                 } else {
                     postdata.put("BenAcctNo", BenAcctNo);
@@ -417,7 +421,7 @@ public class ConfirmPage extends AppCompatActivity {
                     jsonObjarray.put("Nickname", Nickname);
                     array.put(jsonObjarray);
                     postdata.put("NicknameMvGroup", array);
-                    postdata.put("OwningCustomer", "190090");
+                    postdata.put("OwningCustomer",owningCustomer );
                 }
 
 
