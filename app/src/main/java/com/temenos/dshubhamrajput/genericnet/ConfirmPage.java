@@ -19,15 +19,11 @@ import java.util.HashMap;
 public class ConfirmPage extends AppCompatActivity {
     public Intent test;
     public static String imp;
-    public TextView e5;
     public TextView t1,t2,t3,t4,t5,t6,t7;
-    public TextView e1,e2,e3,e4;
     final HashMap<String, String> obj = new HashMap<>();
     boolean success=true;
     static public String status;
     ProgressDialog progressDialog;
-    static String response;
-    // Bundle Confirmbundle = new Bundle();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
