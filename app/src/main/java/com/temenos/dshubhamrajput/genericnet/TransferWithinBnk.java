@@ -150,9 +150,6 @@ public class TransferWithinBnk extends AppCompatActivity {
                 HttpHandler sh = new HttpHandler();
                 String owningCustomer;
                 URLRelated urlObj = new URLRelated(getApplicationContext());
-                // Making a request to url and getting response
-                PropertiesReader property = new PropertiesReader();
-                //
                 HashMap<String,String> owner;
                 SessionManager session =new SessionManager(getApplicationContext());
                 owner=session.getUserDetails();
