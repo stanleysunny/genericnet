@@ -429,6 +429,10 @@ public class Addbeneficiary extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
+            progressDialog= new ProgressDialog(Addbeneficiary.this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
+            progressDialog.setCancelable(false);
             super.onPreExecute();
         }
 
