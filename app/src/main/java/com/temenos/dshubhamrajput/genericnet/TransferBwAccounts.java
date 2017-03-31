@@ -96,6 +96,7 @@ public class TransferBwAccounts extends AppCompatActivity {
             * is clicked*/
             @Override
             public void onClick(View arg0) {
+                //Fetches the spinner value
                 Spinner fromAcctNo = (Spinner) findViewById(R.id.editText);
                 String fromAccountNo = fromAcctNo.getSelectedItem().toString();
                 Spinner toAcctNo = (Spinner) findViewById(R.id.editText6);
@@ -151,7 +152,7 @@ public class TransferBwAccounts extends AppCompatActivity {
                 SessionManager session =new SessionManager(getApplicationContext());
                 owner=session.getUserDetails();
                 owningCustomer= owner.get("cusId");
-                //added by priya
+                //added by priya to form the URL
                 String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_cusaccno"};
                 String cusAcctNos= urlObj.getURLParameter(URLAddressList,owningCustomer);
                 String[] URLAddressList1= {"url_ip","url_iris_project","url_company","new_id_url"};
@@ -277,8 +278,6 @@ public class TransferBwAccounts extends AppCompatActivity {
             String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_verFundsTransfer_AcTranss"};
             String urlStr= urlObj.getURL(URLAddressList);
             String url= urlObj.getValidateURL(urlStr,RefNo);
-            String[] URLAddressList1= {"url_ip","url_iris_project","url_company","url_enqAcctHomes"};
-            String urlStr1= urlObj.getURL(URLAddressList1);
             //-----------------------------------
             try {
                 String json;

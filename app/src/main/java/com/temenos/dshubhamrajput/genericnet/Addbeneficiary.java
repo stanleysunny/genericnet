@@ -147,8 +147,8 @@ public class Addbeneficiary extends AppCompatActivity {
                 else if(((accNoCheck.getText().toString()).equals("")))
                     if(!(benAccNo.getText().toString()).equals(""))
                         accNoCheck.setError("This field cannot be left blank");
-                else
-                    accNoCheck.setError(null);
+                    else
+                        accNoCheck.setError(null);
             }
 
             @Override
@@ -373,17 +373,17 @@ public class Addbeneficiary extends AppCompatActivity {
                     postData.put("BankSortCode", Ifsc);
                     benBundle.putString("Ifsc", Ifsc);
 
-                        String trialURL;
-                        String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_beneficiary_Obnk_validate"};
-                        trialURL = urlObj.getURL(URLAddressList);
-                        urlStr= urlObj.getValidateURL(trialURL,benID);
+                    String trialURL;
+                    String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_beneficiary_Obnk_validate"};
+                    trialURL = urlObj.getURL(URLAddressList);
+                    urlStr= urlObj.getValidateURL(trialURL,benID);
 
                 } else {
 
-                        String trialURL;
-                        String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_beneficiary_Wbnk_validate"};
-                        trialURL = urlObj.getURL(URLAddressList);
-                        urlStr= urlObj.getValidateURL(trialURL,benID);
+                    String trialURL;
+                    String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_beneficiary_Wbnk_validate"};
+                    trialURL = urlObj.getURL(URLAddressList);
+                    urlStr= urlObj.getValidateURL(trialURL,benID);
 
                 }//----------------------
             } catch (JSONException e) {
@@ -471,8 +471,8 @@ public class Addbeneficiary extends AppCompatActivity {
 
             }
 
-            }
         }
+    }
 
 
     private class NewDeal extends AsyncTask<Void, Void, Void> {
@@ -491,16 +491,16 @@ public class Addbeneficiary extends AppCompatActivity {
             HttpHandler sh = new HttpHandler();
             String url;
             URLRelated urlObj = new URLRelated(getApplicationContext());
-                String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_beneficiary_Wbnk_new"};
-                url = urlObj.getURL(URLAddressList);
-                String jsonStr = sh.makeServiceCall(url);
-                if (jsonStr != null) {
-                    try {
-                        JSONObject jsonObj = new JSONObject(jsonStr);
-                        benID = jsonObj.getString("BeneficiaryId");
-                    } catch (final JSONException e) {
-                    }
+            String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_beneficiary_Wbnk_new"};
+            url = urlObj.getURL(URLAddressList);
+            String jsonStr = sh.makeServiceCall(url);
+            if (jsonStr != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    benID = jsonObj.getString("BeneficiaryId");
+                } catch (final JSONException e) {
                 }
+            }
 
             return null;
         }

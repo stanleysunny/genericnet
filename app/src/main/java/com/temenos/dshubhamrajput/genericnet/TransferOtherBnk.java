@@ -154,7 +154,6 @@ public class TransferOtherBnk extends AppCompatActivity {
                 HttpHandler sh = new HttpHandler();
                 URLRelated urlObj = new URLRelated(getApplicationContext());
                 // Making a request to url and getting response
-                PropertiesReader property = new PropertiesReader();
                 String owningCustomer;
                 //
                 HashMap<String,String> owner;
@@ -217,8 +216,8 @@ public class TransferOtherBnk extends AppCompatActivity {
                         final Spinner spinner = (Spinner)findViewById(R.id.edit_from_other);
                         final Spinner secondSpinner = (Spinner)findViewById(R.id.edit_to_other);
 
-                        final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
-                        final ArrayAdapter<String> secondSpinnerAdptr = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
+                        final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
+                        final ArrayAdapter<String> secondSpinnerAdptr = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
 
                         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         secondSpinnerAdptr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
