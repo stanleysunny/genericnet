@@ -62,6 +62,11 @@ public class Addbeneficiary extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 if (withinbank1.isChecked()) {
                     neft1.setChecked(false);
+                    benAccNo.setText("");
+                    accNoCheck.setText("");
+                    emailUser.setText("");
+                    nickName.setText("");
+                    ifscEtext.setText("");
                     benAccNo.setError(null);
                     accNoCheck.setError(null);
                     emailUser.setError(null);
@@ -81,6 +86,11 @@ public class Addbeneficiary extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 if (neft1.isChecked()) {
                     withinbank1.setChecked(false);
+                    benAccNo.setText("");
+                    accNoCheck.setText("");
+                    emailUser.setText("");
+                    nickName.setText("");
+                    ifscEtext.setText("");
                     benAccNo.setError(null);
                     accNoCheck.setError(null);
                     emailUser.setError(null);
@@ -154,36 +164,76 @@ public class Addbeneficiary extends AppCompatActivity {
         });
 
 
-        emailUser.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        emailUser.addTextChangedListener(new TextWatcher() {
+            // ...
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    final String email = emailUser.getText().toString();
-                    if (!(emailValidator(email))) {
-                        if(!(email.equals("")))
-                            emailUser.setError("Enter a valid email id");
-                    } else  {
-                        emailUser.setError(null);
-                    }
+            public void onTextChanged(CharSequence text, int start, int count, int after) {
+                final String email = emailUser.getText().toString();
+                if (!(emailValidator(email))) {
+                    if(!(email.equals("")))
+                        emailUser.setError("Enter a valid email id");
+                } else  {
+                    emailUser.setError(null);
                 }
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
-        ifscEtext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
-                    String ifsc = ifscEtext.getText().toString();
-                    boolean check = ifscMatcher(ifsc);
-                    if (!check) {
-                        if(!(ifsc.equals("")))
-                            ifscEtext.setError("IFSC is a 11 digit alpha numeric string");
-                    }
-                    else if (ifscEtext.getText().toString().matches("")) {
-                        ifscEtext.setError("This field cannot be left blank");
-                    }
-                    else
-                        ifscEtext.setError(null);
+//        ifscEtext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if(!hasFocus) {
+//                    String ifsc = ifscEtext.getText().toString();
+//                    boolean check = ifscMatcher(ifsc);
+//                    if (!check) {
+//                        if(!(ifsc.equals("")))
+//                            ifscEtext.setError("IFSC is a 11 digit alpha numeric string");
+//                    }
+//                    else if (ifscEtext.getText().toString().matches("")) {
+//                        ifscEtext.setError("This field cannot be left blank");
+//                    }
+//                    else
+//                        ifscEtext.setError(null);
+//                }
+//            }
+//        });
+        ifscEtext.addTextChangedListener(new TextWatcher() {
+            // ...
+            @Override
+            public void onTextChanged(CharSequence text, int start, int count, int after) {
+                String ifsc = ifscEtext.getText().toString();
+                boolean check = ifscMatcher(ifsc);
+                if (!check) {
+                    if(!(ifsc.equals("")))
+                        ifscEtext.setError("IFSC is a 11 digit alpha numeric string");
                 }
+                else if (ifscEtext.getText().toString().matches("")) {
+                    ifscEtext.setError("This field cannot be left blank");
+                }
+                else
+                    ifscEtext.setError(null);
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
         benAccNo.addTextChangedListener(new TextWatcher() {
