@@ -290,14 +290,14 @@ public class HttpHandler {
 
     public void setCredentials(String user,String mpassword)
     {
-            userName = user;
-            passWord = mpassword;
+        userName = user;
+        passWord = mpassword;
         String userPass =  user + ":" + mpassword;
         basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
     }
     public HashMap<String,HashMap<String,String>> getErrorList()
     {
-            return outerErrorObj;
+        return outerErrorObj;
     }
 
 

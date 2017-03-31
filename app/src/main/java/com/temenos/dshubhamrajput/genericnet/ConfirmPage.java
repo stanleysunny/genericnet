@@ -75,7 +75,7 @@ public class ConfirmPage extends AppCompatActivity {
             HashMap<String,String> owner;
             SessionManager session =new SessionManager(getApplicationContext());
             owner=session.getUserDetails();
-           String  owningCustomer= owner.get("cusId");
+            String  owningCustomer= owner.get("cusId");
             obj.put("OwningCustomer",extras.getString(owningCustomer));
             Button viewStmt = (Button) findViewById(R.id.button2);
             viewStmt.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +155,7 @@ public class ConfirmPage extends AppCompatActivity {
                 public void onClick(View arg0) {
                     URLRelated urlObj = new URLRelated(getApplicationContext());
                     String[] URLAddressList = {"url_ip", "url_iris_project", "url_company", "url_verFundsTransfer_AcTranss_input"};
-                   String url = urlObj.getURL(URLAddressList);
+                    String url = urlObj.getURL(URLAddressList);
                     new commitFunCall().execute("bwAccounts",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
                             ,extras.getString("toAccountNo"),extras.getString("description"));
 
@@ -192,8 +192,8 @@ public class ConfirmPage extends AppCompatActivity {
                     URLRelated urlObj = new URLRelated(getApplicationContext());
                     String[] URLAddressList = {"url_ip", "url_iris_project", "url_company", "url_verFundsTransfer_AcTranss_input"};
                     String url = urlObj.getURL(URLAddressList);
-                        new commitFunCall().execute("withinBank",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
-                                ,extras.getString("toAccountNo"),extras.getString("description"));
+                    new commitFunCall().execute("withinBank",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
+                            ,extras.getString("toAccountNo"),extras.getString("description"));
 
                 }
             });

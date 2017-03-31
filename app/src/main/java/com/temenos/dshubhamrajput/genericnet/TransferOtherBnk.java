@@ -151,139 +151,139 @@ public class TransferOtherBnk extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
 
-                HttpHandler sh = new HttpHandler();
-                URLRelated urlObj = new URLRelated(getApplicationContext());
-                // Making a request to url and getting response
-                String owningCustomer;
-                //
-                HashMap<String,String> owner;
-                SessionManager session =new SessionManager(getApplicationContext());
-                owner=session.getUserDetails();
-                owningCustomer= owner.get("cusId");
+            HttpHandler sh = new HttpHandler();
+            URLRelated urlObj = new URLRelated(getApplicationContext());
+            // Making a request to url and getting response
+            String owningCustomer;
+            //
+            HashMap<String,String> owner;
+            SessionManager session =new SessionManager(getApplicationContext());
+            owner=session.getUserDetails();
+            owningCustomer= owner.get("cusId");
 
-                //ADDED BY PRIYA
-                String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_cusaccno"};
-                String cusAcctNos= urlObj.getURLParameter(URLAddressList,owningCustomer);
-                String[] URLAddressList1= {"url_ip","url_iris_project","url_company","url_enqEnqObnks"};
-                String owingCust= urlObj.getURLParameter(URLAddressList1,owningCustomer);
-                String[] URLAddressList2= {"url_ip","url_iris_project","url_company","new_id_url_other_bnk"};
-                String url= urlObj.getURL(URLAddressList2);
-                //-------------------------------
-                String jsonStr = sh.makeServiceCall(url);
-                String jsonCusAcct = sh.makeServiceCallGet(cusAcctNos);
-                String jsonOwingCus = sh.makeServiceCallGet(owingCust);
-                Log.e(TAG, "Response from url: " + jsonStr);
-                if (jsonStr != null) {
-                    try {
-                        JSONObject jsonObj = new JSONObject(jsonStr);
-                        RefNo = jsonObj.getString("RefNo");
-                        System.out.println(RefNo);
-                    } catch (final JSONException e) {
-                        Log.e(TAG, "Json parsing error: " + e.getMessage());
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getApplicationContext(),
-                                        "Json parsing error: " + e.getMessage(),
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        });
-
-                    }
-                } else {
-                    Log.e(TAG, "Couldn't get json from server.");
+            //ADDED BY PRIYA
+            String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_cusaccno"};
+            String cusAcctNos= urlObj.getURLParameter(URLAddressList,owningCustomer);
+            String[] URLAddressList1= {"url_ip","url_iris_project","url_company","url_enqEnqObnks"};
+            String owingCust= urlObj.getURLParameter(URLAddressList1,owningCustomer);
+            String[] URLAddressList2= {"url_ip","url_iris_project","url_company","new_id_url_other_bnk"};
+            String url= urlObj.getURL(URLAddressList2);
+            //-------------------------------
+            String jsonStr = sh.makeServiceCall(url);
+            String jsonCusAcct = sh.makeServiceCallGet(cusAcctNos);
+            String jsonOwingCus = sh.makeServiceCallGet(owingCust);
+            Log.e(TAG, "Response from url: " + jsonStr);
+            if (jsonStr != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    RefNo = jsonObj.getString("RefNo");
+                    System.out.println(RefNo);
+                } catch (final JSONException e) {
+                    Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(getApplicationContext(),
-                                    "Couldn't get json from server. Check LogCat for possible errors!",
+                                    "Json parsing error: " + e.getMessage(),
                                     Toast.LENGTH_LONG).show();
                         }
                     });
+
                 }
-
-                if (jsonCusAcct != null && jsonOwingCus!= null) {
-                    try {
-                        JSONObject jsonObjCusAcct = new JSONObject(jsonCusAcct);
-                        JSONObject jsonObjOwingCust = new JSONObject(jsonOwingCus);
-
-                        JSONObject firstObj = jsonObjCusAcct.getJSONObject("_embedded");
-                        JSONObject firstObjOwingCust = jsonObjOwingCust.getJSONObject("_embedded");
-
-                        JSONArray item = firstObj.getJSONArray("item");
-                        JSONArray itemOwingCust = firstObjOwingCust.getJSONArray("item");
-
-                        final Spinner spinner = (Spinner)findViewById(R.id.edit_from_other);
-                        final Spinner secondSpinner = (Spinner)findViewById(R.id.edit_to_other);
-
-                        final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
-                        final ArrayAdapter<String> secondSpinnerAdptr = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
-
-                        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        secondSpinnerAdptr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                        for (int i = 0; i < item.length(); i++) {
-                            JSONObject acctNoOfCustomer = item.getJSONObject(i);
-                            final String diffAcctNo = acctNoOfCustomer.getString("AccountNo");
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    spinner.setAdapter(spinnerAdapter);
-                                    spinnerAdapter.add(diffAcctNo);
-                                }
-                            });
-                        }
-                        for (int i = 0; i < itemOwingCust.length(); i++) {
-                            JSONObject benAccountNo = itemOwingCust.getJSONObject(i);
-                            final String benAcct = benAccountNo.getString("BenAcctNo");
-                            final String bankSortCode = benAccountNo.getString("BankSortCode");
-                            final String branch = benAccountNo.getString("Branch");
-
-                            JSONArray NicknameMyGroup = benAccountNo.getJSONArray("NicknameMvGroup");
-                            JSONObject nickName = NicknameMyGroup.getJSONObject(0);
-                            final String nickNameCust = nickName.getString("Nickname");
-
-                            final String dispNickName = benAcct+"-"+nickNameCust;
-                            secondSpinnerVal.put(dispNickName,bankSortCode+"-"+branch);
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    secondSpinner.setAdapter(secondSpinnerAdptr);
-                                    secondSpinnerAdptr.add(dispNickName);
-                                }
-                            });
-                        }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                spinnerAdapter.notifyDataSetChanged();
-                                secondSpinnerAdptr.notifyDataSetChanged();
-                            }
-                        });
-
-                    } catch (final JSONException e) {
-                        Log.e(TAG, "Json parsing error: " + e.getMessage());
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getApplicationContext(),
-                                        "Json parsing error: " + e.getMessage(),
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        });
-
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                Toast.LENGTH_LONG).show();
                     }
-                } else {
-                    Log.e(TAG, "Couldn't get json from server.");
+                });
+            }
+
+            if (jsonCusAcct != null && jsonOwingCus!= null) {
+                try {
+                    JSONObject jsonObjCusAcct = new JSONObject(jsonCusAcct);
+                    JSONObject jsonObjOwingCust = new JSONObject(jsonOwingCus);
+
+                    JSONObject firstObj = jsonObjCusAcct.getJSONObject("_embedded");
+                    JSONObject firstObjOwingCust = jsonObjOwingCust.getJSONObject("_embedded");
+
+                    JSONArray item = firstObj.getJSONArray("item");
+                    JSONArray itemOwingCust = firstObjOwingCust.getJSONArray("item");
+
+                    final Spinner spinner = (Spinner)findViewById(R.id.edit_from_other);
+                    final Spinner secondSpinner = (Spinner)findViewById(R.id.edit_to_other);
+
+                    final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
+                    final ArrayAdapter<String> secondSpinnerAdptr = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
+
+                    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    secondSpinnerAdptr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                    for (int i = 0; i < item.length(); i++) {
+                        JSONObject acctNoOfCustomer = item.getJSONObject(i);
+                        final String diffAcctNo = acctNoOfCustomer.getString("AccountNo");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                spinner.setAdapter(spinnerAdapter);
+                                spinnerAdapter.add(diffAcctNo);
+                            }
+                        });
+                    }
+                    for (int i = 0; i < itemOwingCust.length(); i++) {
+                        JSONObject benAccountNo = itemOwingCust.getJSONObject(i);
+                        final String benAcct = benAccountNo.getString("BenAcctNo");
+                        final String bankSortCode = benAccountNo.getString("BankSortCode");
+                        final String branch = benAccountNo.getString("Branch");
+
+                        JSONArray NicknameMyGroup = benAccountNo.getJSONArray("NicknameMvGroup");
+                        JSONObject nickName = NicknameMyGroup.getJSONObject(0);
+                        final String nickNameCust = nickName.getString("Nickname");
+
+                        final String dispNickName = benAcct+"-"+nickNameCust;
+                        secondSpinnerVal.put(dispNickName,bankSortCode+"-"+branch);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                secondSpinner.setAdapter(secondSpinnerAdptr);
+                                secondSpinnerAdptr.add(dispNickName);
+                            }
+                        });
+                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            spinnerAdapter.notifyDataSetChanged();
+                            secondSpinnerAdptr.notifyDataSetChanged();
+                        }
+                    });
+
+                } catch (final JSONException e) {
+                    Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(getApplicationContext(),
-                                    "Couldn't get json from server. Check LogCat for possible errors!",
+                                    "Json parsing error: " + e.getMessage(),
                                     Toast.LENGTH_LONG).show();
                         }
                     });
+
                 }
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
 
 
             return null;
