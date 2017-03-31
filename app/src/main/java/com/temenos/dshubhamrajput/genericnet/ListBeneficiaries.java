@@ -11,7 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 
 import org.json.JSONArray;
@@ -24,6 +26,8 @@ import java.util.HashMap;
 public class ListBeneficiaries extends AppCompatActivity {
     String Ben="";
     ListView ListBen;
+    static ArrayList<HashMap<String, String>> beneficiaryList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +54,6 @@ public class ListBeneficiaries extends AppCompatActivity {
                 {
                     new FetchBenWithin().execute();
                     ListBen.setVisibility(View.VISIBLE);
-
                 }
                 else
                 {
@@ -64,15 +67,13 @@ public class ListBeneficiaries extends AppCompatActivity {
         return true;
     }
 
-    private class FetchBenWithin extends AsyncTask<String, Void, Void> {
-
-        ArrayList<HashMap<String, String>> beneficiaryList = new ArrayList<>();
+    private class FetchBenWithin extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
 
         }
         @Override
-        protected Void doInBackground(String... param) {
+        protected Void doInBackground(Void... param) {
 
                 String owningCustomer;
             HttpHandler sh = new HttpHandler();
@@ -84,7 +85,7 @@ public class ListBeneficiaries extends AppCompatActivity {
             String[] URLAddressList1= {"url_ip","url_iris_project","url_company","url_enqEnqWbnks"};
             String owingCust= urlObj.getURLParameter(URLAddressList1,owningCustomer);
             String jsonOwingCus = sh.makeServiceCallGet(owingCust);
-            JSONObject jsonObjOwingCust = null;
+            JSONObject jsonObjOwingCust;
             try {
                 jsonObjOwingCust = new JSONObject(jsonOwingCus);
                 JSONObject firstObjOwingCust = jsonObjOwingCust.getJSONObject("_embedded");
@@ -110,19 +111,18 @@ public class ListBeneficiaries extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
 
         }
     }
-    private class FetchBenOutside extends AsyncTask<String, Void, Void> {
-
+    private class FetchBenOutside extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
 
         }
         @Override
-        protected Void doInBackground(String... param) {
-            ArrayList<HashMap<String, String>> beneficiaryList = new ArrayList<>();;
+        protected Void doInBackground(Void... param) {
             String owningCustomer;
             HttpHandler sh = new HttpHandler();
             URLRelated urlObj = new URLRelated(getApplicationContext());
@@ -150,7 +150,6 @@ public class ListBeneficiaries extends AppCompatActivity {
                     JSONObject nickName = NicknameMyGroup.getJSONObject(0);
                     benList.put("Nickname" , nickName.getString("Nickname"));
                     beneficiaryList.add(benList);
-
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -160,7 +159,7 @@ public class ListBeneficiaries extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(Void result) {
-
+            super.onPostExecute(result);
         }
     }
 }
