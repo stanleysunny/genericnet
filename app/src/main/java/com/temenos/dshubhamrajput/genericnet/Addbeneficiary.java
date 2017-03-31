@@ -506,6 +506,7 @@ public class Addbeneficiary extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(Void result) {
+            progressDialog.dismiss();
             super.onPostExecute(result);
         }
     }
