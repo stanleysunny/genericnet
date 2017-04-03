@@ -37,6 +37,7 @@ public class TransferOtherBnk extends AppCompatActivity {
     public Intent commit;
     ProgressDialog progressDialog;
     ProgressDialog preprogressDialog;
+    String[] errorMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -374,24 +375,42 @@ public class TransferOtherBnk extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
+            HttpHandler errorObj;
+            String text, info;
+
+            HashMap<String, HashMap<String, String>> errorList;
+            HashMap<String, String> error;
             if(aBoolean){
                 progressDialog.dismiss();
                 startActivity(commit);
             }
             else{
-                new AlertDialog.Builder(TransferOtherBnk.this)
-                        .setTitle("Error")
-                        .setMessage("The value you entered are wrong, Please Recheck?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // continue with delete
-                                final Intent TransferOtherAccounts = new Intent(TransferOtherBnk.this, TransferOtherBnk.class);
-                                finish();
-                                startActivity(TransferOtherAccounts);
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                progressDialog.dismiss();
+                errorObj = new HttpHandler();
+                errorList = errorObj.getErrorList();
+                errorMessage= new String[errorList.size()];
+                for (int i = 0; i < errorList.size(); i++) {
+                    error = errorList.get("Error" + i);
+                    text = error.get("text");
+                    info = error.get("info");//field
+                    errorMessage[i]=text;
+                }
+                for(int i=0;i<errorList.size();i++)
+                {
+                    new AlertDialog.Builder(TransferOtherBnk.this)
+                            .setTitle("Error")
+                            .setMessage(errorMessage[i])
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+
+                }
+
             }
         }
     }

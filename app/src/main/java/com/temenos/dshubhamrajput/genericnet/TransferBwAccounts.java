@@ -36,6 +36,7 @@ public class TransferBwAccounts extends AppCompatActivity {
     public Intent commit;
     ProgressDialog progressDialog;
     ProgressDialog preProgressDialog;
+    String[] errorMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -272,13 +273,10 @@ public class TransferBwAccounts extends AppCompatActivity {
 
         protected Boolean doInBackground(String... params) {
             URLRelated urlObj= new URLRelated(getApplicationContext());
-            String currencyDeb="";
             // added by priya
             String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_verFundsTransfer_AcTranss"};
             String urlStr= urlObj.getURL(URLAddressList);
             String url= urlObj.getValidateURL(urlStr,RefNo);
-            String[] URLAddressList1= {"url_ip","url_iris_project","url_company","url_enqAcctHomes"};
-            String urlStr1= urlObj.getURL(URLAddressList1);
             //-----------------------------------
             try {
                 String json;
@@ -325,24 +323,41 @@ public class TransferBwAccounts extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
+            HttpHandler errorObj;
+            String text, info;
+
+            HashMap<String, HashMap<String, String>> errorList;
+            HashMap<String, String> error;
             if(aBoolean){
                 progressDialog.dismiss();
                 startActivity(commit);
             }
             else{
-                new AlertDialog.Builder(TransferBwAccounts.this)
-                        .setTitle("Error")
-                        .setMessage("The value you entered are wrong, Please Recheck?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // continue with delete
-                                final Intent TransferBwAccounts = new Intent(TransferBwAccounts.this, TransferBwAccounts.class);
-                                finish();
-                                startActivity(TransferBwAccounts);
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                progressDialog.dismiss();
+                errorObj = new HttpHandler();
+                errorList = errorObj.getErrorList();
+                errorMessage= new String[errorList.size()];
+                for (int i = 0; i < errorList.size(); i++) {
+                    error = errorList.get("Error" + i);
+                    text = error.get("text");
+                    info = error.get("info");//field
+                    errorMessage[i]=text;
+                }
+                for(int i=0;i<errorList.size();i++)
+                {
+                    new AlertDialog.Builder(TransferBwAccounts.this)
+                            .setTitle("Error")
+                            .setMessage(errorMessage[i])
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+
+                }
+
             }
         }
     }
