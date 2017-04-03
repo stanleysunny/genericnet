@@ -246,9 +246,6 @@ public class TransferBwAccounts extends AppCompatActivity {
                     }
                 });
             }
-
-
-
             return null;
 
         }

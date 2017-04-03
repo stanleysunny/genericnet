@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Name"
+        android:textSize="25sp"
+        android:id="@+id/cusName"/>
+    <EditText
+        android:layout_width="290sp"
+        android:layout_height="30sp"
+        android:inputType="text"
+        android:ems="10"
+        android:id="@+id/cusNameEditText"
+        android:background="@drawable/acctedit"
+        android:paddingLeft="5dp"
+        android:layout_below="@+id/cusName"
+        android:layout_alignStart="@+id/cusName"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Amount"
+            android:textSize="25sp"
+            android:id="@+id/cusAmount"/>
+        <EditText
+            android:layout_width="290sp"
+            android:layout_height="30sp"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/cusAmountEditText"
+            android:background="@drawable/acctedit"
+            android:paddingLeft="5dp"
+            android:layout_below="@+id/cusName"
+            android:layout_alignStart="@+id/cusName"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Address"
+            android:textSize="25sp"
+            android:id="@+id/cusAddress"/>
+        <EditText
+            android:layout_width="290sp"
+            android:layout_height="30sp"
+            android:inputType="text"
+            android:ems="10"
+            android:id="@+id/cusAddressEditText"
+            android:background="@drawable/acctedit"
+            android:paddingLeft="5dp"
+            android:layout_below="@+id/cusName"
+            android:layout_alignStart="@+id/cusName"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="GENERATE QR CODE"
+            android:id="@+id/qr_Button"
+            android:textSize="18sp"/>
+        <ImageView android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:id="@+id/qrCode"/>
+
+</LinearLayout>
+</LinearLayout>

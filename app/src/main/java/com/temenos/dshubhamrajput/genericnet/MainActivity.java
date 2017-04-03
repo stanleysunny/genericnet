@@ -1,29 +1,17 @@
 package com.temenos.dshubhamrajput.genericnet;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.method.ScrollingMovementMethod;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.graphics.Typeface;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -108,9 +96,16 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-                else if(expandableListTitle.get(groupPosition).equals("qrCode"))
+                else if(expandableListTitle.get(groupPosition).equals("Qr Code Generator"))
                 {
-                    Intent intent = new Intent(MainActivity.this, QrCodeScanner.class);
+                    Intent intent = new Intent(MainActivity.this, QrCodeGenerate.class);
+                    startActivity(intent);
+                    layout.closeDrawer(GravityCompat.START);
+                }
+
+                else if(expandableListTitle.get(groupPosition).equals("Qr Code Scanner"))
+                {
+                    Intent intent = new Intent(MainActivity.this, QrCodeScan.class);
                     startActivity(intent);
                     layout.closeDrawer(GravityCompat.START);
                 }
