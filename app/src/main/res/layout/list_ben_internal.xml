@@ -29,14 +29,15 @@
         android:id="@+id/AccountNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Customer"
-        android:layout_alignParentRight="true"
         android:gravity="right"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
         android:textColor="#5d5d5d"
-        android:textSize="18dp"/>
+        android:textSize="18dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/NicknameOuter" />
 
     <TextView
         android:id="@+id/NicknameOuter"
@@ -57,90 +58,40 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/AccountNumber"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
         android:gravity="right"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:paddingRight="25dp"
         android:textColor="#5d5d5d"
-        android:id="@+id/NickName" />
-
-
-    <TextView
-        android:text="Ifsc Code"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/NicknameOuter"
-        android:id="@+id/IfscOuter"
-        android:paddingLeft="10dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:textColor="#000000"
-        android:textStyle="bold"/>
-        <!--android:visibility="invisible"-->
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/NickName"
-        android:id="@+id/Ifsc"
-        android:layout_alignParentRight="true"
-        android:gravity="right"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:paddingRight="25dp"
-        android:textColor="#5d5d5d" />
-
-    <TextView
-        android:text="Branch Name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/IfscOuter"
-        android:id="@+id/BranchOuter"
-        android:paddingLeft="10dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:textColor="#000000"
-        android:background="#aed7fc"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Ifsc"
-        android:id="@+id/BranchName"
-        android:layout_alignParentRight="true"
-        android:gravity="right"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:paddingRight="25dp"
-        android:textColor="#5d5d5d" />
+        android:id="@+id/NickName"
+        android:layout_alignBaseline="@+id/NicknameOuter"
+        android:layout_alignBottom="@+id/NicknameOuter"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
         android:text="Edit"
         android:textColor="#000000"
         android:onClick="EditBen"
         android:textStyle="italic"
-        android:layout_below="@+id/BranchName"
+        android:layout_marginStart="94dp"
+        android:layout_alignBaseline="@+id/textView21"
+        android:layout_alignBottom="@+id/textView21"
         android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/textView20"
-        android:layout_marginEnd="33dp"
         android:textColor="#000000"
         android:text="Delete"
-        android:textStyle="italic"/>
+        android:textStyle="italic"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/NickName"
+        android:layout_toEndOf="@+id/textView20"
+        android:layout_marginStart="75dp" />
 
 
 </RelativeLayout>

@@ -15,6 +15,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,15 +27,19 @@ import java.util.HashMap;
 public class ListBeneficiaries extends AppCompatActivity {
     String Ben="";
     ListView ListBen;
-    static ArrayList<HashMap<String, String>> beneficiaryList = new ArrayList<>();
+    TextView AccNo,NickName,IfscCode,BranchName,Edit,Delete;
+    static ArrayList<HashMap<String, String>> beneficiaryList ;
+    ListAdapter adapter1;
+    ListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_beneficiaries);
-        getSupportActionBar().setTitle("Add beneficiary");
+        getSupportActionBar().setTitle("View beneficiary");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ListBen=(ListView)findViewById(R.id.ListBen);
+        AccNo=(TextView)findViewById(R.id.AccountNumber);
         final Spinner AddChoice=(Spinner)findViewById(R.id.listben);
         ArrayAdapter<String> spinnerAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,android.R.id.text1);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -49,6 +54,9 @@ public class ListBeneficiaries extends AppCompatActivity {
         ben.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                adapter=null;
+//                adapter1=null;
+//                beneficiaryList=null;
                 Ben=AddChoice.getSelectedItem().toString();
                 if(Ben.equals("Within Bank"))
                 {
@@ -76,6 +84,7 @@ public class ListBeneficiaries extends AppCompatActivity {
         protected Void doInBackground(Void... param) {
 
                 String owningCustomer;
+            beneficiaryList = new ArrayList<>();
             HttpHandler sh = new HttpHandler();
             URLRelated urlObj = new URLRelated(getApplicationContext());
             HashMap<String,String> owner;
@@ -113,6 +122,13 @@ public class ListBeneficiaries extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
+             adapter = new SimpleAdapter(ListBeneficiaries.this, beneficiaryList,
+                    R.layout.list_ben_internal, new String[]{"BenAcctNo","Nickname"},
+                    new int[]{R.id.AccountNumber,R.id.NickName});
+
+            ListBen.setAdapter(adapter);
+
+
         }
     }
     private class FetchBenOutside extends AsyncTask<Void, Void, Void> {
@@ -124,6 +140,7 @@ public class ListBeneficiaries extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... param) {
             String owningCustomer;
+            beneficiaryList = new ArrayList<>();
             HttpHandler sh = new HttpHandler();
             URLRelated urlObj = new URLRelated(getApplicationContext());
             HashMap<String,String> owner;
@@ -160,6 +177,11 @@ public class ListBeneficiaries extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
+
+             adapter1 = new SimpleAdapter(ListBeneficiaries.this, beneficiaryList,
+                    R.layout.list_beneficiary, new String[]{"BenAccNo","Nickname","BankSortCode","Branch"},
+                    new int[]{R.id.AccountNumber,R.id.NickName,R.id.Ifsc,R.id.BranchName});
+            ListBen.setAdapter(adapter1);
         }
     }
 }
