@@ -53,4 +53,5 @@ dependencies {
     compile 'me.dm7.barcodescanner:zxing:1.9'
     compile 'com.github.kenglxn.QRGen:android:2.2.0'
     testCompile 'junit:junit:4.12'
+
 }
