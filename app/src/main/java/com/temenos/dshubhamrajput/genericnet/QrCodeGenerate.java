@@ -40,9 +40,6 @@ public class QrCodeGenerate extends AppCompatActivity{
                 String address = EditTextAddress.getText().toString();
                 String amount = EditTextAmount.getText().toString();
                 HashMap<String, String> list = new HashMap<String, String>();
-                list.put("Name",name);
-                list.put("Address",address);
-                list.put("Amount",amount);
                 VCard cus = new VCard(name)
                         .setAddress(address)
                         .setPhoneNumber(amount);

@@ -396,9 +396,11 @@ public class TransferOtherBnk extends AppCompatActivity {
                 }
                 for(int i=0;i<errorList.size();i++)
                 {
+                    String[] errorList1 = errorMessage[i].split("\\(");
                     new AlertDialog.Builder(TransferOtherBnk.this)
+
                             .setTitle("Error")
-                            .setMessage(errorMessage[i])
+                            .setMessage(errorList1[0])
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // continue with delete
@@ -409,6 +411,7 @@ public class TransferOtherBnk extends AppCompatActivity {
                             .show();
 
                 }
+                errorMessage=null;
 
             }
         }
