@@ -97,7 +97,7 @@
     <EditText
         android:layout_width="290sp"
         android:layout_height="30sp"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:ems="10"
         android:id="@+id/edit_amt_other"
         android:background="@drawable/acctedit"

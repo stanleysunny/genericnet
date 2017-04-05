@@ -1,0 +1,112 @@
+Screen FT_Contract:FUNDS_TRANSFER, AC_TRANS_OBNK
+    t24Name: "FUNDS.TRANSFER,AC.TRANS.OBNK"
+    metamodelVersion: "1.30.6"
+    numberOfAuthorisers: 0
+reportLocks: Yes
+
+TransactionFlow {
+    otherCompanyAccess: Yes
+}
+
+Presentation {
+    recordsPerPage: "1"
+    fieldsPerLine: "1"
+    language: en
+}
+
+Fields {
+    "TRANSACTION_TYPE" {
+
+        Presentation {
+            inputBehaviour: NoInput
+            column: 1
+        }
+
+        default: IF ( ) "NULL" THEN "BC"
+    }
+
+    "DEBIT_ACCT_NO" {
+
+        Presentation {
+            column: 2
+            mandatory: Yes
+            hotField: Yes
+        }
+
+        API {
+            validation-routines:
+                jBC: "AC.TRANS.VALIDATE"
+        }
+
+    }
+
+    "DEBIT_CURRENCY" {
+
+        Presentation {
+            column: 3
+        }
+
+    }
+
+    "DEBIT_AMOUNT" {
+
+        Presentation {
+            column: 4
+            mandatory: Yes
+        }
+
+    }
+
+    "CREDIT_ACCT_NO" {
+
+        Presentation {
+            inputBehaviour: NoInput
+            column: 5
+            hotField: Yes
+        }
+
+        default: IF ( ) "NULL" THEN "USD1000110000001"
+    }
+
+    "BEN_ACCT_NO" {
+
+        Presentation {
+            column: 6
+            mandatory: Yes
+        }
+
+    }
+
+    "BEN_CUSTOMER" {
+
+        Presentation {
+            column: 7
+        }
+
+    }
+
+    "Description" {
+
+        Presentation {
+            column: 8
+        }
+
+    }
+
+    "BC_BANK_SORT_CODE" {
+
+        Presentation {
+            column: 9
+        }
+
+    }
+
+    "BranchName" {
+
+        Presentation {
+            column: 10
+        }
+
+    }
+
+}

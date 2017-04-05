@@ -58,8 +58,15 @@ Fields {
     "BEN_CUSTOMER" {
 
         Presentation {
-            inputBehaviour: NoInput
             column: 5
+        }
+
+    }
+
+    "NAME_1" {
+
+        Presentation {
+            column: 6
         }
 
     }

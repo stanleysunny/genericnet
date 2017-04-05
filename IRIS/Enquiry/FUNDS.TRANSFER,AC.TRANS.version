@@ -18,7 +18,6 @@ Fields {
     "TRANSACTION_TYPE" {
 
         Presentation {
-            inputBehaviour: NoInput
             column: 1
         }
 
@@ -43,7 +42,6 @@ Fields {
     "DEBIT_CURRENCY" {
 
         Presentation {
-            inputBehaviour: NoInput
             column: 3
         }
 
@@ -76,7 +74,6 @@ Fields {
     "CREDIT_CURRENCY" {
 
         Presentation {
-            inputBehaviour: NoInput
             column: 6
         }
 

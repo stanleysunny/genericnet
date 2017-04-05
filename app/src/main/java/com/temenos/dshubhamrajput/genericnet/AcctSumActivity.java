@@ -51,11 +51,17 @@ public class AcctSumActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            try {
+
                     HttpHandler sh = new HttpHandler();
+                String owningCustomer;
+                URLRelated urlObj = new URLRelated(getApplicationContext());
                     // Making a request to url and getting response
-                PropertiesReader property= new PropertiesReader();
-                    String url = property.getProperty("url_account_summary", getApplicationContext());
+                HashMap<String,String> owner;
+                SessionManager session =new SessionManager(getApplicationContext());
+                owner=session.getUserDetails();
+                owningCustomer= owner.get("cusId");
+                String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_account_summary"};
+               String url = urlObj.getURLParameter(URLAddressList,owningCustomer);
                     String jsonStr = sh.makeServiceCallGet(url);
 
                     Log.e(TAG, "Response from url: " + jsonStr);
@@ -119,8 +125,7 @@ public class AcctSumActivity extends AppCompatActivity {
                         }
                     });
                 }
-            }
-            catch(IOException e ){e.printStackTrace();}
+
             return null;
         }
 
