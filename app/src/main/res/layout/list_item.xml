@@ -91,7 +91,7 @@
 
 
     <TextView
-        android:text="Short Title"
+        android:text="Account title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView4"

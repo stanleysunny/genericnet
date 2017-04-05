@@ -36,12 +36,15 @@ public class ExpandableListDataPump {
 
         List<String> qrCode = new ArrayList<>();
 
+        List<String> qrGenerator = new ArrayList<>();
+
 
         expandableListDetail.put("Account Summary", Account_Summary);
         expandableListDetail.put("Account Statement", Account_Statement);
         expandableListDetail.put("Account Transfer", Account_Transfer);
         expandableListDetail.put("Settings", Settings);
-        expandableListDetail.put("qrCode",qrCode);
+        expandableListDetail.put("Qr Code Generator",qrGenerator);
+        expandableListDetail.put("Qr Code Scanner",qrCode);
         expandableListDetail.put("Feedback", Feedback);
         expandableListDetail.put("Help", Help);
         expandableListDetail.put("Logout", Logout);

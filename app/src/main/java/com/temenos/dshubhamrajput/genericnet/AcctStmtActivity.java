@@ -79,7 +79,7 @@ public class AcctStmtActivity extends AppCompatActivity  {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if(position == 0){
+                if(position != 0){
                     DateEdit.setVisibility(View.GONE);
                     DateEdit2.setVisibility(View.GONE);
                     Fromdate.setVisibility(View.GONE);
