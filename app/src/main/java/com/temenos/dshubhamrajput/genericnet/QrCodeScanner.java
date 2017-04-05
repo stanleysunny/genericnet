@@ -14,7 +14,7 @@ import com.google.zxing.integration.android.IntentResult;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
+/*
  * Created by dshubhamrajput on 28-03-2017.
  */
 

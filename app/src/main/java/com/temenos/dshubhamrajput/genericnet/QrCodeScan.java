@@ -9,7 +9,7 @@ import com.google.zxing.Result;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-/**
+/*
  * Created by dshubhamrajput on 31-03-2017.
  */
 
@@ -32,8 +32,10 @@ public class QrCodeScan extends AppCompatActivity
         // Prints the scan format (qrcode, pdf417 etc.)
         Log.v("TAG", rawResult.getBarcodeFormat().toString());
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String data = rawResult.getText();
+        String[] divide= data.split(":");
         builder.setTitle("Scan Result");
-        builder.setMessage(rawResult.getText());
+        builder.setMessage("Account:"+divide[0]+"\nAmount:"+divide[1]+"\nIFSC Code:"+divide[2]);
         AlertDialog alert1 = builder.create();
         alert1.show();
 

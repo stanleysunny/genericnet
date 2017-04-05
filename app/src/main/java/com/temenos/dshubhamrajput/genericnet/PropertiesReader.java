@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-/**
+/*
  * Created by Administrator on 16-02-2017.
  */
 

@@ -15,7 +15,7 @@ import net.glxn.qrgen.core.scheme.VCard;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
+/*
  * Created by dshubhamrajput on 31-03-2017.
  */
 
@@ -40,10 +40,11 @@ public class QrCodeGenerate extends AppCompatActivity{
                 String address = EditTextAddress.getText().toString();
                 String amount = EditTextAmount.getText().toString();
                 HashMap<String, String> list = new HashMap<String, String>();
+                String data=name+":"+address+":"+amount;
                 VCard cus = new VCard(name)
                         .setAddress(address)
                         .setPhoneNumber(amount);
-                Bitmap myBitmap = QRCode.from(cus).bitmap();
+                Bitmap myBitmap = QRCode.from(data).bitmap();
                 ImageView myImage = (ImageView) findViewById(R.id.qrCode);
                 myImage.setImageBitmap(myBitmap);
             }
