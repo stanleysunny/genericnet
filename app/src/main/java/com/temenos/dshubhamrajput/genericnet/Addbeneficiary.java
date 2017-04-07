@@ -62,6 +62,11 @@ public class Addbeneficiary extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 if (withinbank1.isChecked()) {
                     neft1.setChecked(false);
+                    benAccNo.setText("");
+                    accNoCheck.setText("");
+                    emailUser.setText("");
+                    nickName.setText("");
+                    ifscEtext.setText("");
                     benAccNo.setError(null);
                     accNoCheck.setError(null);
                     emailUser.setError(null);
@@ -81,6 +86,11 @@ public class Addbeneficiary extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 if (neft1.isChecked()) {
                     withinbank1.setChecked(false);
+                    benAccNo.setText("");
+                    accNoCheck.setText("");
+                    emailUser.setText("");
+                    nickName.setText("");
+                    ifscEtext.setText("");
                     benAccNo.setError(null);
                     accNoCheck.setError(null);
                     emailUser.setError(null);
@@ -154,36 +164,76 @@ public class Addbeneficiary extends AppCompatActivity {
         });
 
 
-        emailUser.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        emailUser.addTextChangedListener(new TextWatcher() {
+            // ...
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    final String email = emailUser.getText().toString();
-                    if (!(emailValidator(email))) {
-                        if(!(email.equals("")))
-                            emailUser.setError("Enter a valid email id");
-                    } else  {
-                        emailUser.setError(null);
-                    }
+            public void onTextChanged(CharSequence text, int start, int count, int after) {
+                final String email = emailUser.getText().toString();
+                if (!(emailValidator(email))) {
+                    if(!(email.equals("")))
+                        emailUser.setError("Enter a valid email id");
+                } else  {
+                    emailUser.setError(null);
                 }
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
-        ifscEtext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus) {
-                    String ifsc = ifscEtext.getText().toString();
-                    boolean check = ifscMatcher(ifsc);
-                    if (!check) {
-                        if(!(ifsc.equals("")))
-                            ifscEtext.setError("IFSC is a 11 digit alpha numeric string");
-                    }
-                    else if (ifscEtext.getText().toString().matches("")) {
-                        ifscEtext.setError("This field cannot be left blank");
-                    }
-                    else
-                        ifscEtext.setError(null);
+//        ifscEtext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if(!hasFocus) {
+//                    String ifsc = ifscEtext.getText().toString();
+//                    boolean check = ifscMatcher(ifsc);
+//                    if (!check) {
+//                        if(!(ifsc.equals("")))
+//                            ifscEtext.setError("IFSC is a 11 digit alpha numeric string");
+//                    }
+//                    else if (ifscEtext.getText().toString().matches("")) {
+//                        ifscEtext.setError("This field cannot be left blank");
+//                    }
+//                    else
+//                        ifscEtext.setError(null);
+//                }
+//            }
+//        });
+        ifscEtext.addTextChangedListener(new TextWatcher() {
+            // ...
+            @Override
+            public void onTextChanged(CharSequence text, int start, int count, int after) {
+                String ifsc = ifscEtext.getText().toString();
+                boolean check = ifscMatcher(ifsc);
+                if (!check) {
+                    if(!(ifsc.equals("")))
+                        ifscEtext.setError("IFSC is a 11 digit alpha numeric string");
                 }
+                else if (ifscEtext.getText().toString().matches("")) {
+                    ifscEtext.setError("This field cannot be left blank");
+                }
+                else
+                    ifscEtext.setError(null);
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
         benAccNo.addTextChangedListener(new TextWatcher() {
@@ -290,7 +340,7 @@ public class Addbeneficiary extends AppCompatActivity {
             JSONObject jsonObjarray1 = new JSONObject();
             Bundle benBundle = new Bundle();
             HttpHandler sh1 = new HttpHandler();
-
+            URLRelated urlObj = new URLRelated(getApplicationContext());
             String benAcctNo = param[1];
             String email = param[2];
             String nickName = param[3];
@@ -322,23 +372,19 @@ public class Addbeneficiary extends AppCompatActivity {
                     Ifsc=param[4];
                     postData.put("BankSortCode", Ifsc);
                     benBundle.putString("Ifsc", Ifsc);
-                    try {
+
                         String trialURL;
-                        PropertiesReader property = new PropertiesReader();
-                        trialURL= property.getProperty("url_beneficiary_Obnk_validate", getApplicationContext());
-                        urlStr= sh1.getValidateURL(trialURL,benID);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                        String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_beneficiary_Obnk_validate"};
+                        trialURL = urlObj.getURL(URLAddressList);
+                        urlStr= urlObj.getValidateURL(trialURL,benID);
+
                 } else {
-                    try {
+
                         String trialURL;
-                        PropertiesReader property = new PropertiesReader();
-                        trialURL= property.getProperty("url_beneficiary_Wbnk_validate", getApplicationContext());
-                        urlStr= sh1.getValidateURL(trialURL,benID);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                        String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_beneficiary_Wbnk_validate"};
+                        trialURL = urlObj.getURL(URLAddressList);
+                        urlStr= urlObj.getValidateURL(trialURL,benID);
+
                 }//----------------------
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -444,9 +490,9 @@ public class Addbeneficiary extends AppCompatActivity {
         protected Void doInBackground(Void... arg0) {
             HttpHandler sh = new HttpHandler();
             String url;
-            try {
-                PropertiesReader property = new PropertiesReader();
-                url = property.getProperty("url_beneficiary_Wbnk_new", getApplicationContext());
+            URLRelated urlObj = new URLRelated(getApplicationContext());
+                String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_beneficiary_Wbnk_new"};
+                url = urlObj.getURL(URLAddressList);
                 String jsonStr = sh.makeServiceCall(url);
                 if (jsonStr != null) {
                     try {
@@ -455,9 +501,7 @@ public class Addbeneficiary extends AppCompatActivity {
                     } catch (final JSONException e) {
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
             return null;
         }
         @Override

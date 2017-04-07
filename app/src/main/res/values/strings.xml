@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TEMENOS</string>
 
-    <!-- Strings related to login -->
+    <!-- strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="username">Username</string>
@@ -36,4 +36,18 @@
     <string name="ft_indicator">ftintetnt</string>
     <string name="title_activity_list_beneficiaries">ListBeneficiaries</string>
     <string name="Error_text">Check the data entered</string>
+
+    <!-- Funds Transfer Confirm page values -->
+    <string name="from_account">From Account</string>
+    <string name="to_account">To Account</string>
+    <string name="desc">Description</string>
+    <string name="amt">Amount</string>
+    <string name="nick_name">Nick Name</string>
+    <string name="branch_name">Branch Name</string>
+    <string name="bank_sort_code">Bank Sort Code</string>
+
+    <!-- Add beneficiary Confirm Page values -->
+    <string name="account_number">Account Number</string>
+    <string name="cus_name">Customer Name</string>
+    <string name="ifsc_code">IFSC Code</string>
 </resources>

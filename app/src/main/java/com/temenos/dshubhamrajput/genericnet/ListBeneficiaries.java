@@ -1,5 +1,7 @@
 package com.temenos.dshubhamrajput.genericnet;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,12 +11,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ListBeneficiaries extends AppCompatActivity {
     String Ben="";
-    ListView ListBen,List;
+    ListView ListBen;
+    static ArrayList<HashMap<String, String>> beneficiaryList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +52,12 @@ public class ListBeneficiaries extends AppCompatActivity {
                 Ben=AddChoice.getSelectedItem().toString();
                 if(Ben.equals("Within Bank"))
                 {
+                    new FetchBenWithin().execute();
                     ListBen.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    new FetchBenOutside().execute();
                 }
             }
         });
@@ -49,4 +67,99 @@ public class ListBeneficiaries extends AppCompatActivity {
         return true;
     }
 
+    private class FetchBenWithin extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+
+        }
+        @Override
+        protected Void doInBackground(Void... param) {
+
+                String owningCustomer;
+            HttpHandler sh = new HttpHandler();
+            URLRelated urlObj = new URLRelated(getApplicationContext());
+            HashMap<String,String> owner;
+            SessionManager session =new SessionManager(getApplicationContext());
+            owner=session.getUserDetails();
+            owningCustomer= owner.get("cusId");
+            String[] URLAddressList1= {"url_ip","url_iris_project","url_company","url_enqEnqWbnks"};
+            String owingCust= urlObj.getURLParameter(URLAddressList1,owningCustomer);
+            String jsonOwingCus = sh.makeServiceCallGet(owingCust);
+            JSONObject jsonObjOwingCust;
+            try {
+                jsonObjOwingCust = new JSONObject(jsonOwingCus);
+                JSONObject firstObjOwingCust = jsonObjOwingCust.getJSONObject("_embedded");
+                JSONArray itemOwingCust = firstObjOwingCust.getJSONArray("item");
+                for (int i = 0; i < itemOwingCust.length(); i++) {
+                    HashMap<String, String> benList= new HashMap<>();
+
+                    JSONObject benAccountNo = itemOwingCust.getJSONObject(i);
+                    benList.put("BenAcctNo",benAccountNo.getString("BenAcctNo"));
+
+                    JSONArray NicknameMyGroup = benAccountNo.getJSONArray("NicknameMvGroup");
+                    JSONObject nickName = NicknameMyGroup.getJSONObject(0);
+                    benList.put("Nickname", nickName.getString("Nickname"));
+                    beneficiaryList.add(benList);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        return null;
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+        }
+    }
+    private class FetchBenOutside extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+        @Override
+        protected Void doInBackground(Void... param) {
+            String owningCustomer;
+            HttpHandler sh = new HttpHandler();
+            URLRelated urlObj = new URLRelated(getApplicationContext());
+            HashMap<String,String> owner;
+            SessionManager session =new SessionManager(getApplicationContext());
+            owner=session.getUserDetails();
+            owningCustomer= owner.get("cusId");
+
+            String[] URLAddressList1= {"url_ip","url_iris_project","url_company","url_enqEnqObnks"};
+            String owingCust= urlObj.getURLParameter(URLAddressList1,owningCustomer);
+            String jsonOwingCus = sh.makeServiceCallGet(owingCust);
+            try {
+                JSONObject jsonObjOwingCust = new JSONObject(jsonOwingCus);
+                JSONObject firstObjOwingCust = jsonObjOwingCust.getJSONObject("_embedded");
+                JSONArray itemOwingCust = firstObjOwingCust.getJSONArray("item");
+                for (int i = 0; i < itemOwingCust.length(); i++) {
+                    HashMap<String, String> benList= new HashMap<>();
+
+                    JSONObject benAccountNo = itemOwingCust.getJSONObject(i);
+                    benList.put("BenAccNo" ,benAccountNo.getString("BenAcctNo"));
+                    benList.put("BankSortCode" ,benAccountNo.getString("BankSortCode"));
+                    benList.put("Branch" ,benAccountNo.getString("Branch"));
+
+                    JSONArray NicknameMyGroup = benAccountNo.getJSONArray("NicknameMvGroup");
+                    JSONObject nickName = NicknameMyGroup.getJSONObject(0);
+                    benList.put("Nickname" , nickName.getString("Nickname"));
+                    beneficiaryList.add(benList);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
+    }
 }
