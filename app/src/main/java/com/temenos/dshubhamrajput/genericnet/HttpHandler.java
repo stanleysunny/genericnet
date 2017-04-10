@@ -1,6 +1,6 @@
 package com.temenos.dshubhamrajput.genericnet;
 
-/**
+/*
  * Created by Administrator on 20-02-2017.
  */
 
@@ -104,6 +104,10 @@ public class HttpHandler {
 
     String postfunc(String reurl, String jsonstring) {
         String response = "";
+        BufferedInputStream in;
+        BufferedReader reader;
+        StringBuilder sb;
+        String text,info;
         try {
 
             URL e = new URL(reurl);
@@ -126,6 +130,51 @@ public class HttpHandler {
                 response = "YES";
             } else {
                 response = "NO";
+                //ADDED BY PRIYA------------------------------
+                in = new BufferedInputStream(urlConnectio.getErrorStream());
+                reader = new BufferedReader(new InputStreamReader(in));
+                sb = new StringBuilder();
+                try {
+                    String line;
+                    try {
+                        while ((line = reader.readLine()) != null) {
+                            sb.append(line).append('\n');
+                        }
+                    } catch (IOException var14) {
+                        var14.printStackTrace();
+                    }
+                } finally {
+                    try {
+                        in.close();
+                    } catch (IOException var13) {
+                        var13.printStackTrace();
+                    }
+
+                }
+                String jsonStr1 = sb.toString();
+
+
+                JSONObject jsonErrorObj = new JSONObject(jsonStr1);
+                try {
+                    JSONObject jsonEmbedObj = jsonErrorObj.getJSONObject("_embedded");
+                    JSONArray jsonErrorArrObj = jsonEmbedObj.getJSONArray("http://temenostech.temenos.com/rels/errors");
+                    for (int i = 0; i < jsonErrorArrObj.length(); i++) {
+                        JSONObject item = jsonErrorArrObj.getJSONObject(i);
+                        JSONArray errorlist = item.getJSONArray("ErrorsMvGroup");
+
+                        for (int j = 0; j < errorlist.length(); j++) {
+                            JSONObject error = errorlist.getJSONObject(j);
+                            text = error.getString("Text");
+                            info = error.getString("Info");
+                            innerErrorObj.put("text",text);
+                            innerErrorObj.put("info",info);
+                            outerErrorObj.put("Error"+j,innerErrorObj);
+                        }
+
+                    }
+                } catch (Exception exception) {
+                }
+                //------------------------------------
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -290,14 +339,14 @@ public class HttpHandler {
 
     public void setCredentials(String user,String mpassword)
     {
-            userName = user;
-            passWord = mpassword;
+        userName = user;
+        passWord = mpassword;
         String userPass =  user + ":" + mpassword;
         basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
     }
     public HashMap<String,HashMap<String,String>> getErrorList()
     {
-            return outerErrorObj;
+        return outerErrorObj;
     }
 
 

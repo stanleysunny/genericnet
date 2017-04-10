@@ -9,7 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputFilter;
-import android.text.Spanned;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,8 +22,6 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 
 
@@ -36,6 +33,7 @@ public class TransferBwAccounts extends AppCompatActivity {
     public Intent commit;
     ProgressDialog progressDialog;
     ProgressDialog preProgressDialog;
+    String[] errorMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +94,7 @@ public class TransferBwAccounts extends AppCompatActivity {
             * is clicked*/
             @Override
             public void onClick(View arg0) {
+                //Fetches the spinner value
                 Spinner fromAcctNo = (Spinner) findViewById(R.id.editText);
                 String fromAccountNo = fromAcctNo.getSelectedItem().toString();
                 Spinner toAcctNo = (Spinner) findViewById(R.id.editText6);
@@ -141,114 +140,111 @@ public class TransferBwAccounts extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
 
-                String url;
-                HttpHandler sh = new HttpHandler();
-                URLRelated urlObj = new URLRelated(getApplicationContext());
-                // Making a request to url and getting response
-                String owningCustomer;
-                // changes here
-                HashMap<String,String> owner;
-                SessionManager session =new SessionManager(getApplicationContext());
-                owner=session.getUserDetails();
-                owningCustomer= owner.get("cusId");
-                //added by priya
-                String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_cusaccno"};
-                String cusAcctNos= urlObj.getURLParameter(URLAddressList,owningCustomer);
-                String[] URLAddressList1= {"url_ip","url_iris_project","url_company","new_id_url"};
-                  url = urlObj.getURL(URLAddressList1);
-                //----------------
-                String jsonStr = sh.makeServiceCall(url);
-                String jsonCusAcct = sh.makeServiceCallGet(cusAcctNos);
-                Log.e(TAG, "Response from url: " + jsonStr);
-                if (jsonStr != null) {
-                    try {
-                        JSONObject jsonObj = new JSONObject(jsonStr);
-                        RefNo = jsonObj.getString("RefNo");
-                        System.out.println(RefNo);
-                    } catch (final JSONException e) {
-                        Log.e(TAG, "Json parsing error: " + e.getMessage());
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getApplicationContext(),
-                                        "Json parsing error: " + e.getMessage(),
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        });
-
-                    }
-                } else {
-                    Log.e(TAG, "Couldn't get json from server.");
+            String url;
+            HttpHandler sh = new HttpHandler();
+            URLRelated urlObj = new URLRelated(getApplicationContext());
+            // Making a request to url and getting response
+            String owningCustomer;
+            // changes here
+            HashMap<String,String> owner;
+            SessionManager session =new SessionManager(getApplicationContext());
+            owner=session.getUserDetails();
+            owningCustomer= owner.get("cusId");
+            //added by priya to form the URL
+            String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_cusaccno"};
+            String cusAcctNos= urlObj.getURLParameter(URLAddressList,owningCustomer);
+            String[] URLAddressList1= {"url_ip","url_iris_project","url_company","new_id_url"};
+            url = urlObj.getURL(URLAddressList1);
+            //----------------
+            String jsonStr = sh.makeServiceCall(url);
+            String jsonCusAcct = sh.makeServiceCallGet(cusAcctNos);
+            Log.e(TAG, "Response from url: " + jsonStr);
+            if (jsonStr != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    RefNo = jsonObj.getString("RefNo");
+                    System.out.println(RefNo);
+                } catch (final JSONException e) {
+                    Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(getApplicationContext(),
-                                    "Couldn't get json from server. Check LogCat for possible errors!",
+                                    "Json parsing error: " + e.getMessage(),
                                     Toast.LENGTH_LONG).show();
                         }
                     });
+
                 }
-
-                if (jsonCusAcct != null) {
-                    try {
-                        JSONObject jsonObjCusAcct = new JSONObject(jsonCusAcct);
-                        JSONObject firstObj = jsonObjCusAcct.getJSONObject("_embedded");
-                        JSONArray item = firstObj.getJSONArray("item");
-                        final Spinner spinner = (Spinner)findViewById(R.id.editText);
-                        final Spinner secondSpinner = (Spinner)findViewById(R.id.editText6);
-                        final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
-                        final ArrayAdapter<String> secondSpinnerAdptr = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
-                        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        secondSpinnerAdptr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                        for (int i = 0; i < item.length(); i++) {
-                            JSONObject acctNoOfCustomer = item.getJSONObject(i);
-                            final String diffAcctNo = acctNoOfCustomer.getString("AccountNo");
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    spinner.setAdapter(spinnerAdapter);
-                                    secondSpinner.setAdapter(secondSpinnerAdptr);
-                                    spinnerAdapter.add(diffAcctNo);
-                                    secondSpinnerAdptr.add(diffAcctNo);
-                                }
-                            });
-                        }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                spinnerAdapter.notifyDataSetChanged();
-                                secondSpinnerAdptr.notifyDataSetChanged();
-                            }
-                        });
-
-                    } catch (final JSONException e) {
-                        Log.e(TAG, "Json parsing error: " + e.getMessage());
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getApplicationContext(),
-                                        "Json parsing error: " + e.getMessage(),
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        });
-
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                Toast.LENGTH_LONG).show();
                     }
-                } else {
-                    Log.e(TAG, "Couldn't get json from server.");
+                });
+            }
+
+            if (jsonCusAcct != null) {
+                try {
+                    JSONObject jsonObjCusAcct = new JSONObject(jsonCusAcct);
+                    JSONObject firstObj = jsonObjCusAcct.getJSONObject("_embedded");
+                    JSONArray item = firstObj.getJSONArray("item");
+                    final Spinner spinner = (Spinner)findViewById(R.id.editText);
+                    final Spinner secondSpinner = (Spinner)findViewById(R.id.editText6);
+                    final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
+                    final ArrayAdapter<String> secondSpinnerAdptr = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
+                    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    secondSpinnerAdptr.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                    for (int i = 0; i < item.length(); i++) {
+                        JSONObject acctNoOfCustomer = item.getJSONObject(i);
+                        final String diffAcctNo = acctNoOfCustomer.getString("AccountNo");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                spinner.setAdapter(spinnerAdapter);
+                                secondSpinner.setAdapter(secondSpinnerAdptr);
+                                spinnerAdapter.add(diffAcctNo);
+                                secondSpinnerAdptr.add(diffAcctNo);
+                            }
+                        });
+                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            spinnerAdapter.notifyDataSetChanged();
+                            secondSpinnerAdptr.notifyDataSetChanged();
+                        }
+                    });
+
+                } catch (final JSONException e) {
+                    Log.e(TAG, "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(getApplicationContext(),
-                                    "Couldn't get json from server. Check LogCat for possible errors!",
+                                    "Json parsing error: " + e.getMessage(),
                                     Toast.LENGTH_LONG).show();
                         }
                     });
+
                 }
-
-
-
-                return null;
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(),
+                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+            return null;
 
         }
 
@@ -272,13 +268,10 @@ public class TransferBwAccounts extends AppCompatActivity {
 
         protected Boolean doInBackground(String... params) {
             URLRelated urlObj= new URLRelated(getApplicationContext());
-            String currencyDeb="";
             // added by priya
             String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_verFundsTransfer_AcTranss"};
             String urlStr= urlObj.getURL(URLAddressList);
             String url= urlObj.getValidateURL(urlStr,RefNo);
-            String[] URLAddressList1= {"url_ip","url_iris_project","url_company","url_enqAcctHomes"};
-            String urlStr1= urlObj.getURL(URLAddressList1);
             //-----------------------------------
             try {
                 String json;
@@ -314,7 +307,7 @@ public class TransferBwAccounts extends AppCompatActivity {
                     commit.putExtras(fundsTransferData);
                     return true;
                 }
-                    return false;
+                return false;
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -325,24 +318,43 @@ public class TransferBwAccounts extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
+            HttpHandler errorObj;
+            String text, info;
+
+            HashMap<String, HashMap<String, String>> errorList;
+            HashMap<String, String> error;
             if(aBoolean){
                 progressDialog.dismiss();
                 startActivity(commit);
             }
             else{
-                new AlertDialog.Builder(TransferBwAccounts.this)
-                        .setTitle("Error")
-                        .setMessage("The value you entered are wrong, Please Recheck?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // continue with delete
-                                final Intent TransferBwAccounts = new Intent(TransferBwAccounts.this, TransferBwAccounts.class);
-                                finish();
-                                startActivity(TransferBwAccounts);
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                progressDialog.dismiss();
+                errorObj = new HttpHandler();
+                errorList = errorObj.getErrorList();
+                errorMessage= new String[errorList.size()];
+                for (int i = 0; i < errorList.size(); i++) {
+                    error = errorList.get("Error" + i);
+                    text = error.get("text");
+                    info = error.get("info");//field
+                    errorMessage[i]=text;
+
+                }
+                for(int i=0;i<errorList.size();i++)
+                {
+                    String[] errorList1 = errorMessage[i].split("\\(");
+                    new AlertDialog.Builder(TransferBwAccounts.this)
+                            .setTitle("Error")
+                            .setMessage(errorList1[0])
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+
+                }
+
             }
         }
     }

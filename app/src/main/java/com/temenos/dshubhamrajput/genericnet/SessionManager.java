@@ -1,6 +1,6 @@
 package com.temenos.dshubhamrajput.genericnet;
 
-/**
+/*
  * Created by Administrator on 15-02-2017.
  */
 import android.content.Intent;
