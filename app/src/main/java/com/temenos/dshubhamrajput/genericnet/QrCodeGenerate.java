@@ -27,26 +27,24 @@ public class QrCodeGenerate extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qrgenerator);
         buttonScan = (Button) findViewById(R.id.qr_Button);
-        EditTextName = (EditText) findViewById(R.id.cusNameEditText);
-        EditTextAddress = (EditText) findViewById(R.id.cusAddressEditText);
-        EditTextAmount = (EditText) findViewById(R.id.cusAmountEditText);
+
 
 
         buttonScan.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                String name = EditTextName.getText().toString();
-                String address = EditTextAddress.getText().toString();
-                String amount = EditTextAmount.getText().toString();
-                HashMap<String, String> list = new HashMap<String, String>();
-                String data=name+":"+address+":"+amount;
-                VCard cus = new VCard(name)
-                        .setAddress(address)
-                        .setPhoneNumber(amount);
-                Bitmap myBitmap = QRCode.from(data).bitmap();
-                ImageView myImage = (ImageView) findViewById(R.id.qrCode);
-                myImage.setImageBitmap(myBitmap);
+//                String name = EditTextName.getText().toString();
+//                String address = EditTextAddress.getText().toString();
+//                String amount = EditTextAmount.getText().toString();
+//                HashMap<String, String> list = new HashMap<String, String>();
+//                String data=name+":"+address+":"+amount;
+//                VCard cus = new VCard(name)
+//                        .setAddress(address)
+//                        .setPhoneNumber(amount);
+//                Bitmap myBitmap = QRCode.from(data).bitmap();
+//                ImageView myImage = (ImageView) findViewById(R.id.qrCode);
+//                myImage.setImageBitmap(myBitmap);
             }
         });
     }

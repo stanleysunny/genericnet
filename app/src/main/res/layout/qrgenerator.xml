@@ -1,69 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:padding="10sp">
+
+
+    <TextView
+        android:text="Account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-    <TextView
+        android:id="@+id/myAcct"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Spinner
+            android:layout_marginTop="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:id="@+id/spinner"
+            android:background="@drawable/acctedit"/>
+
+        <ImageView
+            app:srcCompat="@drawable/arrow_expanded"
+            android:id="@+id/imageView10"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@+id/spinner"
+            android:paddingRight="5sp"
+            android:layout_height="20sp"
+            android:layout_width="25sp"
+            android:layout_alignTop="@+id/spinner" />
+
+    </RelativeLayout>
+
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Account"
-        android:textSize="25sp"
-        android:id="@+id/cusName"/>
-    <EditText
-        android:layout_width="290sp"
-        android:layout_height="30sp"
-        android:inputType="text"
-        android:ems="10"
-        android:id="@+id/cusNameEditText"
-        android:background="@drawable/acctedit"
-        android:paddingLeft="5dp"
-        android:layout_below="@+id/cusName"
-        android:layout_alignStart="@+id/cusName"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Amount"
-            android:textSize="25sp"
-            android:id="@+id/cusAmount"/>
-        <EditText
-            android:layout_width="290sp"
-            android:layout_height="30sp"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/cusAmountEditText"
-            android:background="@drawable/acctedit"
-            android:paddingLeft="5dp"
-            android:layout_below="@+id/cusName"
-            android:layout_alignStart="@+id/cusName"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="IFSC Code"
-            android:textSize="25sp"
-            android:id="@+id/cusAddress"/>
-        <EditText
-            android:layout_width="290sp"
-            android:layout_height="30sp"
-            android:inputType="text"
-            android:ems="10"
-            android:id="@+id/cusAddressEditText"
-            android:background="@drawable/acctedit"
-            android:paddingLeft="5dp"
-            android:layout_below="@+id/cusName"
-            android:layout_alignStart="@+id/cusName"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="GENERATE QR CODE"
-            android:id="@+id/qr_Button"
-            android:textSize="18sp"/>
-        <ImageView android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="GENERATE QR CODE"
+        android:id="@+id/qr_Button"
+        android:textSize="18sp"
+        android:layout_marginTop="20sp"/>
+
+    <ImageView android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            android:id="@+id/qrCode"/>
+            android:id="@+id/qrCode"
+            android:layout_marginTop="30sp"/>
 
-</LinearLayout>
 </LinearLayout>
