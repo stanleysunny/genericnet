@@ -36,10 +36,6 @@ public class QrCodeGenerate extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qrgenerator);
         buttonScan = (Button) findViewById(R.id.qr_Button);
-        EditTextName = (EditText) findViewById(R.id.cusNameEditText);
-        EditTextAddress = (EditText) findViewById(R.id.cusAddressEditText);
-        EditTextAmount = (EditText) findViewById(R.id.cusAmountEditText);
-
 
         buttonScan.setOnClickListener(new View.OnClickListener() {
 

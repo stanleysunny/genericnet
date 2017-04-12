@@ -44,7 +44,7 @@ public class ListBeneficiaries extends AppCompatActivity {
         setContentView(R.layout.activity_list_beneficiaries);
         getSupportActionBar().setTitle("View beneficiary");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Delete=(TextView) findViewById(R.id.Delete);
+
         ListBen=(ListView)findViewById(R.id.ListBen);
         AccNo=(TextView)findViewById(R.id.AccountNumber);
         final Spinner AddChoice=(Spinner)findViewById(R.id.listben);
