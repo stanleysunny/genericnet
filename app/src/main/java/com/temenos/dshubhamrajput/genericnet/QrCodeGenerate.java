@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -29,22 +28,24 @@ import java.util.HashMap;
 
 public class QrCodeGenerate extends AppCompatActivity{
     private String TAG = MainActivity.class.getSimpleName();
+    public static HashMap<String,String> ifscSpinnerVal = new HashMap<>();
     ProgressDialog preProgressDialog;
     Button buttonScan;
-    private EditText EditTextName,EditTextAddress,EditTextAmount;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qrgenerator);
-        buttonScan = (Button) findViewById(R.id.qr_Button);
 
+        new qrCodeDropDownGen().execute();
+        buttonScan = (Button) findViewById(R.id.qr_Button);
         buttonScan.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                String name = EditTextName.getText().toString();
-                String address = EditTextAddress.getText().toString();
-                String amount = EditTextAmount.getText().toString();
-                String data = name+":"+address+":"+amount;
+                Spinner fromAcctNo = (Spinner) findViewById(R.id.spinner);
+                String fromAccountNo = fromAcctNo.getSelectedItem().toString();
+
+                String ifscCodeString = ifscSpinnerVal.get(fromAccountNo);
+                String data = fromAccountNo+":"+ifscCodeString;
 
                 Bitmap myBitmap = QRCode.from(data).bitmap();
                 ImageView myImage = (ImageView) findViewById(R.id.qrCode);
@@ -89,7 +90,7 @@ public class QrCodeGenerate extends AppCompatActivity{
                     JSONObject jsonObjCusAcct = new JSONObject(jsonCusAcct);
                     JSONObject firstObj = jsonObjCusAcct.getJSONObject("_embedded");
                     JSONArray item = firstObj.getJSONArray("item");
-                    final Spinner spinner = (Spinner)findViewById(R.id.editText);
+                    final Spinner spinner = (Spinner)findViewById(R.id.spinner);
 
                     final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getBaseContext(), android.R.layout.simple_spinner_item, android.R.id.text1);
 
@@ -99,6 +100,9 @@ public class QrCodeGenerate extends AppCompatActivity{
                     for (int i = 0; i < item.length(); i++) {
                         JSONObject acctNoOfCustomer = item.getJSONObject(i);
                         final String diffAcctNo = acctNoOfCustomer.getString("AccountNo");
+                        final String ifscCode = acctNoOfCustomer.getString("Ifsc");
+
+                        ifscSpinnerVal.put(diffAcctNo,ifscCode);
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -140,5 +144,11 @@ public class QrCodeGenerate extends AppCompatActivity{
             }
             return null;
         }
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            preProgressDialog.dismiss();
+            super.onPostExecute(aBoolean);
+        }
+
     }
 }
