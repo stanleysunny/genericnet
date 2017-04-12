@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         final Intent TransferBwAccounts = new Intent(MainActivity.this, TransferBwAccounts.class);
         final Intent TransferWithinBnk = new Intent(MainActivity.this, TransferWithinBnk.class);
         final Intent TransferOtherBnk = new Intent(MainActivity.this, TransferOtherBnk.class);
-        final Intent ListOfBen=new Intent(MainActivity.this,ListBeneficiaries.class);
+        final Intent ListOfBen=new Intent(MainActivity.this,Ben_swipe.class);
 
         setupDrawer();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

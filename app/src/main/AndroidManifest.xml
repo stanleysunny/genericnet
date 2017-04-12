@@ -43,10 +43,7 @@
         <activity android:name=".ConfirmPage" />
         <activity android:name=".SucessPage" />
         <activity android:name=".ListBeneficiaries" />
-        <activity
-            android:name=".SimpleActivity"
-            android:label="@string/title_activity_simple"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Ben_swipe"></activity>
     </application>
 
 </manifest>
