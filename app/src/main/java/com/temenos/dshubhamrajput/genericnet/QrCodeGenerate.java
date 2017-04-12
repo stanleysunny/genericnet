@@ -39,11 +39,8 @@ public class QrCodeGenerate extends AppCompatActivity{
                 String name = EditTextName.getText().toString();
                 String address = EditTextAddress.getText().toString();
                 String amount = EditTextAmount.getText().toString();
-                HashMap<String, String> list = new HashMap<String, String>();
-                String data=name+":"+address+":"+amount;
-                VCard cus = new VCard(name)
-                        .setAddress(address)
-                        .setPhoneNumber(amount);
+                String data = name+":"+address+":"+amount;
+
                 Bitmap myBitmap = QRCode.from(data).bitmap();
                 ImageView myImage = (ImageView) findViewById(R.id.qrCode);
                 myImage.setImageBitmap(myBitmap);
