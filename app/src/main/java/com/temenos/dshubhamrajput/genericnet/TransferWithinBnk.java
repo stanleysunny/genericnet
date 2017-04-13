@@ -128,7 +128,7 @@ public class TransferWithinBnk extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class FundTransfer extends AsyncTask<Void, Void, Boolean> {
+    private class FundTransfer extends AsyncTask<Void, Void, Boolean> {
         /**
          * Establishes connection with the url and authenticates the user name
          * and password.
@@ -282,7 +282,7 @@ public class TransferWithinBnk extends AppCompatActivity {
         }
     }
 
-    public class jsonResponse extends AsyncTask<String,Void,Boolean>
+    private class jsonResponse extends AsyncTask<String,Void,Boolean>
     {
         @Override
         protected void onPreExecute() {
@@ -294,7 +294,6 @@ public class TransferWithinBnk extends AppCompatActivity {
         }
 
         protected Boolean doInBackground(String... params) {
-            String currencyDeb="";
             //added by priya
             URLRelated urlObj = new URLRelated(getApplicationContext());
             String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_verFundsTransfer_AcTranss"};
@@ -348,7 +347,7 @@ public class TransferWithinBnk extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             HttpHandler errorObj;
-            String text, info;
+            String text;
 
             HashMap<String, HashMap<String, String>> errorList;
             HashMap<String, String> error;
@@ -364,7 +363,7 @@ public class TransferWithinBnk extends AppCompatActivity {
                 for (int i = 0; i < errorList.size(); i++) {
                     error = errorList.get("Error" + i);
                     text = error.get("text");
-                    info = error.get("info");//field
+//                    info = error.get("info");//field
                     errorMessage[i]=text;
                 }
                 for(int i=0;i<errorList.size();i++)
