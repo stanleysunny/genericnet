@@ -100,7 +100,7 @@ public class QrCodeGenerate extends AppCompatActivity{
                     for (int i = 0; i < item.length(); i++) {
                         JSONObject acctNoOfCustomer = item.getJSONObject(i);
                         final String diffAcctNo = acctNoOfCustomer.getString("AccountNo");
-                        final String ifscCode = acctNoOfCustomer.getString("Ifsc");
+                        final String ifscCode = acctNoOfCustomer.getString("Ifsc")+":"+acctNoOfCustomer.getString("Name")+":"+acctNoOfCustomer.getString("BranchName");
 
                         ifscSpinnerVal.put(diffAcctNo,ifscCode);
                         runOnUiThread(new Runnable() {
