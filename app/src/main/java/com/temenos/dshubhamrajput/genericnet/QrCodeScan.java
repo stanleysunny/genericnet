@@ -1,5 +1,6 @@
 package com.temenos.dshubhamrajput.genericnet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 public class QrCodeScan extends AppCompatActivity
         implements ZXingScannerView.ResultHandler {
     private ZXingScannerView mScannerView;
+    public Intent intentShift;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +33,20 @@ public class QrCodeScan extends AppCompatActivity
         Log.v("TAG", rawResult.getText()); // Prints scan results
         // Prints the scan format (qrcode, pdf417 etc.)
         Log.v("TAG", rawResult.getBarcodeFormat().toString());
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String data = rawResult.getText();
-        String[] divide= data.split(":");
-        builder.setTitle("Scan Result");
-        builder.setMessage("Account:"+divide[0]+"\nAmount:"+divide[1]+"\nIFSC Code:"+divide[2]);
-        AlertDialog alert1 = builder.create();
-        alert1.show();
-
+//        String[] divide= data.split(":");
+//        builder.setTitle("Scan Result");
+//        builder.setMessage("Account:"+divide[0]+"IFSC Code:"+divide[1]);
+//        AlertDialog alert1 = builder.create();
+//        alert1.show();
+        Bundle accountAndIfsc = new Bundle();
+        accountAndIfsc.putString("acctAndIfsc",data);
+        intentShift = new Intent(QrCodeScan.this, QrCodeDataEntry.class);
+        intentShift.putExtras(accountAndIfsc);
+        startActivity(intentShift);
         // If you would like to resume scanning, call this method below:
-        mScannerView.resumeCameraPreview(this);
+//        mScannerView.resumeCameraPreview(this);
     }
 
     @Override

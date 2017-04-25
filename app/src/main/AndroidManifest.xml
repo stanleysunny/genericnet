@@ -40,9 +40,10 @@
         <activity android:name=".QrCodeScanner" />
         <activity android:name=".QrCodeScan" />
         <activity android:name=".QrCodeGenerate" />
+        <activity android:name=".QrCodeDataEntry" />
         <activity android:name=".ConfirmPage" />
         <activity android:name=".SucessPage" />
-        <activity android:name=".ListBeneficiaries"/>
+        <activity android:name=".ListBeneficiaries" />
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.temenos.dshubhamrajput.genericnet;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,7 +9,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
@@ -16,6 +19,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,10 +31,12 @@ import java.util.HashMap;
 public class ListBeneficiaries extends AppCompatActivity {
     String Ben="";
     ListView ListBen;
-    TextView AccNo,NickName,IfscCode,BranchName,Edit,Delete;
+    TextView AccNo,NickName,IfscCode,BranchName,Delete;
     static ArrayList<HashMap<String, String>> beneficiaryList ;
     ListAdapter adapter1;
     ListAdapter adapter;
+    int CTR;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +44,11 @@ public class ListBeneficiaries extends AppCompatActivity {
         setContentView(R.layout.activity_list_beneficiaries);
         getSupportActionBar().setTitle("View beneficiary");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         ListBen=(ListView)findViewById(R.id.ListBen);
         AccNo=(TextView)findViewById(R.id.AccountNumber);
         final Spinner AddChoice=(Spinner)findViewById(R.id.listben);
-        ArrayAdapter<String> spinnerAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,android.R.id.text1);
+        ArrayAdapter<String> spinnerAdapter=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,android.R.id.text1);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         AddChoice.setAdapter(spinnerAdapter);
         spinnerAdapter.add("Within Bank");
@@ -49,14 +56,11 @@ public class ListBeneficiaries extends AppCompatActivity {
         spinnerAdapter.notifyDataSetChanged();
 
 
-
         Button ben = (Button) findViewById(R.id.ViewBenButton);
         ben.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                adapter=null;
-//                adapter1=null;
-//                beneficiaryList=null;
+
                 Ben=AddChoice.getSelectedItem().toString();
                 if(Ben.equals("Within Bank"))
                 {
@@ -66,9 +70,13 @@ public class ListBeneficiaries extends AppCompatActivity {
                 else
                 {
                     new FetchBenOutside().execute();
+                    ListBen.setVisibility(View.VISIBLE);
+                    
                 }
             }
         });
+
+
     }
     public boolean onSupportNavigateUp() {
         finish();
@@ -109,6 +117,7 @@ public class ListBeneficiaries extends AppCompatActivity {
                     JSONObject nickName = NicknameMyGroup.getJSONObject(0);
                     benList.put("Nickname", nickName.getString("Nickname"));
                     beneficiaryList.add(benList);
+
                 }
 
             } catch (JSONException e) {
@@ -167,7 +176,9 @@ public class ListBeneficiaries extends AppCompatActivity {
                     JSONObject nickName = NicknameMyGroup.getJSONObject(0);
                     benList.put("Nickname" , nickName.getString("Nickname"));
                     beneficiaryList.add(benList);
+
                 }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -184,4 +195,23 @@ public class ListBeneficiaries extends AppCompatActivity {
             ListBen.setAdapter(adapter1);
         }
     }
+    public void BenEdit(View V)
+    {
+        View parentRow = (View) V.getParent();
+        ListView listView = (ListView) parentRow.getParent();
+        final int position = listView.getPositionForView(parentRow);
+        Toast.makeText(getApplicationContext(),
+                "Position of edit" + position,
+                Toast.LENGTH_LONG).show();
+    }
+    public void BenDel(View V)
+    {
+        View parentRow = (View) V.getParent();
+        ListView listView = (ListView) parentRow.getParent();
+        final int position = listView.getPositionForView(parentRow);
+        Toast.makeText(getApplicationContext(),
+                "Position of Delete" + position,
+                Toast.LENGTH_LONG).show();
+    }
+
 }
