@@ -9,10 +9,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.temenos.dshubhamrajput.genericnet.qrTransfer">
+    tools:context="com.temenos.dshubhamrajput.genericnet.QrCodeDataEntry">
 
     <TextView
-        android:text="From"
+        android:text="To"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/qr_from_acct"
@@ -31,7 +31,7 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="To"
+        android:text="From"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/qr_from_acct_value"
