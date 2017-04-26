@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,6 +35,7 @@ public class QrCodeGenerate extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qrgenerator);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         new qrCodeDropDownGen().execute();
         buttonScan = (Button) findViewById(R.id.qr_Button);
@@ -52,6 +54,15 @@ public class QrCodeGenerate extends AppCompatActivity{
                 myImage.setImageBitmap(myBitmap);
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private class qrCodeDropDownGen extends AsyncTask<Void, Void, Boolean> {
