@@ -1,9 +1,11 @@
 package com.temenos.dshubhamrajput.genericnet;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -25,6 +27,7 @@ public class ConfirmPage extends AppCompatActivity {
     boolean success=true;
     static public String status;
     ProgressDialog progressDialog;
+    String[] errorMessage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,9 +160,14 @@ public class ConfirmPage extends AppCompatActivity {
                     URLRelated urlObj = new URLRelated(getApplicationContext());
                     String[] URLAddressList = {"url_ip", "url_iris_project", "url_company", "url_verFundsTransfer_AcTranss_input"};
                     String url = urlObj.getURL(URLAddressList);
-                    new commitFunCall().execute("bwAccounts",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
-                            ,extras.getString("toAccountNo"),extras.getString("description"));
-
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                        new commitFunCall().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"bwAccounts", url, extras.getString("RefNo"), extras.getString("transType"), extras.getString("fromAccountNo"), extras.getString("Currency"), extras.getString("amount")
+                                , extras.getString("toAccountNo"), extras.getString("description"));
+                    }
+                    else {
+                        new commitFunCall().execute("bwAccounts", url, extras.getString("RefNo"), extras.getString("transType"), extras.getString("fromAccountNo"), extras.getString("Currency"), extras.getString("amount")
+                                , extras.getString("toAccountNo"), extras.getString("description"));
+                    }
                 }
             });
         }
@@ -193,15 +201,19 @@ public class ConfirmPage extends AppCompatActivity {
                     URLRelated urlObj = new URLRelated(getApplicationContext());
                     String[] URLAddressList = {"url_ip", "url_iris_project", "url_company", "url_verFundsTransfer_AcTranss_input"};
                     String url = urlObj.getURL(URLAddressList);
-//                    commitFunCall test= new commitFunCall();
-//                    if(test.getStatus() == AsyncTask.Status.RUNNING){
-//                        // My AsyncTask is currently doing work in doInBackground()
-//                        System.out.println("still running");
-//                    }
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
-                        new commitFunCall().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"withinBank",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount"),extras.getString("toAccountNo"),extras.getString("description"));
-                    else
-                    new commitFunCall().execute("withinBank",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount"),extras.getString("toAccountNo"),extras.getString("description"));
+                    String refNo=extras.getString("RefNo");
+                    String transType=extras.getString("transType");
+                    String fromAccountNo=extras.getString("fromAccountNo");
+                    String Currency= extras.getString("Currency");
+                    String amount= extras.getString("amount");
+                    String toAccountNo= extras.getString("toAccountNo");
+                    String description= extras.getString("description");
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                        new commitFunCall().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "withinBank", url, extras.getString("RefNo"), extras.getString("transType"), extras.getString("fromAccountNo"), extras.getString("Currency"), extras.getString("amount"), extras.getString("toAccountNo"), extras.getString("description"));
+                    }else {
+                        new commitFunCall().execute("withinBank", url, extras.getString("RefNo"), extras.getString("transType"), extras.getString("fromAccountNo"), extras.getString("Currency"), extras.getString("amount"), extras.getString("toAccountNo"), extras.getString("description"));
+                    }
+
 
                 }
             });
@@ -242,12 +254,22 @@ public class ConfirmPage extends AppCompatActivity {
                     URLRelated urlObj = new URLRelated(getApplicationContext());
                     String[] URLAddressList = {"url_ip", "url_iris_project", "url_company", "url_verFundsTransfer_AcTransObnks_input"};
                     String url = urlObj.getURL(URLAddressList);
-                    new commitFunCall().execute("others", url, extras.getString("RefNo"), extras.getString("transType"),
-                            extras.getString("bankSortCode"), extras.getString("toAccountNo"),
-                            extras.getString("benCustomer"), extras.getString("branchName"),
-                            extras.getString("creAcctNo"), extras.getString("fromAccountNo"),
-                            extras.getString("amount"), extras.getString("Currency"),
-                            extras.getString("description"));
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                        new commitFunCall().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"others", url, extras.getString("RefNo"), extras.getString("transType"),
+                                extras.getString("bankSortCode"), extras.getString("toAccountNo"),
+                                extras.getString("benCustomer"), extras.getString("branchName"),
+                                extras.getString("creAcctNo"), extras.getString("fromAccountNo"),
+                                extras.getString("amount"), extras.getString("Currency"),
+                                extras.getString("description"));
+                    }
+                    else {
+                        new commitFunCall().execute("others", url, extras.getString("RefNo"), extras.getString("transType"),
+                                extras.getString("bankSortCode"), extras.getString("toAccountNo"),
+                                extras.getString("benCustomer"), extras.getString("branchName"),
+                                extras.getString("creAcctNo"), extras.getString("fromAccountNo"),
+                                extras.getString("amount"), extras.getString("Currency"),
+                                extras.getString("description"));
+                    }
                 }
             });
         }
@@ -263,8 +285,9 @@ public class ConfirmPage extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class commitFunCall extends AsyncTask<String,Void,Boolean>
+    private class commitFunCall extends AsyncTask<String,Void,Boolean>
     {
+
         @Override
         protected void onPreExecute() {
             progressDialog= new ProgressDialog(ConfirmPage.this);
@@ -319,14 +342,17 @@ public class ConfirmPage extends AppCompatActivity {
                 HttpHandler newObj = new HttpHandler();
                 status = newObj.posCommit(params[1], json);
 
-                return status.equals("YES");
-
             }catch (Exception e) {
                 e.printStackTrace();
             }
-            return true;
+            return status.equals("YES");
         }
         protected void onPostExecute(Boolean aBoolean) {
+            HttpHandler errorObj;
+            String text, info;
+
+            HashMap<String, HashMap<String, String>> errorList;
+            HashMap<String, String> error;
             if(aBoolean){
                 progressDialog.dismiss();
                 final Intent TransferBwAccounts = new Intent(ConfirmPage.this, SucessPage.class);
@@ -337,8 +363,35 @@ public class ConfirmPage extends AppCompatActivity {
                 startActivity(TransferAccounts);
             }
             else{
-                final Intent TransferBwAccounts = new Intent(ConfirmPage.this, ConfirmPage.class);
-                startActivity(TransferBwAccounts);
+                // changed----------------------------
+                progressDialog.dismiss();
+                errorObj = new HttpHandler();
+                errorList = errorObj.getErrorList();
+                errorMessage= new String[errorList.size()];
+                for (int i = 0; i < errorList.size(); i++) {
+                    error = errorList.get("Error" + i);
+                    text = error.get("text");
+                    info = error.get("info");//field
+                    errorMessage[i]=text;
+
+                }
+                for(int i=0;i<errorList.size();i++)
+                {
+                    String[] errorList1 = errorMessage[i].split("\\(");
+                    new AlertDialog.Builder(ConfirmPage.this)
+                            .setTitle("Error")
+                            .setMessage(errorList1[0])
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+
+                }
+                //--------------------------------
             }
         }
     }

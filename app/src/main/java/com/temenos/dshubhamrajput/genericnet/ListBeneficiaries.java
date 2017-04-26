@@ -47,11 +47,11 @@ public class ListBeneficiaries extends AppCompatActivity {
         setContentView(R.layout.activity_list_beneficiaries);
         getSupportActionBar().setTitle("View beneficiary");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        Delete=(TextView) findViewById(R.id.Delete);
+
         ListBen=(ListView)findViewById(R.id.ListBen);
         AccNo=(TextView)findViewById(R.id.AccountNumber);
         final Spinner AddChoice=(Spinner)findViewById(R.id.listben);
-        ArrayAdapter<String> spinnerAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,android.R.id.text1);
+        ArrayAdapter<String> spinnerAdapter=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,android.R.id.text1);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         AddChoice.setAdapter(spinnerAdapter);
         spinnerAdapter.add("Within Bank");

@@ -1,140 +1,60 @@
 package com.temenos.dshubhamrajput.genericnet;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.util.Log;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
+import com.google.zxing.Result;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 /*
- * Created by dshubhamrajput on 28-03-2017.
+ * Created by dshubhamrajput on 31-03-2017.
  */
 
-//public class QrCodeScanner extends AppCompatActivity{
-//    //View Objects
-//    private Button buttonScan;
-//    private TextView textViewName, textViewAddress;
-//
-//    //qr code scanner object
-//    private IntentIntegrator qrScan;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.qrcode_activity);
-//
-//        //View objects
-//        buttonScan = (Button) findViewById(R.id.buttonScan);
-//        textViewName = (TextView) findViewById(R.id.textViewName);
-//        textViewAddress = (TextView) findViewById(R.id.textViewAddress);
-//
-//        //intializing scan object
-//        qrScan = new IntentIntegrator(this);
-//
-//        buttonScan.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View arg0) {
-//                //initiating the qr code scan
-//                qrScan.initiateScan();
-//            }
-//        });
-//    }
-//
-//    //Getting the scan results
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-//        if (result != null) {
-//            //if qrcode has nothing in it
-//            if (result.getContents() == null) {
-//                Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
-//            } else {
-//                //if qr contains data
-//                try {
-//                    //converting the data to json
-//                    JSONObject obj = new JSONObject(result.getContents());
-//                    //setting values to textviews
-//                    textViewName.setText(obj.getString("name"));
-//                    textViewAddress.setText(obj.getString("address"));
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                    //if control comes here
-//                    //that means the encoded format not matches
-//                    //in this case you can display whatever data is available on the qrcode
-//                    //to a toast
-//                    Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        } else {
-//            super.onActivityResult(requestCode, resultCode, data);
-//        }
-//    }
-//}
-public class QrCodeScanner extends AppCompatActivity implements View.OnClickListener {
-
-    //View Objects
-    private Button buttonScan;
-    private TextView textViewName, textViewAddress;
-
-    //qr code scanner object
-    private IntentIntegrator qrScan;
+public class QrCodeScanner extends AppCompatActivity
+        implements ZXingScannerView.ResultHandler {
+    private ZXingScannerView mScannerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.qrcode_activity);
-
-        //View objects
-        buttonScan = (Button) findViewById(R.id.buttonScan);
-        textViewName = (TextView) findViewById(R.id.textViewName);
-        textViewAddress = (TextView) findViewById(R.id.textViewAddress);
-
-        //intializing scan object
-        qrScan = new IntentIntegrator(this);
-
-        //attaching onclick listener
-        buttonScan.setOnClickListener(this);
+        // Programmatically initialize the scanner view
+        mScannerView = new ZXingScannerView(this);
+        setContentView(mScannerView);
     }
 
-    //Getting the scan results
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null) {
-            //if qrcode has nothing in it
-            if (result.getContents() == null) {
-                Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
-            } else {
-                //if qr contains data
-                try {
-                    //converting the data to json
-                    JSONObject obj = new JSONObject(result.getContents());
-                    //setting values to textviews
-                    textViewName.setText(obj.getString("name"));
-                    textViewAddress.setText(obj.getString("address"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    //if control comes here
-                    //that means the encoded format not matches
-                    //in this case you can display whatever data is available on the qrcode
-                    //to a toast
-                    Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
-                }
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
+    public void handleResult(Result rawResult) {
+        // Do something with the result here
+        Log.v("TAG", rawResult.getText()); // Prints scan results
+        // Prints the scan format (qrcode, pdf417 etc.)
+        Log.v("TAG", rawResult.getBarcodeFormat().toString());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String data = rawResult.getText();
+        String[] divide= data.split(":");
+        builder.setTitle("Scan Result");
+        builder.setMessage("Account:"+divide[0]+"IFSC Code:"+divide[1]);
+        AlertDialog alert1 = builder.create();
+        alert1.show();
+        // If you would like to resume scanning, call this method below:
+        mScannerView.resumeCameraPreview(this);
     }
+
     @Override
-    public void onClick(View view) {
-        //initiating the qr code scan
-        qrScan.initiateScan();
+    public void onResume() {
+        super.onResume();
+        // Register ourselves as a handler for scan results.
+        mScannerView.setResultHandler(this);
+        // Start camera on resume
+        mScannerView.startCamera();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Stop camera on pause
+        mScannerView.stopCamera();
     }
 }

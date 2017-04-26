@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_qr_transfer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.temenos.dshubhamrajput.genericnet.QrCodeDataEntry">
+
+    <TextView
+        android:text="To"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/qr_from_acct"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="none"
+        android:ems="10"
+        android:id="@+id/qr_from_acct_value"
+        android:layout_below="@+id/qr_from_acct"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/acctedit"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="From"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/qr_from_acct_value"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp"
+        android:id="@+id/qr_to_acct"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/qr_description"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="9dp"
+        android:id="@+id/qr_description_value"
+        android:background="@drawable/acctedit"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/qr_amount_value"
+        android:layout_below="@+id/qr_amount"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/acctedit"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="Submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/qr_amount_value"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="49dp"
+        android:id="@+id/button4" />
+
+    <TextView
+        android:text="Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:id="@+id/qr_description"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_below="@+id/qr_to_acct_value"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:id="@+id/qr_to_acct_value"
+        android:layout_below="@+id/qr_to_acct"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/acctedit"
+        android:layout_marginTop="9dp"
+        android:layout_height="22sp"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:text="Amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:id="@+id/qr_amount"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_below="@+id/qr_description_value"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="20sp"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/arrow_expanded"
+        android:layout_alignTop="@+id/qr_to_acct_value"
+        android:layout_alignEnd="@+id/qr_to_acct_value"
+        android:id="@+id/arrow_down"
+        android:layout_alignBottom="@+id/qr_to_acct_value"
+        android:padding="3sp" />
+
+</RelativeLayout>
