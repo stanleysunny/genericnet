@@ -1,16 +1,23 @@
 package com.temenos.dshubhamrajput.genericnet;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.text.Layout;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
@@ -32,11 +39,13 @@ public class Ben_swipe extends AppCompatActivity {
     private SwipeMenuListView ListBen;
     private ArrayList<String> mArrayList=new ArrayList<>();
     private ListDataAdapter mListDataAdapter;
+    public static boolean success=true;
     String Ben="";
+    ProgressDialog progressDialog;
 
     static ArrayList<HashMap<String, String>> beneficiaryList ;
-    ListAdapter adapter1;
-    ListAdapter adapter;
+    BaseAdapter adapter1;
+    BaseAdapter adapter;
     int id;
 
     @Override
@@ -49,7 +58,6 @@ public class Ben_swipe extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ListBen=(SwipeMenuListView)findViewById(R.id.ListBen);
-
         final Spinner AddChoice=(Spinner)findViewById(R.id.listben);
         ArrayAdapter<String> spinnerAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,android.R.id.text1);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -69,6 +77,8 @@ public class Ben_swipe extends AppCompatActivity {
                 {
                     new Ben_swipe.FetchBenWithin().execute();
                     ListBen.setVisibility(View.VISIBLE);
+
+
                 }
                 else
                 {
@@ -76,10 +86,13 @@ public class Ben_swipe extends AppCompatActivity {
                     ListBen.setVisibility(View.VISIBLE);
 
                 }
+                Toast.makeText(getApplicationContext(),"Swipe Left to Edit and Delete",Toast.LENGTH_LONG).show();
+
             }
         });
 
         SwipeControl();
+
 
     }
     private class FetchBenWithin extends AsyncTask<Void, Void, Void> {
@@ -131,7 +144,7 @@ public class Ben_swipe extends AppCompatActivity {
             super.onPostExecute(result);
 
             adapter = new SimpleAdapter(Ben_swipe.this, beneficiaryList,
-                    R.layout.list_ben_internal, new String[]{"BenAcctNo","Nickname"},
+                    R.layout.cardtrial, new String[]{"BenAcctNo","Nickname"},
                     new int[]{R.id.AccountNumber,R.id.NickName});
 
             ListBen.setAdapter(adapter);
@@ -143,7 +156,10 @@ public class Ben_swipe extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-
+            progressDialog= new ProgressDialog(Ben_swipe.this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
+            progressDialog.setCancelable(false);
         }
         @Override
         protected Void doInBackground(Void... param) {
@@ -186,15 +202,19 @@ public class Ben_swipe extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(Void result) {
+
             super.onPostExecute(result);
 
             adapter1 = new SimpleAdapter(Ben_swipe.this, beneficiaryList,
-                    R.layout.list_beneficiary, new String[]{"BenAccNo","Nickname","BankSortCode","Branch"},
+                    R.layout.benextcardtrial, new String[]{"BenAccNo","Nickname","BankSortCode","Branch"},
                     new int[]{R.id.AccountNumber,R.id.NickName,R.id.Ifsc,R.id.BranchName});
             ListBen.setAdapter(adapter1);
         }
     }
-
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
 
     private void SwipeControl() {
 
@@ -204,11 +224,13 @@ public class Ben_swipe extends AppCompatActivity {
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
+
             @Override
 
             public void create(SwipeMenu menu) {
 
 // Create different menus depending on the view type
+                menu.setViewType(R.layout.menulayout);
 
                 SwipeMenuItem goodItem = new SwipeMenuItem(
 
@@ -216,11 +238,14 @@ public class Ben_swipe extends AppCompatActivity {
 
 // set item background
 
-                goodItem.setBackground(new ColorDrawable(Color.rgb(44,238,144)));
+                goodItem.setBackground(R.color.transparent);
 
 // set item width
 
                 goodItem.setWidth(dp2px(90));
+
+
+
 
 // set a icon
 
@@ -238,9 +263,7 @@ public class Ben_swipe extends AppCompatActivity {
 
 // set item background
 
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
-
-                        0x3F, 0x25)));
+                deleteItem.setBackground(R.color.transparent);
 
 // set item width
 
@@ -278,10 +301,8 @@ public class Ben_swipe extends AppCompatActivity {
 
                     case 1:
 
-                        Toast.makeText(Ben_swipe.this,"Item deleted from position" + position,Toast.LENGTH_SHORT).show();
-                        //beneficiaryList.remove(position);
-                        //adapter.notifyDataSetChanged();
-
+                        beneficiaryList.remove(position);
+                        alert();
 
                         break;
 
@@ -397,5 +418,24 @@ public class Ben_swipe extends AppCompatActivity {
                 getResources().getDisplayMetrics());
 
     }
+    public void alert(){
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+                adb.setTitle("Delete?");
+                adb.setMessage("Delete Beneficiary");
+                adb.setCancelable(false);
+                adb.setNegativeButton("Cancel", null);
+        adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if(Ben.equals("Within Bank"))
+                    adapter.notifyDataSetChanged();
+                else
+                    adapter1.notifyDataSetChanged();
+
+            } });
+
+
+        adb.show();
+    }
+
 
 }
