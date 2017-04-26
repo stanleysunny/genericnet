@@ -40,11 +40,15 @@
         <activity android:name=".QrCodeScanner" />
         <activity android:name=".QrCodeScan" />
         <activity android:name=".QrCodeGenerate" />
+        <activity android:name=".QrCodeDataEntry" />
         <activity android:name=".ConfirmPage" />
         <activity android:name=".SucessPage" />
         <activity android:name=".ListBeneficiaries" />
+<<<<<<< HEAD
         <activity android:name=".Ben_swipe"></activity>
 
+
+>>>>>>> refs/remotes/shubhamnba2009/master
     </application>
 
 </manifest>
