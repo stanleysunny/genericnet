@@ -3,6 +3,7 @@ package com.temenos.dshubhamrajput.genericnet;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -192,8 +193,15 @@ public class ConfirmPage extends AppCompatActivity {
                     URLRelated urlObj = new URLRelated(getApplicationContext());
                     String[] URLAddressList = {"url_ip", "url_iris_project", "url_company", "url_verFundsTransfer_AcTranss_input"};
                     String url = urlObj.getURL(URLAddressList);
-                    new commitFunCall().execute("withinBank",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount")
-                            ,extras.getString("toAccountNo"),extras.getString("description"));
+//                    commitFunCall test= new commitFunCall();
+//                    if(test.getStatus() == AsyncTask.Status.RUNNING){
+//                        // My AsyncTask is currently doing work in doInBackground()
+//                        System.out.println("still running");
+//                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                        new commitFunCall().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,"withinBank",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount"),extras.getString("toAccountNo"),extras.getString("description"));
+                    else
+                    new commitFunCall().execute("withinBank",url,extras.getString("RefNo"),extras.getString("transType"),extras.getString("fromAccountNo"),extras.getString("Currency"),extras.getString("amount"),extras.getString("toAccountNo"),extras.getString("description"));
 
                 }
             });
@@ -388,8 +396,6 @@ public class ConfirmPage extends AppCompatActivity {
                     array.put(jsonObjarray);
                     postdata.put("NicknameMvGroup", array);
                     postdata.put("OwningCustomer", owningCustomer );
-
-
                 } else {
                     postdata.put("BenAcctNo", BenAcctNo);
                     postdata.put("BenCustomer", BencustomerNo);

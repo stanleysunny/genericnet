@@ -37,6 +37,7 @@ public class Addbeneficiary extends AppCompatActivity {
     String[] errorMessage;
     EditText benAccNo;
     EditText ifscEtext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +53,28 @@ public class Addbeneficiary extends AppCompatActivity {
         final EditText emailUser = (EditText) findViewById(R.id.Email);
         final EditText nickName = (EditText) findViewById(R.id.NickName);
         final ImageView helpIcon = (ImageView) findViewById(R.id.help_icon);
-
+        final Bundle extras = getIntent().getExtras();
+    if(extras==null)
         new NewDeal().execute();
+    else{
+        String flag= extras.getString("flag");
+        benID=extras.getString("Id");
+        if(flag.equals("internal"))
+        {
+
+            benAccNo.setText( extras.getString("benAcc"));
+            nickName.setText( extras.getString("nickName"));
+            emailUser.setText(extras.getString("Email"));
+        }
+        else
+        {
+            benAccNo.setText( extras.getString("benAcc"));
+            nickName.setText(extras.getString("nickName"));
+            emailUser.setText(extras.getString("Email"));
+            ifscEtext.setText(extras.getString("bnksort"));
+        }
+
+    }
 
         withinbank1.setOnClickListener(new View.OnClickListener() {
 
@@ -389,7 +410,7 @@ public class Addbeneficiary extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+            System.out.println(success);
             success=sh1.jsonWrite(urlStr,postData );
             if(success) {
                 response=sh1.getResponse();

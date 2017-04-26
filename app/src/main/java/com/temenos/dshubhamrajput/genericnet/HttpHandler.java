@@ -196,7 +196,7 @@ public class HttpHandler {
             urlcommit.setRequestMethod("POST");
             urlcommit.connect();
             OutputStreamWriter commitout = new OutputStreamWriter(urlcommit.getOutputStream());
-            commitout.write(jsonstring);// here i sent the parameter
+            commitout.write(jsonstring);// here i send the parameter
             commitout.flush();
             commitout.close();
 

@@ -2,6 +2,7 @@ package com.temenos.dshubhamrajput.genericnet;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -37,6 +38,8 @@ public class ListBeneficiaries extends AppCompatActivity {
     ListAdapter adapter;
     int CTR;
     int id;
+  static String flag  ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,11 +115,13 @@ public class ListBeneficiaries extends AppCompatActivity {
 
                     JSONObject benAccountNo = itemOwingCust.getJSONObject(i);
                     benList.put("BenAcctNo",benAccountNo.getString("BenAcctNo"));
-
+                    benList.put("Id",benAccountNo.getString("Id"));
+                    benList.put("Email",benAccountNo.getString("Email"));
                     JSONArray NicknameMyGroup = benAccountNo.getJSONArray("NicknameMvGroup");
                     JSONObject nickName = NicknameMyGroup.getJSONObject(0);
                     benList.put("Nickname", nickName.getString("Nickname"));
                     beneficiaryList.add(benList);
+
 
                 }
 
@@ -130,12 +135,13 @@ public class ListBeneficiaries extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-
+                flag="internal";
              adapter = new SimpleAdapter(ListBeneficiaries.this, beneficiaryList,
                     R.layout.list_ben_internal, new String[]{"BenAcctNo","Nickname"},
                     new int[]{R.id.AccountNumber,R.id.NickName});
 
             ListBen.setAdapter(adapter);
+
 
 
         }
@@ -171,7 +177,8 @@ public class ListBeneficiaries extends AppCompatActivity {
                     benList.put("BenAccNo" ,benAccountNo.getString("BenAcctNo"));
                     benList.put("BankSortCode" ,benAccountNo.getString("BankSortCode"));
                     benList.put("Branch" ,benAccountNo.getString("Branch"));
-
+                    benList.put("Id",benAccountNo.getString("Id"));
+                    benList.put("Email",benAccountNo.getString("Email"));
                     JSONArray NicknameMyGroup = benAccountNo.getJSONArray("NicknameMvGroup");
                     JSONObject nickName = NicknameMyGroup.getJSONObject(0);
                     benList.put("Nickname" , nickName.getString("Nickname"));
@@ -188,7 +195,7 @@ public class ListBeneficiaries extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-
+                flag="external";
              adapter1 = new SimpleAdapter(ListBeneficiaries.this, beneficiaryList,
                     R.layout.list_beneficiary, new String[]{"BenAccNo","Nickname","BankSortCode","Branch"},
                     new int[]{R.id.AccountNumber,R.id.NickName,R.id.Ifsc,R.id.BranchName});
@@ -197,21 +204,52 @@ public class ListBeneficiaries extends AppCompatActivity {
     }
     public void BenEdit(View V)
     {
+        Bundle benBundle = new Bundle();
+        HashMap<String, String> obj;
         View parentRow = (View) V.getParent();
         ListView listView = (ListView) parentRow.getParent();
         final int position = listView.getPositionForView(parentRow);
-        Toast.makeText(getApplicationContext(),
-                "Position of edit" + position,
-                Toast.LENGTH_LONG).show();
+            obj = beneficiaryList.get(position);
+        String  benAcc,Id,nickName,bnksort,branch,email;
+        if(flag.equals("internal"))
+        {
+           benAcc=obj.get("BenAcctNo");
+            Id= obj.get("Id");
+            nickName= obj.get("Nickname");
+            email=obj.get("Email");
+        }
+        else
+        {
+            benAcc=obj.get("BenAcctNo");
+            Id= obj.get("Id");
+            email=obj.get("Email");
+            nickName= obj.get("Nickname");
+            branch= obj.get("Branch");
+            bnksort = obj.get("BankSortCode");
+            benBundle.putString("branch", branch);
+            benBundle.putString("bnksort",bnksort);
+        }
+            benBundle.putString("flag",flag);
+            benBundle.putString("benAcc",benAcc);
+            benBundle.putString("Id",Id);
+            benBundle.putString("nickName",nickName);
+            benBundle.putString("Email",email);
+        Intent in= new Intent(ListBeneficiaries.this,Addbeneficiary.class);
+            in.putExtras(benBundle);
+            startActivity(in);
+//        Toast.makeText(getApplicationContext(),
+//                "Position of edit" + position,
+//                Toast.LENGTH_LONG).show();
     }
     public void BenDel(View V)
     {
         View parentRow = (View) V.getParent();
         ListView listView = (ListView) parentRow.getParent();
         final int position = listView.getPositionForView(parentRow);
-        Toast.makeText(getApplicationContext(),
-                "Position of Delete" + position,
-                Toast.LENGTH_LONG).show();
+
+//        Toast.makeText(getApplicationContext(),
+//                "Position of Delete" + position,
+//                Toast.LENGTH_LONG).show();
     }
 
 }
