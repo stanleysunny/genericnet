@@ -29,12 +29,11 @@ public class QrCodeScan extends AppCompatActivity
         setContentView(mScannerView);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         intentShift=getIntent();
+
+
         final Bundle extras = getIntent().getExtras();
+        if(extras != null)
         imp = extras.getString("ScanCode");
-        if(imp.equals("Ben"))
-        {
-            
-        }
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
