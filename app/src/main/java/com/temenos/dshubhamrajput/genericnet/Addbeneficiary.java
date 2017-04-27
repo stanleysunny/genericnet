@@ -37,6 +37,7 @@ public class Addbeneficiary extends AppCompatActivity {
     String[] errorMessage;
     EditText benAccNo;
     EditText ifscEtext;
+    Bundle benBundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -338,7 +339,7 @@ public class Addbeneficiary extends AppCompatActivity {
             JSONArray array1 = new JSONArray();
             JSONObject jsonObjarray = new JSONObject();
             JSONObject jsonObjarray1 = new JSONObject();
-            Bundle benBundle = new Bundle();
+             benBundle = new Bundle();
             HttpHandler sh1 = new HttpHandler();
             URLRelated urlObj = new URLRelated(getApplicationContext());
             String benAcctNo = param[1];
@@ -509,6 +510,12 @@ public class Addbeneficiary extends AppCompatActivity {
             progressDialog.dismiss();
             super.onPostExecute(result);
         }
+    }
+    public void CallScanner(View v)
+    {
+        benBundle.putString("ScanCode","Ben");
+        commit = new Intent(Addbeneficiary.this, QrCodeScan.class);
+        commit.putExtras(benBundle);
     }
 }
 

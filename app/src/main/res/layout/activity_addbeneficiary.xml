@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
@@ -42,7 +43,7 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
        android:layout_toStartOf="@+id/neft" />
    <EditText
        android:id="@+id/BenAccNo"
-       android:layout_width="300dp"
+       android:layout_width="250dp"
        android:layout_height="wrap_content"
        android:layout_marginTop="8dp"
        android:ems="10"
@@ -64,7 +65,7 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
        android:layout_alignStart="@+id/BenAccNo" />
    <EditText
        android:id="@+id/ReenterAccNo"
-       android:layout_width="300dp"
+       android:layout_width="250dp"
        android:layout_height="wrap_content"
        android:layout_marginTop="8dp"
        android:ems="10"
@@ -85,7 +86,7 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
        android:layout_alignStart="@+id/ReenterAccNo" />
    <EditText
        android:id="@+id/Email"
-       android:layout_width="300dp"
+       android:layout_width="250dp"
        android:layout_height="wrap_content"
        android:layout_marginTop="8dp"
        android:ems="10"
@@ -106,7 +107,7 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
        android:layout_alignStart="@+id/Email" />
    <EditText
        android:id="@+id/NickName"
-       android:layout_width="300dp"
+       android:layout_width="250dp"
        android:layout_height="wrap_content"
        android:layout_marginTop="8dp"
        android:ems="10"
@@ -129,7 +130,7 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
        android:visibility="invisible"/>
    <EditText
        android:id="@+id/Ifsc"
-       android:layout_width="300dp"
+       android:layout_width="250dp"
        android:layout_height="wrap_content"
        android:layout_marginTop="8dp"
        android:ems="10"
@@ -169,5 +170,15 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
        android:layout_alignParentBottom="true"
        android:layout_centerHorizontal="true" />
 
+     <ImageButton
+         android:id="@+id/imageButton"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         app:srcCompat="@drawable/qrcode"
+         android:layout_marginStart="13dp"
+         android:layout_below="@+id/textView1"
+         android:layout_toEndOf="@+id/BenAccNo"
+         android:onClick="CallScanner"/>
 
-</RelativeLayout>
+
+ </RelativeLayout>
