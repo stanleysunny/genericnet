@@ -5,12 +5,62 @@
     android:layout_height="match_parent"
     tools:context="com.temenos.dshubhamrajput.genericnet.AcctSumActivity">
 
-    <ListView
-        android:id="@+id/listcust"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView7"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:textColor="#000000"
+        android:background="#aed7fc"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Customer"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:paddingRight="25dp"
+        android:textColor="#5d5d5d"
+        />
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="10dp"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:id="@+id/textView22"
+        android:layout_below="@+id/textView7"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/textlines"/>
+
+
     <ListView
         android:id="@+id/list"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView22"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ShortTitle"
+        android:gravity="right"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:paddingRight="25dp"
+        android:textColor="#5d5d5d"
+        android:layout_alignBaseline="@+id/textView22"
+        android:layout_alignBottom="@+id/textView22"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
