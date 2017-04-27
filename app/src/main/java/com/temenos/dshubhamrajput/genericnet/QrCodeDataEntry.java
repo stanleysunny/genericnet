@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -41,6 +42,8 @@ public class QrCodeDataEntry extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_transfer);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         final Bundle extras = getIntent().getExtras();
         imp = extras.getString("acctAndIfsc");
         String[] divide = imp.split(":");
@@ -83,6 +86,15 @@ public class QrCodeDataEntry extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
     private class fromAccountSpinnerVal extends AsyncTask<String, Void, Boolean> {
         /**

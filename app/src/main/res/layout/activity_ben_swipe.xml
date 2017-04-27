@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.temenos.dshubhamrajput.genericnet.Ben_swipe">
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="View Beneficiary"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_marginStart="15dp" />
+    <Spinner
+        android:layout_width="290sp"
+        android:layout_height="30sp"
+        android:inputType="text"
+        android:ems="10"
+        android:id="@+id/listben"
+        android:background="@drawable/acctedit"
+        android:layout_below="@+id/textView18"
+        android:layout_alignStart="@+id/textView18"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp" />
+    <ImageView
+        app:srcCompat="@drawable/down_arrow"
+        android:id="@+id/arrowdown"
+        android:layout_height="25dp"
+        android:paddingRight="5dp"
+        android:layout_width="20sp"
+        android:layout_alignBottom="@+id/listben"
+        android:layout_alignEnd="@+id/listben" />
+
+    <Button
+        android:id="@+id/ViewBenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="View"
+        android:layout_below="@+id/listben"
+        android:layout_toStartOf="@+id/arrowdown"
+        android:layout_marginEnd="86dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ViewBenButton"
+        android:layout_centerHorizontal="true">
+        <com.baoyz.swipemenulistview.SwipeMenuListView
+            android:id="@+id/ListBen"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
