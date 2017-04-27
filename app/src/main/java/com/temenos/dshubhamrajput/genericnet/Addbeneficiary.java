@@ -30,14 +30,15 @@ import java.util.regex.Pattern;
 public class Addbeneficiary extends AppCompatActivity {
 
     public String intentData = "internal";
-    public Intent commit;
+    public Intent commit,commit1;
     public static String benID;
     public static boolean success=true;
     ProgressDialog progressDialog;
     String[] errorMessage;
     EditText benAccNo;
     EditText ifscEtext;
-
+    Bundle benBundle,IntentData;
+ 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -359,7 +360,7 @@ public class Addbeneficiary extends AppCompatActivity {
             JSONArray array1 = new JSONArray();
             JSONObject jsonObjarray = new JSONObject();
             JSONObject jsonObjarray1 = new JSONObject();
-            Bundle benBundle = new Bundle();
+             benBundle = new Bundle();
             HttpHandler sh1 = new HttpHandler();
             URLRelated urlObj = new URLRelated(getApplicationContext());
             String benAcctNo = param[1];
@@ -530,6 +531,14 @@ public class Addbeneficiary extends AppCompatActivity {
             progressDialog.dismiss();
             super.onPostExecute(result);
         }
+    }
+    public void CallScanner(View v)
+    {
+        commit1 = new Intent(Addbeneficiary.this, QrCodeScan.class);
+        IntentData = new Bundle();
+        IntentData.putString("ScanCode","Ben");
+        commit1.putExtras(IntentData);
+        startActivity(commit1);
     }
 }
 

@@ -19,6 +19,7 @@ public class QrCodeScan extends AppCompatActivity
         implements ZXingScannerView.ResultHandler {
     private ZXingScannerView mScannerView;
     public Intent intentShift;
+    String imp="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,12 @@ public class QrCodeScan extends AppCompatActivity
         mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        intentShift=getIntent();
+
+
+        final Bundle extras = getIntent().getExtras();
+        if(extras != null)
+        imp = extras.getString("ScanCode");
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -44,11 +44,10 @@
         <activity android:name=".ConfirmPage" />
         <activity android:name=".SucessPage" />
         <activity android:name=".ListBeneficiaries" />
-<<<<<<< HEAD
         <activity android:name=".Ben_swipe"></activity>
 
 
->>>>>>> refs/remotes/shubhamnba2009/master
+
     </application>
 
 </manifest>
