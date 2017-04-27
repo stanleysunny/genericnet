@@ -30,14 +30,14 @@ import java.util.regex.Pattern;
 public class Addbeneficiary extends AppCompatActivity {
 
     public String intentData = "internal";
-    public Intent commit;
+    public Intent commit,commit1;
     public static String benID;
     public static boolean success=true;
     ProgressDialog progressDialog;
     String[] errorMessage;
     EditText benAccNo;
     EditText ifscEtext;
-    Bundle benBundle;
+    Bundle benBundle,IntentData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -513,9 +513,11 @@ public class Addbeneficiary extends AppCompatActivity {
     }
     public void CallScanner(View v)
     {
-        benBundle.putString("ScanCode","Ben");
-        commit = new Intent(Addbeneficiary.this, QrCodeScan.class);
-        commit.putExtras(benBundle);
+        commit1 = new Intent(Addbeneficiary.this, QrCodeScan.class);
+        IntentData = new Bundle();
+        IntentData.putString("ScanCode","Ben");
+        commit1.putExtras(IntentData);
+        startActivity(commit1);
     }
 }
 

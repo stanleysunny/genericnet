@@ -162,13 +162,13 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
        android:textColor="#ffffff"
        android:background="@drawable/mybutton"
        android:text="Submit"
-       android:onClick="ButtonClicked"
        android:textSize="20sp"
        android:scaleX="0.8"
        android:scaleY="0.8"
        android:layout_marginBottom="31dp"
        android:layout_alignParentBottom="true"
        android:layout_centerHorizontal="true" />
+
 
      <ImageButton
          android:id="@+id/imageButton"
@@ -178,7 +178,8 @@ tools:context="com.temenos.dshubhamrajput.genericnet.Addbeneficiary">
          android:layout_marginStart="13dp"
          android:layout_below="@+id/textView1"
          android:layout_toEndOf="@+id/BenAccNo"
-         android:onClick="CallScanner"/>
+         android:onClick="CallScanner"
+         />
 
 
  </RelativeLayout>
