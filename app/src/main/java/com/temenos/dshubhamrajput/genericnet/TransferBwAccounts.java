@@ -39,9 +39,10 @@ public class TransferBwAccounts extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer_bw_accts);
-        getSupportActionBar().setTitle("Account Transfer");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Account Transfer");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         /* Takes the id of the spinner and EditText field*/
         Spinner from = (Spinner) findViewById(R.id.editText);
         Spinner to = (Spinner) findViewById(R.id.editText6);
@@ -319,7 +320,7 @@ public class TransferBwAccounts extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             HttpHandler errorObj;
-            String text, info;
+            String text;
 
             HashMap<String, HashMap<String, String>> errorList;
             HashMap<String, String> error;
@@ -335,7 +336,6 @@ public class TransferBwAccounts extends AppCompatActivity {
                 for (int i = 0; i < errorList.size(); i++) {
                     error = errorList.get("Error" + i);
                     text = error.get("text");
-                    info = error.get("info");//field
                     errorMessage[i]=text;
 
                 }

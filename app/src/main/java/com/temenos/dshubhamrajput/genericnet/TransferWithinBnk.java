@@ -39,8 +39,10 @@ public class TransferWithinBnk extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer_within_bnk);
-        getSupportActionBar().setTitle("Account Transfer");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Account Transfer");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         Spinner from = (Spinner) findViewById(R.id.edit_from_within);
         Spinner to = (Spinner) findViewById(R.id.edit_to_within);
         EditText desc = (EditText) findViewById(R.id.edit_desc_within);

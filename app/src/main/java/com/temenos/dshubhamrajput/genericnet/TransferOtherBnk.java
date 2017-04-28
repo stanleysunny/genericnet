@@ -41,8 +41,10 @@ public class TransferOtherBnk extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer_other_bnk);
-        getSupportActionBar().setTitle("Account Transfer");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Account Transfer");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         Spinner from = (Spinner) findViewById(R.id.edit_from_other);
         Spinner to = (Spinner) findViewById(R.id.edit_to_other);
         EditText desc = (EditText) findViewById(R.id.edit_desc_other);
@@ -133,7 +135,7 @@ public class TransferOtherBnk extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class FundTransfer extends AsyncTask<Void, Void, Boolean> {
+    private class FundTransfer extends AsyncTask<Void, Void, Boolean> {
         /**
          * Establishes connection with the url and authenticates the user name
          * and password.
@@ -296,7 +298,7 @@ public class TransferOtherBnk extends AppCompatActivity {
 
     }
 
-    public class jsonResponse extends AsyncTask<String,Void,Boolean>
+    private class jsonResponse extends AsyncTask<String,Void,Boolean>
     {
         @Override
         protected void onPreExecute() {
@@ -308,7 +310,6 @@ public class TransferOtherBnk extends AppCompatActivity {
         }
 
         protected Boolean doInBackground(String... params) {
-            String currencyDeb="";
             //added by priya
             URLRelated urlObj = new URLRelated(getApplicationContext());
             String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_verFundsTransfer_AcTransObnks"};
@@ -373,7 +374,7 @@ public class TransferOtherBnk extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             HttpHandler errorObj;
-            String text, info;
+            String text;
 
             HashMap<String, HashMap<String, String>> errorList;
             HashMap<String, String> error;
@@ -389,7 +390,6 @@ public class TransferOtherBnk extends AppCompatActivity {
                 for (int i = 0; i < errorList.size(); i++) {
                     error = errorList.get("Error" + i);
                     text = error.get("text");
-                    info = error.get("info");//field
                     errorMessage[i]=text;
                 }
                 for(int i=0;i<errorList.size();i++)
