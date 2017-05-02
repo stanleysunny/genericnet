@@ -88,7 +88,10 @@ public class Ben_swipe extends AppCompatActivity {
     private class FetchBenWithin extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
-
+            progressDialog= new ProgressDialog(Ben_swipe.this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
+            progressDialog.setCancelable(false);
         }
         @Override
         protected Void doInBackground(Void... param) {
@@ -132,7 +135,7 @@ public class Ben_swipe extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-
+                progressDialog.dismiss();
             adapter = new SimpleAdapter(Ben_swipe.this, beneficiaryList,
                     R.layout.cardtrial, new String[]{"BenAcctNo","Nickname"},
                     new int[]{R.id.AccountNumber,R.id.NickName});
@@ -194,7 +197,7 @@ public class Ben_swipe extends AppCompatActivity {
         protected void onPostExecute(Void result) {
 
             super.onPostExecute(result);
-
+                progressDialog.dismiss();
             adapter1 = new SimpleAdapter(Ben_swipe.this, beneficiaryList,
                     R.layout.benextcardtrial, new String[]{"BenAccNo","Nickname","BankSortCode","Branch"},
                     new int[]{R.id.AccountNumber,R.id.NickName,R.id.Ifsc,R.id.BranchName});
@@ -225,24 +228,15 @@ public class Ben_swipe extends AppCompatActivity {
                 SwipeMenuItem goodItem = new SwipeMenuItem(
 
                         getApplicationContext());
-
 // set item background
 
                 goodItem.setBackground(R.color.transparent);
 
 // set item width
-
                 goodItem.setWidth(dp2px(90));
-
-
-
-
 // set a icon
-
                 goodItem.setIcon(R.drawable.edit);
-
 // add to menu
-
                 menu.addMenuItem(goodItem);
 
 // create "delete" item

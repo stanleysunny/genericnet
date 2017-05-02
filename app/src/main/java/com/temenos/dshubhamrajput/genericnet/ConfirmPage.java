@@ -27,6 +27,7 @@ public class ConfirmPage extends AppCompatActivity {
     boolean success=true;
     static public String status;
     ProgressDialog progressDialog;
+    ProgressDialog preprogressDialog;
     String[] errorMessage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,6 +214,7 @@ public class ConfirmPage extends AppCompatActivity {
                     }else {
                         new commitFunCall().execute("withinBank", url, extras.getString("RefNo"), extras.getString("transType"), extras.getString("fromAccountNo"), extras.getString("Currency"), extras.getString("amount"), extras.getString("toAccountNo"), extras.getString("description"));
                     }
+
 
                 }
             });
@@ -401,6 +403,11 @@ public class ConfirmPage extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            preprogressDialog= new ProgressDialog(ConfirmPage.this);
+            preprogressDialog.setMessage("Please wait...");
+           preprogressDialog.show();
+            preprogressDialog.setCancelable(false);
+            super.onPreExecute();
         }
         public Commit(HashMap<String, String> obj )
         {
@@ -448,8 +455,6 @@ public class ConfirmPage extends AppCompatActivity {
                     array.put(jsonObjarray);
                     postdata.put("NicknameMvGroup", array);
                     postdata.put("OwningCustomer", owningCustomer );
-
-
                 } else {
                     postdata.put("BenAcctNo", BenAcctNo);
                     postdata.put("BenCustomer", BencustomerNo);
@@ -474,7 +479,13 @@ public class ConfirmPage extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result){
             super.onPostExecute(result);
+            HttpHandler errorObj;
+            String text, info;
+
+            HashMap<String, HashMap<String, String>> errorList;
+            HashMap<String, String> error;
             if(success) {
+                preprogressDialog.dismiss();
                 final Intent AddBeneficiary = new Intent(ConfirmPage.this, SucessPage.class);
 
                 AddBeneficiary.putExtra("Sucess","Ben");
@@ -483,7 +494,36 @@ public class ConfirmPage extends AppCompatActivity {
             }
             else
             {
-                Toast.makeText(ConfirmPage.this, "error in connection ", Toast.LENGTH_LONG).show();
+//                Toast.makeText(ConfirmPage.this, "error in connection ", Toast.LENGTH_LONG).show();
+                preprogressDialog.dismiss();
+                errorObj = new HttpHandler();
+                errorList = errorObj.getErrorList();
+                errorMessage= new String[errorList.size()];
+                for (int i = 0; i < errorList.size(); i++) {
+                    error = errorList.get("Error" + i);
+                    text = error.get("text");
+                    info = error.get("info");//field
+                    errorMessage[i]=text;
+                }
+                for(int i=0;i<errorList.size();i++)
+                {
+                    String[] errorList1 = errorMessage[i].split("\\(");
+                    new AlertDialog.Builder(ConfirmPage.this)
+
+                            .setTitle("Error")
+                            .setMessage(errorList1[0])
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+
+                }
+                errorMessage=null;
+
             }
         }
 

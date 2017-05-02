@@ -1,5 +1,6 @@
 package com.temenos.dshubhamrajput.genericnet;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ public class AcctSumActivity extends AppCompatActivity {
     TextView shortName;
     String Customer="";
     String ShortTitle = "";
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class AcctSumActivity extends AppCompatActivity {
         TextView CustId = (TextView) findViewById(R.id.textView7);
         customer = (TextView) findViewById(R.id.Customer);
         shortName = (TextView) findViewById(R.id.ShortTitle);
-
+        
         AcctTitle.setText(R.string.account_title);
         CustId.setText(R.string.cus_id);
 
@@ -59,11 +61,12 @@ public class AcctSumActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Toast.makeText(AcctSumActivity.this,"Json Data is downloading",Toast.LENGTH_LONG).show();
-
-
-
-
+//            Toast.makeText(AcctSumActivity.this,"Json Data is downloading",Toast.LENGTH_LONG).show();
+            progressDialog= new ProgressDialog(AcctSumActivity.this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
+            progressDialog.setCancelable(false);
+            super.onPreExecute();
 
         }
 
@@ -128,27 +131,11 @@ public class AcctSumActivity extends AppCompatActivity {
                     }
                 } catch (final JSONException e) {
                     Log.e(TAG, "Json parsing error: " + e.getMessage());
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getApplicationContext(),
-                                    "Json parsing error: " + e.getMessage(),
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    });
 
                 }
 
             } else {
                 Log.e(TAG, "Couldn't get json from server.");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(),
-                                "Couldn't get json from server. Check LogCat for possible errors!",
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
             }
 
             return null;
@@ -156,6 +143,7 @@ public class AcctSumActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
+            progressDialog.dismiss();
             super.onPostExecute(result);
             customer.setText(Customer);
             shortName.setText(ShortTitle);
