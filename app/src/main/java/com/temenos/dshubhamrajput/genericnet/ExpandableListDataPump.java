@@ -42,11 +42,11 @@ public class ExpandableListDataPump {
         expandableListDetail.put("Account Summary", Account_Summary);
         expandableListDetail.put("Account Statement", Account_Statement);
         expandableListDetail.put("Account Transfer", Account_Transfer);
+        expandableListDetail.put("Generate QR Code",qrGenerator);
+        expandableListDetail.put("Scan QR Code",qrCode);
         expandableListDetail.put("Settings", Settings);
-        expandableListDetail.put("Qr Code Generator",qrGenerator);
-        expandableListDetail.put("Qr Code Scanner",qrCode);
-        expandableListDetail.put("Feedback", Feedback);
         expandableListDetail.put("Help", Help);
+        expandableListDetail.put("Feedback", Feedback);
         expandableListDetail.put("Logout", Logout);
 
 
