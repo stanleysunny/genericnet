@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     List<String> expandableListTitle;
     LinkedHashMap<String, List<String>> expandableListDetail;
     DrawerLayout layout;
-
+    public Intent callSum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,5 +229,25 @@ public class MainActivity extends AppCompatActivity {
         this.finish();
     }
 
+    public void callSummary(View v)
+    {
+        callSum = new Intent(MainActivity.this, AcctSumActivity.class);
+        startActivity(callSum );
+    }
+    public void generateQr(View v)
+    {
+        callSum = new Intent(MainActivity.this, QrCodeGenerate.class);
+        startActivity(callSum );
+    }
 
+    public void addBen(View v)
+    {
+        callSum = new Intent(MainActivity.this, Addbeneficiary.class);
+        startActivity(callSum );
+    }
+    public void callFT(View v)
+    {
+        callSum = new Intent(MainActivity.this, TransferWithinBnk.class);
+        startActivity(callSum );
+    }
 }
