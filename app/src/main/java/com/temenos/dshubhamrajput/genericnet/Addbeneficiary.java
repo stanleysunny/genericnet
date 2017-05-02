@@ -9,12 +9,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,48 +39,57 @@ public class Addbeneficiary extends AppCompatActivity {
     public static String benID;
     public static boolean success=true;
     ProgressDialog progressDialog;
+    ProgressDialog preprogressDialog;
     String[] errorMessage;
     EditText benAccNo;
     EditText ifscEtext;
     Bundle benBundle,IntentData;
- 
+    public static String imp,intentOrigin;
+    public static HashMap<String,String> ifscSpinnerVal = new HashMap<>();
+    CheckBox withinbank1 ;
+    CheckBox neft1 ;
+     TextView ifscTextview ;
+   ImageView helpIcon ;
+    public static String ifsc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addbeneficiary);
         getSupportActionBar().setTitle("Add beneficiary");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        final CheckBox withinbank1 = (CheckBox) findViewById(R.id.withinbank);
-        final CheckBox neft1 = (CheckBox) findViewById(R.id.neft);
-        final TextView ifscTextview = (TextView) findViewById(R.id.textView5);
+       withinbank1 = (CheckBox) findViewById(R.id.withinbank);
+         neft1 = (CheckBox) findViewById(R.id.neft);
+          ifscTextview = (TextView) findViewById(R.id.textView5);
         ifscEtext = (EditText) findViewById(R.id.Ifsc);
         benAccNo = (EditText) findViewById(R.id.BenAccNo);
         final EditText accNoCheck = (EditText) findViewById(R.id.ReenterAccNo);
         final EditText emailUser = (EditText) findViewById(R.id.Email);
         final EditText nickName = (EditText) findViewById(R.id.NickName);
-        final ImageView helpIcon = (ImageView) findViewById(R.id.help_icon);
+          helpIcon = (ImageView) findViewById(R.id.help_icon);
+
+        // for the Qr
         final Bundle extras = getIntent().getExtras();
-    if(extras==null)
+        if(extras!=null) {
+
+            imp = extras.getString("acctAndIfsc");
+            intentOrigin= extras.getString("Intentorigin");
+            String[] divide = imp.split(":");
+            String toAccount = divide[0];
+             ifsc = divide[1];
+            final String nick = divide[2];
+            final String branchPass = divide[3];
+
+//            final String firstFourLetterToIfsc = ifsc.substring(0,4);
+            //setting the account and nick name before finding if the ben is from within bank
+            benAccNo.setText(toAccount);
+            accNoCheck.setText(toAccount);
+            nickName.setText(nick);
+            new fromAccount().execute(ifsc);
+
+
+        }
+//hit the new deal
         new NewDeal().execute();
-    else{
-        String flag= extras.getString("flag");
-        benID=extras.getString("Id");
-        if(flag.equals("internal"))
-        {
-
-            benAccNo.setText( extras.getString("benAcc"));
-            nickName.setText( extras.getString("nickName"));
-            emailUser.setText(extras.getString("Email"));
-        }
-        else
-        {
-            benAccNo.setText( extras.getString("benAcc"));
-            nickName.setText(extras.getString("nickName"));
-            emailUser.setText(extras.getString("Email"));
-            ifscEtext.setText(extras.getString("bnksort"));
-        }
-
-    }
 
         withinbank1.setOnClickListener(new View.OnClickListener() {
 
@@ -101,7 +115,6 @@ public class Addbeneficiary extends AppCompatActivity {
                 }
             }
         });
-
         neft1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -212,23 +225,6 @@ public class Addbeneficiary extends AppCompatActivity {
             }
         });
 
-//        ifscEtext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if(!hasFocus) {
-//                    String ifsc = ifscEtext.getText().toString();
-//                    boolean check = ifscMatcher(ifsc);
-//                    if (!check) {
-//                        if(!(ifsc.equals("")))
-//                            ifscEtext.setError("IFSC is a 11 digit alpha numeric string");
-//                    }
-//                    else if (ifscEtext.getText().toString().matches("")) {
-//                        ifscEtext.setError("This field cannot be left blank");
-//                    }
-//                    else
-//                        ifscEtext.setError(null);
-//                }
-//            }
-//        });
         ifscEtext.addTextChangedListener(new TextWatcher() {
             // ...
             @Override
@@ -532,6 +528,106 @@ public class Addbeneficiary extends AppCompatActivity {
             super.onPostExecute(result);
         }
     }
+//    private class QRBen extends  AsyncTask<String, Void, Void>
+private class fromAccount extends AsyncTask<String, Void, Boolean> {
+    /**
+     * Establishes connection with the url and authenticates the user name
+     * and password.
+     */
+    @Override
+    protected void onPreExecute() {
+        preprogressDialog= new ProgressDialog(Addbeneficiary.this);
+        preprogressDialog.setMessage("Please wait...");
+        preprogressDialog.show();
+        preprogressDialog.setCancelable(false);
+        super.onPreExecute();
+    }
+
+    @Override
+    protected Boolean doInBackground(String... params) {
+        HttpHandler sh = new HttpHandler();
+        URLRelated urlObj = new URLRelated(getApplicationContext());
+        // Making a request to url and getting response
+        String owningCustomer;
+        boolean flag =true;
+        // changes here
+        HashMap<String,String> owner;
+        SessionManager session =new SessionManager(getApplicationContext());
+        owner=session.getUserDetails();
+        owningCustomer= owner.get("cusId");
+
+        String[] URLAddressList= {"url_ip","url_iris_project","url_company","url_cusaccno"};
+        String cusAcctNos= urlObj.getURLParameter(URLAddressList,owningCustomer);
+
+        String jsonCusAcct = sh.makeServiceCallGet(cusAcctNos);
+
+
+        if (jsonCusAcct != null) {
+            try {
+                JSONObject jsonObjCusAcct = new JSONObject(jsonCusAcct);
+                JSONObject firstObj = jsonObjCusAcct.getJSONObject("_embedded");
+                JSONArray item = firstObj.getJSONArray("item");
+
+                for (int i = 0; i < item.length(); i++) {
+                    JSONObject acctNoOfCustomer = item.getJSONObject(i);
+                    final String diffAcctNo = acctNoOfCustomer.getString("AccountNo");
+                    final String ifscCode = acctNoOfCustomer.getString("Ifsc");
+                    if(ifscCode!=null)
+                        ifscSpinnerVal.put("ifscCodeString",ifscCode);
+
+                }
+                 String firstFourLetterToIfsc = params[0].substring(0,4);
+
+
+                String firstFourLetterFromIfsc = ifscSpinnerVal.get("ifscCodeString").substring(0,4);
+                if(firstFourLetterFromIfsc.equals(firstFourLetterToIfsc))
+                {
+                    flag=true;
+                }
+                else
+                {
+                     flag=false;
+                }
+
+
+            } catch (final JSONException e) {
+
+
+            }
+        } else {
+
+        }
+        return flag;
+    }
+    @Override
+    protected void onPostExecute(Boolean aBoolean) {
+        preprogressDialog.dismiss();
+        super.onPostExecute(aBoolean);
+        if(aBoolean) {
+            neft1.setChecked(false);
+            neft1.setEnabled(false);
+            withinbank1.setChecked(true);
+            withinbank1.setEnabled(false);
+            ifscTextview.setVisibility(View.INVISIBLE);
+            ifscEtext.setVisibility(View.INVISIBLE);
+            helpIcon.setVisibility(View.INVISIBLE);
+            intentData = "internal";
+        }
+        else
+        {
+            withinbank1.setChecked(false);
+            withinbank1.setEnabled(false);
+            neft1.setChecked(true);
+            neft1.setEnabled(false);
+            ifscTextview.setVisibility(View.VISIBLE);
+            ifscEtext.setVisibility(View.VISIBLE);
+            helpIcon.setVisibility(View.VISIBLE);
+            ifscEtext.setText(ifsc);
+            intentData = "external";
+        }
+
+    }
+}
     public void CallScanner(View v)
     {
         commit1 = new Intent(Addbeneficiary.this, QrCodeScan.class);
