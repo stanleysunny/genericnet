@@ -201,7 +201,7 @@ public class HttpHandler {
             urlcommit.setRequestMethod("POST");
             urlcommit.connect();
             OutputStreamWriter commitout = new OutputStreamWriter(urlcommit.getOutputStream());
-            commitout.write(jsonstring);// here i sent the parameter
+            commitout.write(jsonstring);// here i send the parameter
             commitout.flush();
             commitout.close();
 
@@ -278,12 +278,10 @@ public class HttpHandler {
             conn.setDoInput(true);
             conn.setDoOutput(true);
 
-
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
             writer.write(postdata.toString());
-
             writer.flush();
             writer.close();
             os.close();
@@ -292,13 +290,11 @@ public class HttpHandler {
             BufferedInputStream in;
             BufferedReader reader;
             StringBuilder sb;
-
             if (responseCode >= 200 && responseCode < 400) {
                 success=true;
                 in = new BufferedInputStream(conn.getInputStream());
                 reader = new BufferedReader(new InputStreamReader(in));
                 sb = new StringBuilder();
-
                 try {
                     String line;
                     try {
@@ -315,10 +311,7 @@ public class HttpHandler {
                     } catch (IOException var13) {
                         var13.printStackTrace();
                     }
-
                 }
-
-
             } else {
                 // READING THE ERROR
                 success = false;
@@ -361,14 +354,10 @@ public class HttpHandler {
                             innerErrorObj.put("info",info);
                             outerErrorObj.put("Error"+j,innerErrorObj);
                         }
-
                     }
                 } catch (Exception exception) {
                 }
-
             }
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
@@ -378,7 +367,6 @@ public class HttpHandler {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
-
             e.printStackTrace();
         }
         return success;

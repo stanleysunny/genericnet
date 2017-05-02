@@ -20,6 +20,7 @@ public class QrCodeScan extends AppCompatActivity
     private ZXingScannerView mScannerView;
     public Intent intentShift;
     String imp="";
+    String flag="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +33,10 @@ public class QrCodeScan extends AppCompatActivity
 
 
         final Bundle extras = getIntent().getExtras();
-        if(extras != null)
-        imp = extras.getString("ScanCode");
+        if(extras != null){
+            flag="set";
+        }
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -60,7 +63,13 @@ public class QrCodeScan extends AppCompatActivity
 //        alert1.show();
         Bundle accountAndIfsc = new Bundle();
         accountAndIfsc.putString("acctAndIfsc",data);
-        intentShift = new Intent(QrCodeScan.this, QrCodeDataEntry.class);
+        if(flag.equals("set")) {
+            accountAndIfsc.putString("Intentorigin", "ben");
+            intentShift = new Intent(QrCodeScan.this, Addbeneficiary.class);
+        }
+        else {
+            intentShift = new Intent(QrCodeScan.this, QrCodeDataEntry.class);
+        }
         intentShift.putExtras(accountAndIfsc);
         startActivity(intentShift);
         // If you would like to resume scanning, call this method below:
