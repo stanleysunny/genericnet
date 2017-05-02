@@ -55,6 +55,7 @@ public class QrCodeDataEntry extends AppCompatActivity {
         final String firstFourLetterToIfsc = ifsc.substring(0,4);
         final TextView Accno= (TextView)findViewById(R.id.qr_from_acct_value);
         Accno.setText(toAccount);
+        Accno.setKeyListener(null);
         new fromAccountSpinnerVal().execute(firstFourLetterToIfsc);
 
         buttonScan = (Button) findViewById(R.id.button4);
