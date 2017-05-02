@@ -97,14 +97,14 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-                else if(expandableListTitle.get(groupPosition).equals("Qr Code Generator"))
+                else if(expandableListTitle.get(groupPosition).equals("Generate QR Code"))
                 {
                     Intent intent = new Intent(MainActivity.this, QrCodeGenerate.class);
                     startActivity(intent);
                     layout.closeDrawer(GravityCompat.START);
                 }
 
-                else if(expandableListTitle.get(groupPosition).equals("Qr Code Scanner"))
+                else if(expandableListTitle.get(groupPosition).equals("Scan QR Code"))
                 {
                     Intent intent = new Intent(MainActivity.this, QrCodeScan.class);
                     startActivity(intent);
