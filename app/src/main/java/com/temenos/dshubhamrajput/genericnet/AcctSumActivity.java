@@ -41,7 +41,7 @@ public class AcctSumActivity extends AppCompatActivity {
         TextView CustId = (TextView) findViewById(R.id.textView7);
         customer = (TextView) findViewById(R.id.Customer);
         shortName = (TextView) findViewById(R.id.ShortTitle);
-        
+
         AcctTitle.setText(R.string.account_title);
         CustId.setText(R.string.cus_id);
 
