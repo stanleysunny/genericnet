@@ -11,9 +11,7 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">Contacts permissions are needed for providing email completions.</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="error_message">Invalid Username or Password</string>
     <string name="urlstring">http://10.93.21.84:8085/Test-iris/Test.svc/GB0010001/enqUservalidates()</string>
@@ -52,4 +50,8 @@
     <string name="ifsc_code">IFSC Code</string>
     <string name="title_activity_list_check">ListCheck</string>
     <string name="title_activity_simple">SimpleActivity</string>
+
+    <!-- Account summary strings value -->
+    <string name="account_title">Account Title</string>
+    <string name="cus_id">Customer ID</string>
 </resources>

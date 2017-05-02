@@ -1,13 +1,11 @@
 package com.temenos.dshubhamrajput.genericnet;
 
-/**
+/*
  * Created by ckavya on 03-03-2017.
  */
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +14,12 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 
-  public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
+  class CustomExpandableListAdapter extends BaseExpandableListAdapter {
       private Context context;
       private List<String> expandableListTitle;
       private LinkedHashMap<String, List<String>> expandableListDetail;
 
-      public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
+      CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
                                          LinkedHashMap<String, List<String>> expandableListDetail) {
           this.context = context;
           this.expandableListTitle = expandableListTitle;
@@ -46,7 +44,7 @@ import android.widget.TextView;
           if (convertView == null) {
               LayoutInflater layoutInflater = (LayoutInflater) this.context
                       .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-              convertView = layoutInflater.inflate(R.layout.list_item1, null);
+              convertView = layoutInflater.inflate(R.layout.list_item1, parent, false);
           }
           TextView expandedListTextView = (TextView) convertView
                   .findViewById(R.id.expandedListItem);
@@ -84,7 +82,7 @@ import android.widget.TextView;
           if (convertView == null) {
               LayoutInflater layoutInflater = (LayoutInflater) this.context.
                       getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-              convertView = layoutInflater.inflate(R.layout.list_group, null);
+              convertView = layoutInflater.inflate(R.layout.list_group, parent, false);
           }
           TextView listTitleTextView = (TextView) convertView
                   .findViewById(R.id.listTitle);

@@ -42,15 +42,11 @@ public class QrCodeDataEntry extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_transfer);
-        if(getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         final Bundle extras = getIntent().getExtras();
         imp = extras.getString("acctAndIfsc");
-        String[] divide = new String[6];
-        while(imp != null) {
-            divide = imp.split(":");
-        }
+        String[] divide = imp.split(":");
         String toAccount = divide[0];
         final String ifsc = divide[1];
         final String nickName = divide[2];

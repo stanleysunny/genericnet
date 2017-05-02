@@ -30,10 +30,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class HttpHandler {
     private String response = "";
     private static String basicAuth = "";
-    private static final String TAG = HttpHandler.class.getSimpleName();
     private String returnResponse = "";
-    private static String userName="";
-    private static String passWord="";
     private static HashMap<String,String> innerErrorObj = new HashMap<>();
     private static HashMap<String,HashMap<String,String>> outerErrorObj = new HashMap<>();
 
@@ -58,9 +55,7 @@ public class HttpHandler {
         return response;
     }
 
-    public String makeServiceCallGet(String reqUrl) {
-        String response = null;
-
+    String makeServiceCallGet(String reqUrl) {
         try {
 
             URL e = new URL(reqUrl);
@@ -77,7 +72,7 @@ public class HttpHandler {
         return this.response;
     }
 
-    public String convertStreamToString(InputStream is) {
+    private String convertStreamToString(InputStream is) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
 
@@ -173,6 +168,7 @@ public class HttpHandler {
 
                     }
                 } catch (Exception exception) {
+                    exception.printStackTrace();
                 }
                 //------------------------------------
             }
@@ -253,6 +249,7 @@ public class HttpHandler {
 
                     }
                 } catch (Exception exception) {
+                    exception.printStackTrace();
                 }
                 //
 
@@ -388,14 +385,12 @@ public class HttpHandler {
         return returnResponse;
     }
 
-    public void setCredentials(String user,String mpassword)
+    void setCredentials(String user,String mpassword)
     {
-        userName = user;
-        passWord = mpassword;
         String userPass =  user + ":" + mpassword;
         basicAuth = "Basic " + new String((new Base64()).encode(userPass.getBytes()));
     }
-    public HashMap<String,HashMap<String,String>> getErrorList()
+    HashMap<String,HashMap<String,String>> getErrorList()
     {
         return outerErrorObj;
     }

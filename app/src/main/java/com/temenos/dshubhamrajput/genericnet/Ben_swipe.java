@@ -4,21 +4,14 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.text.Layout;
+import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,9 +30,6 @@ import java.util.HashMap;
 public class Ben_swipe extends AppCompatActivity {
 
     private SwipeMenuListView ListBen;
-    private ArrayList<String> mArrayList=new ArrayList<>();
-    private ListDataAdapter mListDataAdapter;
-    public static boolean success=true;
     String Ben="";
     ProgressDialog progressDialog;
 
@@ -54,12 +44,12 @@ public class Ben_swipe extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ben_swipe);
+
         getSupportActionBar().setTitle("View beneficiary");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         ListBen=(SwipeMenuListView)findViewById(R.id.ListBen);
         final Spinner AddChoice=(Spinner)findViewById(R.id.listben);
-        ArrayAdapter<String> spinnerAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,android.R.id.text1);
+        ArrayAdapter<String> spinnerAdapter=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,android.R.id.text1);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         AddChoice.setAdapter(spinnerAdapter);
         spinnerAdapter.add("Within Bank");

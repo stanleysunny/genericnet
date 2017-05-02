@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -15,11 +14,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static com.temenos.dshubhamrajput.genericnet.R.id.Customer;
 
 public class AcctSumActivity extends AppCompatActivity {
 
@@ -44,8 +40,8 @@ public class AcctSumActivity extends AppCompatActivity {
         customer = (TextView) findViewById(R.id.Customer);
         shortName = (TextView) findViewById(R.id.ShortTitle);
 
-        AcctTitle.setText("Account Title");
-        CustId.setText("Customer ID");
+        AcctTitle.setText(R.string.account_title);
+        CustId.setText(R.string.cus_id);
 
         new GetContacts().execute();
 
