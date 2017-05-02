@@ -147,7 +147,7 @@ public class QrCodeDataEntry extends AppCompatActivity {
                         JSONObject acctNoOfCustomer = item.getJSONObject(i);
                         final String diffAcctNo = acctNoOfCustomer.getString("AccountNo");
                         final String ifscCode = acctNoOfCustomer.getString("Ifsc");
-                        if(ifscCode!=null)
+                        if(!ifscCode.equals(""))
                             ifscSpinnerVal.put("ifscCodeString",ifscCode);
                         runOnUiThread(new Runnable() {
                             @Override

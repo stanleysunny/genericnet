@@ -45,10 +45,8 @@ public class QrCodeGenerate extends AppCompatActivity{
             public void onClick(View arg0) {
                 Spinner fromAcctNo = (Spinner) findViewById(R.id.spinner);
                 String fromAccountNo = fromAcctNo.getSelectedItem().toString();
-
                 String ifscCodeString = ifscSpinnerVal.get(fromAccountNo);
                 String data = fromAccountNo+":"+ifscCodeString;
-
                 Bitmap myBitmap = QRCode.from(data).bitmap();
                 ImageView myImage = (ImageView) findViewById(R.id.qrCode);
                 myImage.setImageBitmap(myBitmap);
