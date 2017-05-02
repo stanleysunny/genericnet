@@ -99,13 +99,6 @@
                 android:layout_marginTop="@dimen/layout_margintop"
                 android:text="@string/action_sign_in_short"
                 android:textStyle="bold" />
-            <ImageView
-                android:src="@drawable/hands"
-                android:layout_width="wrap_content"
-                android:contentDescription="@string/login_image_2"
-                android:layout_height="@dimen/layout_height_image2"
-                android:layout_marginTop="@dimen/layout_margintop_image2"
-               />
 
         </LinearLayout>
     </ScrollView>
