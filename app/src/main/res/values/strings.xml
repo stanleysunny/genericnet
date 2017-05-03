@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TEMENOS</string>
+    <string name="app_name">Temenos Mobile Banking</string>
 
     <!-- strings related to login -->
     <string name="prompt_email">Email</string>
@@ -52,6 +52,6 @@
     <string name="title_activity_simple">SimpleActivity</string>
 
     <!-- Account summary strings value -->
-    <string name="account_title">Account Title</string>
+    <string name="account_title">Customer Name</string>
     <string name="cus_id">Customer ID</string>
 </resources>

@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         owner=session.getUserDetails();
         String user= owner.get( "name");
         TextView welcomeText= (TextView) findViewById(R.id.textView9);
-                welcomeText.setText("Welcome "+user);
+                welcomeText.setText("Welcome\n "+user);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         final Intent Addbeneficiary = new Intent(MainActivity.this, Addbeneficiary.class);
