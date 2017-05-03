@@ -45,7 +45,7 @@
         <activity android:name=".SucessPage" />
         <activity android:name=".ListBeneficiaries" />
         <activity android:name=".Ben_swipe" />
-
+        <activity android:name=".Help_activity"></activity>
     </application>
 
 </manifest>
