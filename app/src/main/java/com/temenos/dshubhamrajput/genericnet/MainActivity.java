@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         final Intent TransferWithinBnk = new Intent(MainActivity.this, TransferWithinBnk.class);
         final Intent TransferOtherBnk = new Intent(MainActivity.this, TransferOtherBnk.class);
         final Intent ListOfBen=new Intent(MainActivity.this,Ben_swipe.class);
+        final Intent Help_activity=new Intent(MainActivity.this,Help_activity.class);
 
         setupDrawer();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -147,6 +148,10 @@ public class MainActivity extends AppCompatActivity {
                 else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Transfer to other Bank"))
 
                     startActivity(TransferOtherBnk);
+
+                else if(expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).equals("Help"))
+
+                    startActivity(Help_activity);
 
                 layout.closeDrawer(GravityCompat.START);
 
